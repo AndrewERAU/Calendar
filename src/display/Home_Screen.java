@@ -52,7 +52,7 @@ public class Home_Screen {
           public void actionPerformed(ActionEvent e)
           {
             // display new add event window
-        	  new Display_Add_Event_Screen();
+        	  new Display_Add_Event_Screen(
           }
         });
         
