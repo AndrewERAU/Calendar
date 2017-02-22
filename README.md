@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/AndrewERAU/Calendar.svg?token=vVVKeTu4bc95xsYn1LxZ&branch=master)](https://travis-ci.com/AndrewERAU/Calendar)
 # Calendar
 Instructions for obtaining this repository.
 
@@ -23,3 +24,4 @@ Windows
 2) Type `git clone https://github.com/AndrewERAU/Calendar.git`
 
 3) Enter username and password when prompted.
+
