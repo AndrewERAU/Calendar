@@ -16,7 +16,7 @@ bin/
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar # I commented this for JUnit for Travis-CI builds
 *.war
 *.ear
 *.zip
