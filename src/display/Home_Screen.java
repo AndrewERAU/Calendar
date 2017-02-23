@@ -15,7 +15,11 @@ import java.awt.BorderLayout;
 import display.Display_Event;
 import display.Display_Add_Event_Screen;
 
+import static org.junit.Assert.*;
+import org.junit.Test;
+
 public class Home_Screen {
+
 	private JFrame frame;
 	private JPanel panel;
 	private JButton addEventButton;
@@ -24,6 +28,9 @@ public class Home_Screen {
 	public Home_Screen() {
 
         initUI();
+        int a = 4;
+        int b = 3;
+        assertTrue (a == b);
     }
 	   
 	public static void main (String[] args) {
