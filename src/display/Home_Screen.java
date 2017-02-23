@@ -15,7 +15,6 @@ import java.awt.BorderLayout;
 import display.Display_Event;
 import display.Display_Add_Event_Screen;
 
-import static org.junit.Assert.*;
 
 public class Home_Screen {
 
@@ -28,11 +27,6 @@ public class Home_Screen {
 	public Home_Screen() {
 
         initUI();
-        try {
-        assertTrue (1 == 2);
-        } catch (AssertionError e) {
-        	System.exit(1);
-        }
     }
 	   
 	public static void main (String[] args) {
