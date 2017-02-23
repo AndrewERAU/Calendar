@@ -16,7 +16,6 @@ import display.Display_Event;
 import display.Display_Add_Event_Screen;
 
 import static org.junit.Assert.*;
-import org.junit.Test;
 
 public class Home_Screen {
 
@@ -25,12 +24,15 @@ public class Home_Screen {
 	private JButton addEventButton;
 	//private Display_Add_Event_Screen addEventWindow;
 	
+	
 	public Home_Screen() {
 
         initUI();
-        int a = 4;
-        int b = 3;
-        assertTrue (a == b);
+        try {
+        assertTrue (1 == 2);
+        } catch (AssertionError e) {
+        	System.exit(1);
+        }
     }
 	   
 	public static void main (String[] args) {
