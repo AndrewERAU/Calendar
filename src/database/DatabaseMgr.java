@@ -4,6 +4,10 @@ package database;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import event.Event;
 
 public class DatabaseMgr {
 	public Connection c = null;
@@ -21,24 +25,18 @@ public class DatabaseMgr {
 			
 			openDBConnection();
 			createDB();
-			System.out.println("created db");
 		} else {
 			openDBConnection();
-			System.out.println("opened db");
 		}
-		
-		
 	}
 	
 	private void createDB() {
         Statement stmt = null;
 		
-        
-		
 		try {
 			stmt = c.createStatement();
 		    String sql = "CREATE TABLE Event "+
-		                   "(EventID INT PRIMARY KEY NOT NULL," +
+		                   "(EventID INTEGER PRIMARY KEY," +
 		                   " Title           TEXT    NOT NULL, " + 
 		                   " Description     TEXT, " + 
 		                   " Date            DATE    NOT NULL, " + 
@@ -75,75 +73,75 @@ public class DatabaseMgr {
 		
 	}
 	
-	public void insertEvent(String eventTitle,
-			  String eventDescription,
-			  String eventDate,
-			  String eventStartTime,
-			  String eventEndTime,
-			  String eventLocation,
-			  String eventInvitees,
-			  String eventTag) {
+	public void insertEvent(Event eventToAdd) {
 		Statement stmt = null;
 		
-		sanitizeStatement();
+		sanitizeStatement(); // TODO: Implement this
 		
 		try {
 			stmt = c.createStatement();
-			/*
-		    String sql = "INSERT INTO Event VALUES  (" +
-		                   eventTitle + "," +
-		                   eventDescription + "," +
-		                   eventDate + "," +
-		                   eventStartTime + "," +
-		                   eventEndTime + "," +
-		                   eventLocation + "," +
-		                   eventInvitees + "," +
-		                   eventTag +
-		    		       ")";*/
-		    String sql = "INSERT INTO Event VALUES  (";
-		    		       
+
+		    String sql = "INSERT INTO Event " +
+		                   "(Title,"+ 
+		                   " Description, " + 
+		                   " Date, " + 
+		                   " StartTime, " +
+		                   " EndTime, " +
+		                   " Location, " +
+		                   " Invitees, " + // string of email addresses?
+		                   " Tag, " +
+		                   " Reminder1, " +
+		                   " Reminder2)" +
+		    		       " VALUES  (";
+		    //sql += "NULL";
 		    try {
-		    	 if (  !"".equals(eventTitle) ) {
-				    	sql += "," + eventTitle; 
+		    	 if (  !"".equals(eventToAdd.getEventTitle()) ) {
+				    	sql += eventToAdd.getEventTitle(); 
 				    } else { // title cannot be null
 				    	throw new Exception();
 				    }
 		    } catch (Exception e) {
 		    	System.out.println("Error, event `Title` field cannot be empty");
-		    	System.exit(1);
+		    	//System.exit(1);
 		    }
 		    
-		    if ( !"".equals(eventDescription) ) {
-		    	sql += "," + eventDescription;
+		    if ( !"".equals(eventToAdd.getEventDescription()) ) {
+		    	sql += "," + eventToAdd.getEventDescription();
 		    }
 		    try {
-		    	 if ( !"".equals(eventDate) ) {
-				    	sql += "," + eventDate; 
+		    	 if ( !"".equals(eventToAdd.getEventDate()) ) {
+				    	sql += "," + eventToAdd.getEventDate(); 
 				    } else { // date cannot be null
 				    	throw new Exception();
 				    }
 		    } catch (Exception e) {
 		    	System.out.println("Error, event `Date` field cannot be empty");
-		    	System.exit(1);
+		    	//System.exit(1);
 		    }
 		   
-		    if ( !"".equals(eventStartTime) ) {
-		    	sql += "," + eventStartTime;
+		    if ( !"".equals(eventToAdd.getEventStartTime()) ) {
+		    	sql += "," + eventToAdd.getEventStartTime();
 		    }
-		    if ( !"".equals(eventEndTime) ) {
-		    	sql += "," + eventEndTime;
+		    if ( !"".equals(eventToAdd.getEventEndTime()) ) {
+		    	sql += "," + eventToAdd.getEventEndTime();
 		    }
-		    if ( !"".equals(eventLocation) ) {
-		    	sql += "," + eventLocation;
+		    if ( !"".equals(eventToAdd.getEventLocation()) ) {
+		    	sql += "," + eventToAdd.getEventLocation();
 		    }
-		    if ( !"".equals(eventInvitees) ) {
-		    	sql += "," + eventInvitees;
+		    if ( !"".equals(eventToAdd.getEventInvitees()) ) {
+		    	sql += "," + eventToAdd.getEventInvitees();
 		    }
-		    if ( !"".equals(eventTag) ) {
-		    	sql += "," + eventTag;
+		    if ( !"".equals(eventToAdd.getEventTag()) ) {
+		    	sql += "," + eventToAdd.getEventTag();
+		    }
+		    if ( !"".equals(eventToAdd.getEventReminder1()) ) {
+		    	sql += "," + eventToAdd.getEventReminder1();
+		    }
+		    if ( !"".equals(eventToAdd.getEventReminder2()) ) {
+		    	sql += "," + eventToAdd.getEventReminder2();
 		    }
 		    
-		    sql += ")";
+		    sql += ");";
 		    
 		    System.out.println(sql);
 		    
@@ -153,9 +151,133 @@ public class DatabaseMgr {
 		} catch( Exception e ) {
 			System.out.println("Error inserting event");
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			System.exit(1);
+			//System.exit(1);
 		}
 
+	}
+	
+	public List<Event> retrieveEventByDate(String date) {
+		Statement stmt = null;
+		String sql;
+		ResultSet data;
+		List<Event> events = new ArrayList<Event>();
+		
+		data = null;
+		
+		try {
+			stmt = c.createStatement();
+			/*sql = "SELECT Title, " + 
+	                   " Description, " + 
+	                   " Date, " + 
+	                   " StartTime, " +
+	                   " EndTime, " +
+	                   " Location, " +
+	                   " Invitees, " + // string of email addresses?
+	                   " Tag, " +
+	                   " Reminder1, " +
+	                   " Reminder2 " +
+	                   "FROM Event WHERE Date = '" + date + "';";*/
+			sql = "SELECT * FROM Event WHERE Date = '" + date + "';";
+			
+			data = stmt.executeQuery(sql);
+			events = createListOfEvents(data);
+			stmt.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		
+		return events;
+	}
+	
+	public List<Event> retrieveEventByTitle(String title) {
+		Statement stmt = null;
+		String sql;
+		ResultSet data = null;
+		List<Event> events = new ArrayList<Event>();
+		
+		
+		try {
+			stmt = c.createStatement();
+			sql = "SELECT Title, " + 
+	                   " Description, " + 
+	                   " Date, " + 
+	                   " StartTime, " +
+	                   " EndTime, " +
+	                   " Location, " +
+	                   " Invitees, " + // string of email addresses?
+	                   " Tag, " +
+	                   " Reminder1, " +
+	                   " Reminder2 " +
+	                   "FROM Event WHERE Title = '" + title + "'";
+			
+			data = stmt.executeQuery(sql);
+			events = createListOfEvents(data);
+			stmt.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		
+		return events;
+	}
+	
+	public List<Event> retrieveAllEvents() {
+		Statement stmt = null;
+		String sql;
+		ResultSet data;
+		//final Event event;
+		List<Event> events = new ArrayList<Event>();
+		
+		data = null;
+		
+		try {
+			stmt = c.createStatement();
+			sql = "SELECT Title, " + 
+	                   " Description, " + 
+	                   " Date, " + 
+	                   " StartTime, " +
+	                   " EndTime, " +
+	                   " Location, " +
+	                   " Invitees, " + // string of email addresses?
+	                   " Tag, " +
+	                   " Reminder1, " +
+	                   " Reminder2 " +
+	                   "FROM Event";
+			
+			data = stmt.executeQuery(sql);
+			
+			events = createListOfEvents(data);
+			stmt.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		
+		return events;
+	}
+	
+	private List<Event> createListOfEvents(ResultSet data) {
+		List<Event> events = new ArrayList<Event>();
+		
+		try {
+			while (data.next())
+			{		
+				events.add(new Event(data.getString(1),
+						data.getString(2),
+						data.getString(3),
+						data.getString(4),
+						data.getString(5),
+						data.getString(6),
+						data.getString(7),
+						data.getString(8),
+						data.getString(9),
+						data.getString(10)));			
+			}
+			return events;
+		} catch (Exception e) {
+			System.out.println("Error creating list of events");
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		
+		return events;
 	}
 	
 	public void update() {

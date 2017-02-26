@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import database.DatabaseMgr;
+import event.Event;
 
 
 public class Display_Add_Event_Screen extends JFrame {
@@ -27,6 +28,9 @@ public class Display_Add_Event_Screen extends JFrame {
 	private JTextField eventDescription;
 	private JTextField eventLocation;
 	private JTextField eventInvitees;
+	private JTextField eventReminder1;
+	private JTextField eventReminder2;
+	
 	
 	private JLabel titleLabel;
 	private JLabel descriptionLabel;
@@ -36,12 +40,15 @@ public class Display_Add_Event_Screen extends JFrame {
 	private JLabel locationLabel;
 	private JLabel inviteesLabel;
 	private JLabel tagLabel;
+	private JLabel reminder1Label;
+	private JLabel reminder2Label;
 	
 	private JButton saveEventButton;
 	
 	private JPanel panel;
 	
 	private DatabaseMgr db;
+	private Event event;
 	
 	public Display_Add_Event_Screen() {
 		initUI();
@@ -91,6 +98,14 @@ public class Display_Add_Event_Screen extends JFrame {
         eventTag = new JTextField();
         eventTag.setPreferredSize(new Dimension(200,20));
         
+        reminder1Label = new JLabel("Reminder 1");
+        eventReminder1 = new JTextField();
+        eventReminder1.setPreferredSize(new Dimension(200,20));
+        
+        reminder2Label = new JLabel("Reminder 2");
+        eventReminder2 = new JTextField();
+        eventReminder2.setPreferredSize(new Dimension(200,20));
+        
         saveEventButton = new JButton("Save Event");
         saveEventButton.addActionListener(new ActionListener()
         {
@@ -98,15 +113,19 @@ public class Display_Add_Event_Screen extends JFrame {
           {
               // Save event to database
         	  // TODO: Add any reminders if they are listed
-        	  db = new DatabaseMgr();
-        	  db.insertEvent(eventTitle.getText(),
+        	  event = new Event(eventTitle.getText(),
         			  eventDescription.getText(),
         			  eventDate.getText(),
         			  eventStartTime.getText(),
         			  eventEndTime.getText(),
         			  eventLocation.getText(),
         			  eventInvitees.getText(),
-        			  eventTag.getText());
+        			  eventTag.getText(),
+        			  eventReminder1.getText(),
+        			  eventReminder2.getText());
+        	  
+        	  db = new DatabaseMgr();
+        	  db.insertEvent(event);
         	  db.close();
         	  
           }
@@ -136,6 +155,12 @@ public class Display_Add_Event_Screen extends JFrame {
         
         panel.add(tagLabel);
         panel.add(eventTag);
+        
+        panel.add(reminder1Label);
+        panel.add(eventReminder1);
+        
+        panel.add(reminder2Label);
+        panel.add(eventReminder2);
         
         panel.add(saveEventButton);
         
