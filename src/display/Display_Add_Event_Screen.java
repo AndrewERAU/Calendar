@@ -4,17 +4,22 @@ package display;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.JButton;
+
+import database.DatabaseMgr;
 
 
 public class Display_Add_Event_Screen extends JFrame {
 	
-	private JTextField tag;
+	private JTextField eventTag;
 	private JTextField eventDate; // TODO, make dates use a date picker. Same for times.
 	private JTextField eventStartTime;
 	private JTextField eventEndTime;
@@ -32,7 +37,11 @@ public class Display_Add_Event_Screen extends JFrame {
 	private JLabel inviteesLabel;
 	private JLabel tagLabel;
 	
+	private JButton saveEventButton;
+	
 	private JPanel panel;
+	
+	private DatabaseMgr db;
 	
 	public Display_Add_Event_Screen() {
 		initUI();
@@ -79,8 +88,30 @@ public class Display_Add_Event_Screen extends JFrame {
         eventInvitees.setPreferredSize(new Dimension(200,20));
         
         tagLabel = new JLabel("Tag");
-        tag = new JTextField();
-        tag.setPreferredSize(new Dimension(200,20));
+        eventTag = new JTextField();
+        eventTag.setPreferredSize(new Dimension(200,20));
+        
+        saveEventButton = new JButton("Save Event");
+        saveEventButton.addActionListener(new ActionListener()
+        {
+          public void actionPerformed(ActionEvent e)
+          {
+              // Save event to database
+        	  // TODO: Add any reminders if they are listed
+        	  db = new DatabaseMgr();
+        	  db.insertEvent(eventTitle.getText(),
+        			  eventDescription.getText(),
+        			  eventDate.getText(),
+        			  eventStartTime.getText(),
+        			  eventEndTime.getText(),
+        			  eventLocation.getText(),
+        			  eventInvitees.getText(),
+        			  eventTag.getText());
+        	  db.close();
+        	  
+          }
+        });
+        
         
         panel.add(titleLabel);
         panel.add(eventTitle);
@@ -104,7 +135,9 @@ public class Display_Add_Event_Screen extends JFrame {
         panel.add(eventInvitees);
         
         panel.add(tagLabel);
-        panel.add(tag);
+        panel.add(eventTag);
+        
+        panel.add(saveEventButton);
         
         
         
