@@ -78,6 +78,9 @@ public class DatabaseMgr {
 		
 		sanitizeStatement(); // TODO: Implement this
 		
+		eventToAdd = eventToAdd.addSingleQuotes(); // must be called before creating
+		          								   // insert statements
+		
 		try {
 			stmt = c.createStatement();
 
