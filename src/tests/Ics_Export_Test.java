@@ -9,7 +9,6 @@ import file_io.ICS_File;
 import org.junit.Test;
 
 import event.Event;
-//import file_io.ICS_File;
 
 public class Ics_Export_Test {
 	private final String filePath = "./tmp/icsExport.ics";

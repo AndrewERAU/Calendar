@@ -1,6 +1,7 @@
 package event;
 
 public class Event {
+	private String eventID;
 	private String eventTitle;
 	private String eventDescription;
 	private String eventDate;
@@ -13,6 +14,7 @@ public class Event {
 	private String eventReminder2;
 	
 	public Event() {
+		this.eventID = null;
 		this.eventTitle = null;
 		this.eventDescription = null;
 		this.eventDate = null;
@@ -36,6 +38,7 @@ public class Event {
 			  String eventReminder1,
 			  String eventReminder2) {
 		
+		this.eventID = null;
 		if (!"".equals(eventTitle)) {
 			this.eventTitle =  eventTitle;
 		} else {
@@ -128,6 +131,9 @@ public class Event {
 	
 	
 	// Getters
+	public String getEventID() {
+		return eventID;
+	}
 	public String getEventTitle() {
 		return eventTitle;
 	}
@@ -160,6 +166,9 @@ public class Event {
 	}
 	
 	// Setters
+	public void setEventID(String id) {
+		eventID = id;
+	}
 	public void setEventTitle(String title) {
 		eventTitle = title;
 	}

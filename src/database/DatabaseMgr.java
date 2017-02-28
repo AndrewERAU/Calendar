@@ -11,9 +11,10 @@ import event.Event;
 
 public class DatabaseMgr {
 	public Connection c = null;
+	public final static String TEST_DB_PATH = "./db/test.db";
 	
 	public DatabaseMgr() {
-		File databaseFile = new File("./db/test.db");
+		File databaseFile = new File(TEST_DB_PATH);
 		if ( !databaseFile.isFile() )
 		{
 			try {
@@ -222,6 +223,41 @@ public class DatabaseMgr {
 		
 		return events;
 	}
+
+	public List<Event> retrieveEventByID(String id) {
+		Statement stmt = null;
+		String sql;
+		ResultSet data;
+		//final Event event;
+		List<Event> events = new ArrayList<Event>();
+		
+		data = null;
+		
+		try {
+			stmt = c.createStatement();
+			
+			sql = "SELECT Title, " + 
+	                   " Description, " + 
+	                   " Date, " + 
+	                   " StartTime, " +
+	                   " EndTime, " +
+	                   " Location, " +
+	                   " Invitees, " + // string of email addresses?
+	                   " Tag, " +
+	                   " Reminder1, " +
+	                   " Reminder2 " +
+	                   "FROM Event WHERE EventID = " + id + ";";
+			
+			data = stmt.executeQuery(sql);
+			
+			events = createListOfEvents(data);
+			stmt.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		
+		return events;
+	}
 	
 	public List<Event> retrieveAllEvents() {
 		Statement stmt = null;
@@ -234,6 +270,7 @@ public class DatabaseMgr {
 		
 		try {
 			stmt = c.createStatement();
+			
 			sql = "SELECT Title, " + 
 	                   " Description, " + 
 	                   " Date, " + 
@@ -255,6 +292,25 @@ public class DatabaseMgr {
 		}
 		
 		return events;
+	}
+	
+	public void removeEvent(int id) {
+	    // TODO: This method currently removes events by EventID.
+		// but events dont have an EventID attribute. Do we need to add
+		// an eventID attribute??? - added attribute
+		Statement stmt = null;
+		String sql;
+		
+		try {
+			stmt = c.createStatement();
+			sql = "DELETE FROM Event WHERE EventID = " + Integer.toString(id) + ";"; 
+		    stmt.executeUpdate(sql);
+		    stmt.close();
+		} catch( Exception e ) {
+			System.out.println("Error deleting event");
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		//System.exit(1);
+		}
 	}
 	
 	private List<Event> createListOfEvents(ResultSet data) {
