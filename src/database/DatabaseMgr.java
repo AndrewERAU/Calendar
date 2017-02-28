@@ -10,7 +10,7 @@ import java.util.List;
 import event.Event;
 
 public class DatabaseMgr {
-	public Connection c = null;
+	private Connection c = null;
 	public final static String TEST_DB_PATH = "./db/test.db";
 	
 	public DatabaseMgr() {
