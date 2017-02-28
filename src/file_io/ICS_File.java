@@ -41,8 +41,6 @@ public class ICS_File {
 
 			bw.write(content);
 
-			System.out.println("Done");
-
 		} catch (IOException e) {
 
 			e.printStackTrace();
