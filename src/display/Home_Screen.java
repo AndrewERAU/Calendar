@@ -36,6 +36,10 @@ public class Home_Screen {
 	
 
     private void initUI() {
+    	
+    	Display_Calendar cal = new Display_Calendar();
+    	
+    	
     	frame = new JFrame();
         frame.setTitle("Planner");
         frame.setSize(900, 600);     
