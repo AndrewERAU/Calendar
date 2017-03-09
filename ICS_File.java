@@ -60,16 +60,6 @@ END:VEVENT
 END:VCALENDAR*/
 		
 	}
-    
-   /*public void IcsImportTextFile(File importFile)  //pass a text file in as an argument to be converted into an ics file
-    {
-        //create a scanner which will read each line in the file
-        //scanner will search for words: "Title", "Info", "Start time", "End time"
-        //when those key words are detected, the scanner will read the rest of the line of the file to obtain the event information and store it in a matching variable
-        //next the program will use the newly created variables to create a new event object
-        //after the event is created, then the program will export the event as an ics file using the IcsExport function defined above
-        //if the program contains any invalid input or missing event fields, then raise exception which prompts user to enter the missing information
-    }*/
 	
 	private String eventTimeToIcsTime(String inTime) {
 		// expects a time in hh:mm:ss format. 24-hour time
