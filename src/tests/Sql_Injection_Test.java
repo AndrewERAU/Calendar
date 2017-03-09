@@ -24,12 +24,12 @@ public class Sql_Injection_Test {
 
 	@Test
 	public void test() {
-		assertEquals(db.retrieveAllEvents().size(),0);
+		assertEquals(db.retrieveEvents('A',"").size(),0);
 		db.insertEvent(event);
-		assertEquals(db.retrieveAllEvents().size(),1);
+		assertEquals(db.retrieveEvents('A',"").size(),1);
 		event.setEventReminder2("2017-02-28 11:30:00');" + sqlInjection + "--");
 		db.insertEvent(event); // insertion should fail
-		assertEquals(db.retrieveAllEvents().size(),1); 
+		assertEquals(db.retrieveEvents('A',"").size(),1); 
 	}
 
 }

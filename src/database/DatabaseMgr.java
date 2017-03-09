@@ -159,7 +159,7 @@ public class DatabaseMgr {
 		}
 	}
 	
-	public List<Event> retrieveEvents(String desiredData, char flag) {
+	public List<Event> retrieveEvents(char flag, String desiredData) {
 		Statement stmt = null;
 		String sql;
 		ResultSet data;
