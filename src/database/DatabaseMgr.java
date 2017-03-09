@@ -157,9 +157,57 @@ public class DatabaseMgr {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			//System.exit(1);
 		}
-
 	}
 	
+	public List<Event> retrieveEvents(char flag, String desiredData) {
+		Statement stmt = null;
+		String sql;
+		ResultSet data;
+		//final Event event;
+		List<Event> events = new ArrayList<Event>();
+		data = null;
+		String sqlWhereClause = "";
+		
+		switch (Character.toUpperCase(flag)) {
+		case 'D': // date
+			sqlWhereClause = " WHERE Date = '" + desiredData + "';";
+			break;
+		case 'T': // title
+			sqlWhereClause = " WHERE Title = '" + desiredData + "';";
+			break;
+		case 'I': // id
+			sqlWhereClause = " WHERE EventID = " + desiredData  + ";";
+			break;
+		}
+		
+		try {
+			stmt = c.createStatement();
+			/*
+			sql = "SELECT Title, " + 
+	                   " Description, " + 
+	                   " Date, " + 
+	                   " StartTime, " +
+	                   " EndTime, " +
+	                   " Location, " +
+	                   " Invitees, " + // string of email addresses?
+	                   " Tag, " +
+	                   " Reminder1, " +
+	                   " Reminder2 " +
+	                   "FROM Event " + sqlWhereClause;
+			*/
+			sql = "SELECT * FROM Event " + sqlWhereClause;
+			data = stmt.executeQuery(sql);
+			
+			events = createListOfEvents(data);
+			stmt.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		
+		return events;
+	}
+	
+	/*
 	public List<Event> retrieveEventByDate(String date) {
 		Statement stmt = null;
 		String sql;
@@ -170,17 +218,6 @@ public class DatabaseMgr {
 		
 		try {
 			stmt = c.createStatement();
-			/*sql = "SELECT Title, " + 
-	                   " Description, " + 
-	                   " Date, " + 
-	                   " StartTime, " +
-	                   " EndTime, " +
-	                   " Location, " +
-	                   " Invitees, " + // string of email addresses?
-	                   " Tag, " +
-	                   " Reminder1, " +
-	                   " Reminder2 " +
-	                   "FROM Event WHERE Date = '" + date + "';";*/
 			sql = "SELECT * FROM Event WHERE Date = '" + date + "';";
 			
 			data = stmt.executeQuery(sql);
@@ -293,6 +330,7 @@ public class DatabaseMgr {
 		
 		return events;
 	}
+	*/
 	
 	public void removeEvent(int id) {
 	    // TODO: This method currently removes events by EventID.

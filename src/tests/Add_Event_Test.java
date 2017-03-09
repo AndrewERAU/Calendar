@@ -24,15 +24,15 @@ public class Add_Event_Test {
 	public void test() {
 		
 		db.insertEvent(event);
-		db.retrieveAllEvents();
+		db.retrieveEvents('A',"");
 		
 		event.setEventTitle("Meeting");
 		db.insertEvent(event);
-		db.retrieveEventByTitle("Meeting");
+		db.retrieveEvents('T',"Meeting");
 		
 		event.setEventDate("2017-02-27");
 		db.insertEvent(event);
-		db.retrieveEventByDate("2017-02-27");
+		db.retrieveEvents('D',"2017-02-27");
 	}
 
 }

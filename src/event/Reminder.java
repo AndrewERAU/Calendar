@@ -23,37 +23,37 @@ public class Reminder
 	
 	public String getTitle()
     {
-        return this->eventTitle;
+        return this.eventTitle;
 	}
     
     public String getInfo()
     {
-        return this->eventInfo;
+        return this.eventInfo;
     }
     
     public Integer getFirstAlert()
     {
-        return this->firstAltertTime;
+        return this.firstAlertTime;
     }
     
     public Integer getSecondAlert()
     {
-        return this->secondAlertTime;
+        return this.secondAlertTime;
     }
 	
 	public void setTitle(String title)
     {
-        this->eventTitle = title;
+        this.eventTitle = title;
 	}
     
     public void setEventInfo(String info)
     {
-        this->eventInfo = info;
+        this.eventInfo = info;
     }
     
     public void setFirstAlert(Integer alertTime)
     {
-        this->firstAlertTime = alertTime;
+        this.firstAlertTime = alertTime;
         System.out.println("Setting first reminder:");
         System.out.println("Converting the inputted alertTime into the amount of seconds until alertTime occurs");
         System.out.println("Setting a Timer class object to countdown from when user indicated they want the reminder to appear");
@@ -66,7 +66,7 @@ public class Reminder
     
     public void setSecondAlert(Integer alertTime)
     {
-        this->secondAlertTime = alertTime;
+        this.secondAlertTime = alertTime;
         System.out.println("Setting second reminder:");
         System.out.println("Converting the inputted alertTime into the amount of seconds until alertTime occurs");
         System.out.println("Setting a Timer class object to countdown from when user indicated they want the reminder to appear");
