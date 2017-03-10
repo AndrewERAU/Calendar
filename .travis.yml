@@ -5,6 +5,6 @@ script:
   - mvn clean verify
   - mvn cobertura:cobertura
 
-# Upload cobertura-maven code coverage report to codecov.io after build
+# Upload cobertura-maven code coverage report to codecov.io after building
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t db881e87-c34f-4d71-ac17-73575d05284e
