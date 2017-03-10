@@ -1,33 +1,30 @@
 //Author: Nicholas DiPinto
 //Reminder Test
 
-package tests;
-import static org.junit.Assert.*;
+import reminder.Reminder;
 
-import event.Event;
-import event.Reminder;
-import org.junit.Test;
-
-public class Reminder_Test
+public class Reminder_Test1
 {
-    System.out.println("Starting Test Case #1 (Creating a reminder):");
-    System.out.println("Setting reminder info");
-    private Reminder test_reminder = new Reminder();
-    test_reminder.setTitle("Test Case #1 Reminder");
-    test_reminder.setFirstAlertTime(60);
-    System.out.println("Print out time reminder is expected to appear.");
-    System.out.println("When reminder appears, print current time and how much time has passed since reminder timer was set.");
-    
-    System.out.println("Starting Test Case #2 (Creating two reminders):");
-    System.out.println("Setting reminder info");
-    private Reminder test_reminder1 = new Reminder();
-    private Reminder test_reminder2 = new Reminder();
-    test_reminder1.setTitle("Test Case #2 Reminder 1");
-    test_reminder1.setTitle("Test Case #2 Reminder 2");
-    test_reminder1.setFirstAlertTime(60);
-    test_reminder1.setSecondAlertTIme(60);
-    test_reminder1.setFirstAlertTime(60);
-    test_reminder1.setSecondAlertTIme(60);
-    System.out.println("Print out time both reminders are expected to appear.");
-    System.out.println("When reminders appear, print current time and how much time has passed since each reminder timer was set.");
+    public static void main(String args[])
+    {
+        Reminder test_reminder = new Reminder();
+        long startTime1;
+        long startTime2;
+        long expectedEndTime1;
+        long expectedEndTime2;
+        
+        System.out.println("Starting Test Case #1 (Creating a reminder):");
+        System.out.println("Setting reminder info");
+        test_reminder.setTitle("Reminder Test Case #1");
+        startTime1 = System.currentTimeMillis() / 1000;
+        test_reminder.setFirstAlert(60);
+        startTime2 = System.currentTimeMillis() / 1000;
+        test_reminder.setSecondAlert(65);
+        expectedEndTime1 = startTime1 + 60;
+        expectedEndTime2 = startTime2 + 65;
+        System.out.print("Reminder 1 is set to alert at: ");
+        System.out.println(expectedEndTime1);
+        System.out.print("Reminder 2 is set to alert at: ");
+        System.out.println(expectedEndTime2);
+    }
 }
