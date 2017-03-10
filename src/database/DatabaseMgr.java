@@ -163,7 +163,6 @@ public class DatabaseMgr {
 		Statement stmt = null;
 		String sql;
 		ResultSet data;
-		//final Event event;
 		List<Event> events = new ArrayList<Event>();
 		data = null;
 		String sqlWhereClause = "";
@@ -182,19 +181,6 @@ public class DatabaseMgr {
 		
 		try {
 			stmt = c.createStatement();
-			/*
-			sql = "SELECT Title, " + 
-	                   " Description, " + 
-	                   " Date, " + 
-	                   " StartTime, " +
-	                   " EndTime, " +
-	                   " Location, " +
-	                   " Invitees, " + // string of email addresses?
-	                   " Tag, " +
-	                   " Reminder1, " +
-	                   " Reminder2 " +
-	                   "FROM Event " + sqlWhereClause;
-			*/
 			sql = "SELECT * FROM Event " + sqlWhereClause;
 			data = stmt.executeQuery(sql);
 			

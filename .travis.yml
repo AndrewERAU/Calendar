@@ -1,3 +1,9 @@
 language: java
+sudo: false # for faster builds
 jdk: oraclejdk8
 script: ant build
+
+
+# Upload JCoCo code coverage report to codecov.io after build
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t db881e87-c34f-4d71-ac17-73575d05284e
