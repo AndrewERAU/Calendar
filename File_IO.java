@@ -1,31 +1,114 @@
-package file_io;
+package Text_File_IO;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
-import event.Event;
-
-public class File_IO
+public class Text_File_IO
 {
-    /*public void IcsImportTextFile(File importFile)  //pass a text file in as an argument to be converted into an ics file
-     {
-     //create a scanner which will read each line in the file
-     //scanner will search for words: "Title", "Info", "Start time", "End time"
-     //when those key words are detected, the scanner will read the rest of the line of the file to obtain the event information and store it in a matching variable
-     //next the program will use the newly created variables to create a new event object
-     //after the event is created, then the program will export the event as an ics file using the IcsExport function defined above
-     //if the program contains any invalid input or missing event fields, then raise exception which prompts user to enter the missing information
-     }*/
+    private Scanner scanner;
+    
+    public void IcsImportTextFile(String importFileName) throws IOException //pass a text file in as an argument to be converted into an ics file
+    {
+        FileReader in = null;
+        FileWriter out = null;
+        //import event class into file to help create a new event based on input
+        //To Do: create exception handler for invalid inputs
+        //To Do: read size of input file and verify that it does not go beyond maximum specified file size in requirements
+        
+        String outputFileName = importFileName.replace("txt", "ics");  //change file extension
+        try
+        {
+            in = new FileReader(importFileName);
+            out = new FileWriter(outputFileName);
+            scanner = new Scanner(in);
+            String eventTag = "";
+            
+            while(scanner.hasNextLine())
+            {
+                String line = scanner.nextLine();
+                if(line.indexOf(":") != -1)  //separating string using expected format of text file
+                {
+                    String [] strArray = line.split(":");
+                    eventTag = strArray[0];
+                    switch (eventTag)
+                    {
+                        case "Title":
+                            //newEvent.setTitle(strArray[1]);
+                            break;
+                        case "Event Information":
+                            //newEvent.setEventInfo(strArray[1]);
+                            break;
+                            //case "Location":
+                            //newEvent.setLocation(strArray[1]);
+                            //	break;
+                        case "Start Date":
+                            //newEvent.setStartDate(strArray[1]);
+                            break;
+                        case "End Date":
+                            //newEvent.setEndDate(strArray[1]);
+                            break;
+                        case "Start Time":
+                            //newEvent.setStartTime(strArray[1]);
+                            break;
+                        case "End Time":
+                            //newEvent.setEndTime(strArray[1]);
+                            break;
+                        default:
+                            System.out.println("ERROR:" + strArray[0] + " is not a valid event detail.");
+                            //create more cases once all event fields have been agreed upon
+                    }
+                }
+            }
+            //print event details found in file to terminal (or JFrame)
+            
+            //copy text into ics file
+            //Next Step: read in entire calendar and print calendar
+            int index;
+            while((index = in.read()) != -1)
+            {
+                out.write(index);
+            }
+        }
+        finally
+        {
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+        }
+    }
     
     //method for exporting ics files to text files
-    /*public void IcsExportToTextFile(File IcsFile)
+    public void IcsExportToTextFile(String IcsFileName) throws IOException
     {
-        //open ICS file
-        //open new text file to output event information to
-        //create scanner to read ics file
-        //scan contents of ics for strings that match "Title", "Info", "Start Date", "End Date", "Start Time", "End Time"
-        //once a keyword is found, save the string and output it to the text file with a matching detail tag
-        //Incremental Feature: Print entire calendar objects containing events to a text file
-    }*/
+        FileReader in = null;
+        FileWriter out = null;
+        String outputFileName = IcsFileName.replace("ics", "txt");
+        
+        try
+        {
+            in = new FileReader(IcsFileName);
+            out = new FileWriter(outputFileName);
+            
+            int index;
+            while((index = in.read()) != -1)
+            {
+                out.write(index);
+            }
+        }
+        finally
+        {
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+        }
+        
+        
+    }
+    
 }
