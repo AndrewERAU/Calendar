@@ -2,6 +2,7 @@ language: java
 sudo: false # for faster builds
 jdk: oraclejdk8
 script: mvn clean verify
+  - "mvn cobertura:cobertura"
 
 # Upload cobertura-maven code coverage report to codecov.io after build
 after_success:
