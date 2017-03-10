@@ -16,7 +16,9 @@ public class ICS_File {
 		icsFile = filePath;
 		event = eventToAdd;
 	}
-	
+	/* TODO: Commented out b/c not working after converting to Maven
+	 * error:
+	 * [ERROR] /home/travis/build/AndrewERAU/Calendar/src/file_io/ICS_File.java:[25,21] try-with-resources is not supported in -source 1.5
 	public void IcsExport() {
 		String startTime = null;
 		String endTime = null;
@@ -46,21 +48,22 @@ public class ICS_File {
 			e.printStackTrace();
 
 		}
-		/*BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-BEGIN:VEVENT
-UID:uid1@example.com
-DTSTAMP:19970714T170000Z
-ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
-DTSTART:19970714T170000Z
-DTEND:19970715T035959Z
-SUMMARY:Bastille Day Party
-END:VEVENT
-END:VCALENDAR*/
+		
+//BEGIN:VCALENDAR
+//VERSION:2.0
+//PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+//BEGIN:VEVENT
+//UID:uid1@example.com
+//DTSTAMP:19970714T170000Z
+//ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
+//DTSTART:19970714T170000Z
+//DTEND:19970715T035959Z
+//SUMMARY:Bastille Day Party
+//END:VEVENT
+//END:VCALENDAR
 		
 	}
-    
+    */
    /*public void IcsImportTextFile(File importFile)  //pass a text file in as an argument to be converted into an ics file
     {
         //create a scanner which will read each line in the file
