@@ -76,7 +76,7 @@ public class ICS_File {
 	
 	private String eventTimeToIcsTime(String inTime) {
 		// expects a time in hh:mm:ss format. 24-hour time
-		// TODO: this could cause an error if input isnt in expected format!!!
+		// TODO: this could cause an error if input isnt in expected format - time!!!
 		String output = null;
 		System.out.println("inTime = " + inTime);
 		output = "T";
@@ -90,7 +90,7 @@ public class ICS_File {
 
 	private String eventDateToIcsDate(String inDate) {
 		// expects a date in yyyy-mm-dd format
-		// TODO: this could cause an error if input isnt in expected format!!!
+		// TODO: this could cause an error if input isnt in expected format - date!!!
 		System.out.println("inDate = " + inDate);
 		String output = null;
 		output = Character.toString(inDate.charAt(0)) + Character.toString(inDate.charAt(1)) + Character.toString(inDate.charAt(2)) + Character.toString(inDate.charAt(3));

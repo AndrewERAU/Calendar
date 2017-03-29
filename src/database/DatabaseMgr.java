@@ -77,7 +77,7 @@ public class DatabaseMgr {
 	public void insertEvent(Event eventToAdd) {
 		Statement stmt = null;
 		
-		sanitizeStatement(); // TODO: Implement this
+		sanitizeStatement(); // TODO: Implement sanitizeStatement()
 		
 		eventToAdd = eventToAdd.addSingleQuotes(); // must be called before creating
 		          								   // insert statements

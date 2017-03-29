@@ -1,9 +1,9 @@
-package display;
+package views;
 
 import javax.swing.JFrame;
 
-public class Display_Event extends JFrame {
-	public Display_Event() {
+public class Event_View extends JFrame {
+	public Event_View() {
 		initUI();
 	}
 	

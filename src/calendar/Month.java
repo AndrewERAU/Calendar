@@ -1,4 +1,4 @@
-package model;
+package calendar;
 
 public class Month {
 	private String monthName = null;
