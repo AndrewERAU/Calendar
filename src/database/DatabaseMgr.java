@@ -72,18 +72,21 @@ public class DatabaseMgr {
 	private boolean isAlphaNumeric(String s){
 		// Modified slightly from this SO post:
 		// http://stackoverflow.com/questions/11241690/regex-for-checking-if-a-string-is-strictly-alphanumeric
-	    String pattern= "^'[a-zA-Z0-9\\s]*'$"; // ex) 'title' or ''
+	    String pattern= "^'[a-zA-Z0-9\\s\\.]*'$"; // ex) 'title' or ''  // also allows periods
+	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isValidDate(String s){
 	    String pattern= "^'\\d{4}-\\d{2}-\\d{2}'$"; // ex) '2016-12-30'
+	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isValidTime(String s){
 		// military time
 	    String pattern= "^'(\\d{2}:\\d{2}:\\d{2}){0,1}'$"; // ex) '12:30:00' or ''
+	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
@@ -91,17 +94,20 @@ public class DatabaseMgr {
 		// Modified slightly from this SO post:
 		// http://stackoverflow.com/questions/11241690/regex-for-checking-if-a-string-is-strictly-alphanumeric
 	    String pattern= "^'[a-zA-Z0-9\\s\\.,]*'$"; // ex) '3324 E. park rd, Jackson Missippi 86709' or ''
+	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isValidDatetime(String s){
 	    String pattern= "^'(\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}){0,1}'$"; // ex) '2017-01-01 10:00:00' or ''
+	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isVaildEmailList(String s){
 		// TODO: currently emails can only have letters and numbers, no underscores, dashes, etc.
 	    String pattern= "^'(([a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(,\\s*[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*)|(\\s*))'$"; //ex) 'cool@star.com, beast99@rock.io' or 'cool@star.com' or ''
+	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
@@ -112,7 +118,7 @@ public class DatabaseMgr {
 		// note: with where this function is called from, each field will be enclosed in single quotes
 		// TODO: Checks for entries with invalid characters, but doesn't check that entries make sense
 		//        ex. dates should have months in range 1-12.
-		
+
 		return (isAlphaNumeric(inEvent.getEventTitle()) &&
 				isAlphaNumeric(inEvent.getEventDescription()) &&
 				isValidDate(inEvent.getEventDate()) &&
@@ -133,7 +139,7 @@ public class DatabaseMgr {
 		          								   // insert statements
 		try {
 			
-			rc = sanitizeStatement(eventToAdd); // TODO: Implement sanitizeStatement()
+			rc = sanitizeStatement(eventToAdd);
 			if (rc == false) { // invalid event data, possible sql injection attempt
 				throw new Exception();
 			}
