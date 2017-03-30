@@ -78,7 +78,7 @@ public class DatabaseMgr {
 	}
 	
 	private boolean isValidDate(String s){
-	    String pattern= "^'\\d{4}-\\d{2}-\\d{2}'$"; // ex) '2016-12-30'
+	    String pattern= "^'\\d{4}-\\d{1,2}-\\d{1,2}'$"; // ex) '2016-12-30'
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
