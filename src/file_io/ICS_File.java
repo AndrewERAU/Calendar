@@ -75,7 +75,7 @@ public class ICS_File {
         //after the event is created, then the program will export the event as an ics file using the IcsExport function defined above
         //if the program contains any invalid input or missing event fields, then raise exception which prompts user to enter the missing information
     }*/
->>>>>>> 0d0c47e4956fb6d14947bb4532d110d2f2d8a58e
+// >>>>>>> 0d0c47e4956fb6d14947bb4532d110d2f2d8a58e - what is this, i think it should be deleted. TODO: delete it
 	
 	private String eventTimeToIcsTime(String inTime) {
 		// expects a time in hh:mm:ss format. 24-hour time

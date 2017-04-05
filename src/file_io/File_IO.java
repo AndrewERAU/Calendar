@@ -1,9 +1,9 @@
-package Text_File_IO;
+package file_io;
 
 import java.io.*;
 import java.util.Scanner;
 
-public class Text_File_IO
+public class File_IO
 {
     private Scanner scanner;
     

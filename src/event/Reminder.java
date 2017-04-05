@@ -1,4 +1,4 @@
-package reminder;
+package event;
 
 import java.util.Timer;
 import java.util.TimerTask;
