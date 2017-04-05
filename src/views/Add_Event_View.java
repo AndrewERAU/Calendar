@@ -1,4 +1,4 @@
-package display;
+package views;
 
 
 import java.awt.BorderLayout;
@@ -18,7 +18,7 @@ import database.DatabaseMgr;
 import event.Event;
 
 
-public class Display_Add_Event_Screen extends JFrame {
+public class Add_Event_View extends JFrame {
 	
 	private JTextField eventTag;
 	private JTextField eventDate; // TODO, make dates use a date picker. Same for times.
@@ -50,7 +50,7 @@ public class Display_Add_Event_Screen extends JFrame {
 	private DatabaseMgr db;
 	private Event event;
 	
-	public Display_Add_Event_Screen() {
+	public Add_Event_View() {
 		initUI();
 	}
 	
@@ -62,7 +62,7 @@ public class Display_Add_Event_Screen extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // closes window w/o exiting app
         
         panel = new JPanel();
-        //panel.setLayout(new FlowLayout()); // TODO: USE GridBagLayout
+        //panel.setLayout(new FlowLayout()); // TODO: Update Add Event Screen - USE GridBagLayout
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         
         
@@ -112,7 +112,7 @@ public class Display_Add_Event_Screen extends JFrame {
           public void actionPerformed(ActionEvent e)
           {
               // Save event to database
-        	  // TODO: Add any reminders if they are listed
+        	  // TODO: Add any reminders if they are listed done?
         	  event = new Event(eventTitle.getText(),
         			  eventDescription.getText(),
         			  eventDate.getText(),

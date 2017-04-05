@@ -1,4 +1,4 @@
-package display;
+package views;
 
 /*http://www.dreamincode.net/forums/topic/25042-creating-a-calendar-viewer-application/ */
 /*Contents of CalendarProgran.class */
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class Display_Calendar{
+public class Calendar_View{
 	static JLabel lblMonth, lblYear;
 	static JButton btnPrev, btnNext;
 	static JTable tblCalendar;
@@ -24,7 +24,7 @@ public class Display_Calendar{
 	static int realYear, realMonth, realDay, currentYear, currentMonth;
 
 	
-	public Display_Calendar(){
+	public Calendar_View(){
 		//Look and feel
 				try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
 				catch (ClassNotFoundException e) {}

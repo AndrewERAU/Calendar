@@ -1,6 +1,8 @@
-package tests;
+package test.java;
 
 import static org.junit.Assert.*;
+
+import java.io.File;
 
 import org.junit.Test;
 
@@ -9,7 +11,6 @@ import event.Event;
 
 public class Sql_Injection_Test {
 	
-	private final DatabaseMgr db = new DatabaseMgr();
 	private String sqlInjection = "DELETE FROM Event;";
 	private Event event = new Event("Meeting", // eventTitle
 			"Meeting to go over plan details.", // eventDescription
@@ -24,6 +25,9 @@ public class Sql_Injection_Test {
 
 	@Test
 	public void test() {
+		File dbFile = new File(DatabaseMgr.TEST_DB_PATH);
+		dbFile.delete();
+		DatabaseMgr db = new DatabaseMgr();
 		assertEquals(db.retrieveEvents('A',"").size(),0);
 		db.insertEvent(event);
 		assertEquals(db.retrieveEvents('A',"").size(),1);

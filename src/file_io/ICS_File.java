@@ -16,7 +16,9 @@ public class ICS_File {
 		icsFile = filePath;
 		event = eventToAdd;
 	}
-	
+	/* TODO: Commented out b/c not working after converting to Maven
+	 * error:
+	 * [ERROR] /home/travis/build/AndrewERAU/Calendar/src/file_io/ICS_File.java:[25,21] try-with-resources is not supported in -source 1.5
 	public void IcsExport() {
 		String startTime = null;
 		String endTime = null;
@@ -46,24 +48,38 @@ public class ICS_File {
 			e.printStackTrace();
 
 		}
-		/*BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-BEGIN:VEVENT
-UID:uid1@example.com
-DTSTAMP:19970714T170000Z
-ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
-DTSTART:19970714T170000Z
-DTEND:19970715T035959Z
-SUMMARY:Bastille Day Party
-END:VEVENT
-END:VCALENDAR*/
+		
+//BEGIN:VCALENDAR
+//VERSION:2.0
+//PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+//BEGIN:VEVENT
+//UID:uid1@example.com
+//DTSTAMP:19970714T170000Z
+//ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
+//DTSTART:19970714T170000Z
+//DTEND:19970715T035959Z
+//SUMMARY:Bastille Day Party
+//END:VEVENT
+//END:VCALENDAR
 		
 	}
+<<<<<<< HEAD
+=======
+    */
+   /*public void IcsImportTextFile(File importFile)  //pass a text file in as an argument to be converted into an ics file
+    {
+        //create a scanner which will read each line in the file
+        //scanner will search for words: "Title", "Info", "Start time", "End time"
+        //when those key words are detected, the scanner will read the rest of the line of the file to obtain the event information and store it in a matching variable
+        //next the program will use the newly created variables to create a new event object
+        //after the event is created, then the program will export the event as an ics file using the IcsExport function defined above
+        //if the program contains any invalid input or missing event fields, then raise exception which prompts user to enter the missing information
+    }*/
+>>>>>>> 0d0c47e4956fb6d14947bb4532d110d2f2d8a58e
 	
 	private String eventTimeToIcsTime(String inTime) {
 		// expects a time in hh:mm:ss format. 24-hour time
-		// TODO: this could cause an error if input isnt in expected format!!!
+		// TODO: this could cause an error if input isnt in expected format - time!!!
 		String output = null;
 		System.out.println("inTime = " + inTime);
 		output = "T";
@@ -77,7 +93,7 @@ END:VCALENDAR*/
 
 	private String eventDateToIcsDate(String inDate) {
 		// expects a date in yyyy-mm-dd format
-		// TODO: this could cause an error if input isnt in expected format!!!
+		// TODO: this could cause an error if input isnt in expected format - date!!!
 		System.out.println("inDate = " + inDate);
 		String output = null;
 		output = Character.toString(inDate.charAt(0)) + Character.toString(inDate.charAt(1)) + Character.toString(inDate.charAt(2)) + Character.toString(inDate.charAt(3));

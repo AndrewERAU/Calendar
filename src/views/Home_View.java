@@ -1,7 +1,11 @@
-package display;
+package views;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import views.Add_Event_View;
+import views.Event_View;
+
 import javax.swing.JButton;
 
 
@@ -12,11 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 
-import display.Display_Event;
-import display.Display_Add_Event_Screen;
 
-
-public class Home_Screen {
+public class Home_View {
 
 	private JFrame frame;
 	private JPanel panel;
@@ -24,20 +25,20 @@ public class Home_Screen {
 	//private Display_Add_Event_Screen addEventWindow;
 	
 	
-	public Home_Screen() {
+	public Home_View() {
 
         initUI();
     }
 	   
 	public static void main (String[] args) {
-		Home_Screen hs = new Home_Screen();
+		Home_View hs = new Home_View();
 		//hs.setVisible(true);
 	}
 	
 
     private void initUI() {
     	
-    	Display_Calendar cal = new Display_Calendar();
+    	Calendar_View cal = new Calendar_View();
     	
     	
     	frame = new JFrame();
@@ -59,7 +60,7 @@ public class Home_Screen {
           public void actionPerformed(ActionEvent e)
           {
             // display new add event window
-        	  new Display_Add_Event_Screen();
+        	  new Add_Event_View();
           }
         });
         

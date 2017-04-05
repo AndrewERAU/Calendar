@@ -1,6 +1,6 @@
-package model;
+package calendar;
 
-import model.Month;
+import calendar.Month;
 
 public class Calendar {
 	Month[] months = new Month[12];
