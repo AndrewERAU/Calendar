@@ -145,6 +145,7 @@ public class DatabaseMgr {
 		// remove this method
 		//eventToAdd = eventToAdd.addSingleQuotes(); // must be called before creating
 		          								   // insert statements
+		
 		try {
 			
 			rc = sanitizeStatement(eventToAdd);
@@ -523,11 +524,13 @@ public class DatabaseMgr {
 	}
 	*/
 	
-	public void updateEvent(Event eventToUpdate) {
+	public Event updateEvent(Event eventToUpdate) {
 		// TODO: need to get event ID and store it in event before we try to update it
 		System.out.println(eventToUpdate.getEventID());
 		removeEvent(Integer.parseInt(eventToUpdate.getEventID())); // remove old version of event
-		insertEvent(eventToUpdate); // insert updated event. Event will have same id as original (old) event
+		eventToUpdate = insertEvent(eventToUpdate); // insert updated event. Event will have same id as original (old) event
+		
+		return eventToUpdate;
 	}
 	
 	public void removeEvent(int id) {
