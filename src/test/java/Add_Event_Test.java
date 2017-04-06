@@ -27,6 +27,7 @@ public class Add_Event_Test {
 		dbFile.delete();
 		DatabaseMgr db = new DatabaseMgr();
 		
+		// TODO: Update.  Database is allowing null into not null fields? or is it allowing empty string?
 		assertEquals(db.retrieveEvents('A',"").size(),0); // should be 0 to start
 		db.insertEvent(event); // should fail
 		assertEquals(db.retrieveEvents('A',"").size(),0); // should still be 0
@@ -38,7 +39,7 @@ public class Add_Event_Test {
 		event.setEventDate("2017-02-27");
 		db.insertEvent(event); // should succeed
 		assertEquals(db.retrieveEvents('D',"2017-02-27").size(),1); // now 1 element
-		assertEquals(db.retrieveEvents('A',"").size(),1); // should be 0 to start
+		assertEquals(db.retrieveEvents('A',"").size(),1); // should be 1 now
 	}
 
 }
