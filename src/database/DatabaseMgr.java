@@ -39,9 +39,9 @@ public class DatabaseMgr {
 			stmt = c.createStatement();
 		    String sql = "CREATE TABLE Event "+
 		                   "(EventID INTEGER PRIMARY KEY," +
-		                   " Title           TEXT    NOT NULL, " + 
+		                   " Title           TEXT    NOT NULL CHECK(Title<>''), " + // CHECK() is needed to enforce NOT NULL constraint
 		                   " Description     TEXT, " + 
-		                   " Date            DATE    NOT NULL, " + 
+		                   " Date            DATE    NOT NULL CHECK(Date<>''), " + 
 		                   " StartTime       TIME, " +
 		                   " EndTime         TIME, " +
 		                   " Location        TEXT, " +
@@ -69,23 +69,26 @@ public class DatabaseMgr {
 	    }
 	}
 	
+	// TODO: I set attributes to 'NULL' in Event.java constructor if there is an empty string
+	//       Therefore I have to allow 'NULL' in valid entry type when sanitizing statements
+	//       Is this necessary or can I just have an empty string for un-set Event attributes?
 	private boolean isAlphaNumeric(String s){
 		// Modified slightly from this SO post:
 		// http://stackoverflow.com/questions/11241690/regex-for-checking-if-a-string-is-strictly-alphanumeric
-	    String pattern= "^'[a-zA-Z0-9\\s\\.]*'$"; // ex) 'title' or ''  // also allows periods
+	    String pattern= "[a-zA-Z0-9\\s\\.]*"; // ex) 'title' or ''  // also allows periods
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isValidDate(String s){
-	    String pattern= "^'\\d{4}-\\d{1,2}-\\d{1,2}'$"; // ex) '2016-12-30'
+	    String pattern= "\\d{4}-\\d{1,2}-\\d{1,2}"; // ex) '2016-12-30'
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isValidTime(String s){
 		// military time
-	    String pattern= "^'(\\d{2}:\\d{2}:\\d{2}){0,1}'$"; // ex) '12:30:00' or ''
+	    String pattern= "((\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '12:30:00' or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -93,20 +96,20 @@ public class DatabaseMgr {
 	private boolean isValidLocation(String s){
 		// Modified slightly from this SO post:
 		// http://stackoverflow.com/questions/11241690/regex-for-checking-if-a-string-is-strictly-alphanumeric
-	    String pattern= "^'[a-zA-Z0-9\\s\\.,]*'$"; // ex) '3324 E. park rd, Jackson Missippi 86709' or ''
+	    String pattern= "[a-zA-Z0-9\\s\\.,]*"; // ex) '3324 E. park rd, Jackson Missippi 86709' or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isValidDatetime(String s){
-	    String pattern= "^'(\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}){0,1}'$"; // ex) '2017-01-01 10:00:00' or ''
+	    String pattern= "((\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '2017-01-01 10:00:00' or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
 	
 	private boolean isVaildEmailList(String s){
 		// TODO: currently emails can only have letters and numbers, no underscores, dashes, etc.
-	    String pattern= "^'(([a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(,\\s*[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*)|(\\s*))'$"; //ex) 'cool@star.com, beast99@rock.io' or 'cool@star.com' or ''
+	    String pattern= "(([a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(,\\s*[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*)|(\\s*)|(NULL))"; //ex) 'cool@star.com, beast99@rock.io' or 'cool@star.com' or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -131,7 +134,135 @@ public class DatabaseMgr {
 				isValidDatetime(inEvent.getEventReminder2()));
 	}
 	
-	public void insertEvent(Event eventToAdd) {
+	public Event insertEvent(Event eventToAdd) { // returns eventID
+		//Statement stmt = null;
+		PreparedStatement stmt = null;
+		int affectedRows; // used to check if insert was successful
+		
+		boolean rc;
+		
+		// TODO: Since changing to a prepared statement I no longer need to add single quotes!
+		// remove this method
+		//eventToAdd = eventToAdd.addSingleQuotes(); // must be called before creating
+		          								   // insert statements
+		try {
+			
+			rc = sanitizeStatement(eventToAdd);
+			if (rc == false) { // invalid event data, possible sql injection attempt
+				throw new Exception();
+			}
+
+		    String sql = "INSERT INTO Event " +
+		                   "(Title,"+ 
+		                   " Description, " + 
+		                   " Date, " + 
+		                   " StartTime, " +
+		                   " EndTime, " +
+		                   " Location, " +
+		                   " Invitees, " + // string of email addresses?
+		                   " Tag, " +
+		                   " Reminder1, " +
+		                   " Reminder2)" +
+		    		       " VALUES  (?,?,?,?,?,?,?,?,?,?)";
+		    
+			stmt = c.prepareStatement(sql,
+	                Statement.RETURN_GENERATED_KEYS);
+			System.out.println(sql); // debug remove
+
+		    try {
+		    	 if (  !"".equals(eventToAdd.getEventTitle()) && !"NULL".equals(eventToAdd.getEventTitle()) ) {
+				    	//sql += eventToAdd.getEventTitle(); 
+		    		 System.out.print("Event title: ");
+		    		 System.out.println(eventToAdd.getEventTitle());
+		    		 stmt.setString(1, eventToAdd.getEventTitle());
+				    } else { // title cannot be null
+				    	throw new Exception(); // TODO: throw different exception type?
+				    }
+		    } catch (Exception e) {
+		    	System.out.println("Error, event `Title` field cannot be empty");
+		    	//System.exit(1);
+		    }
+		    
+		    if ( !"".equals(eventToAdd.getEventDescription()) && !"NULL".equals(eventToAdd.getEventDescription()) ) {
+		    	//sql += "," + eventToAdd.getEventDescription();
+		    	stmt.setString(2, eventToAdd.getEventDescription());
+		    }
+		    try {
+		    	 if ( !"".equals(eventToAdd.getEventDate()) && !"NULL".equals(eventToAdd.getEventDate())) {
+				    	//sql += "," + eventToAdd.getEventDate(); 
+		    		 stmt.setString(3,eventToAdd.getEventDate());
+				    } else { // date cannot be null
+				    	throw new Exception(); // TODO: throw different exception type?
+				    }
+		    } catch (Exception e) {
+		    	System.out.println("Error, event `Date` field cannot be empty");
+		    	//System.exit(1);
+		    }
+		   
+		    if ( !"".equals(eventToAdd.getEventStartTime()) ) {
+		    	//sql += "," + eventToAdd.getEventStartTime();
+		    	stmt.setString(4,eventToAdd.getEventStartTime());
+		    }
+		    if ( !"".equals(eventToAdd.getEventEndTime()) ) {
+		    	//sql += "," + eventToAdd.getEventEndTime();
+		    	stmt.setString(5,eventToAdd.getEventEndTime());
+		    }
+		    if ( !"".equals(eventToAdd.getEventLocation()) ) {
+		    	//sql += "," + eventToAdd.getEventLocation();
+		    	stmt.setString(6,eventToAdd.getEventLocation());
+		    }
+		    if ( !"".equals(eventToAdd.getEventInvitees()) ) {
+		    	//sql += "," + eventToAdd.getEventInvitees();
+		    	stmt.setString(7,eventToAdd.getEventInvitees());
+		    }
+		    if ( !"".equals(eventToAdd.getEventTag()) ) {
+		    	//sql += "," + eventToAdd.getEventTag();
+		    	stmt.setString(8,eventToAdd.getEventTag());
+		    }
+		    if ( !"".equals(eventToAdd.getEventReminder1()) ) {
+		    	//sql += "," + eventToAdd.getEventReminder1();
+		    	stmt.setString(9,eventToAdd.getEventReminder1());
+		    }
+		    if ( !"".equals(eventToAdd.getEventReminder2()) ) {
+		    	//sql += "," + eventToAdd.getEventReminder2();
+		    	stmt.setString(10,eventToAdd.getEventReminder2());
+		    }
+		   
+		    
+		    //sql += ");";
+		    
+		    System.out.println(sql); // for debugging - remove
+		   
+		    //stmt.executeUpdate(sql);
+		    affectedRows = stmt.executeUpdate();
+
+	        if (affectedRows == 0) {
+	            throw new SQLException("Inserting Event failed.");
+	        }
+
+	        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                eventToAdd.setEventID(Long.toString(generatedKeys.getLong(1)));
+	            }
+	            else {
+	                throw new SQLException("Creating user failed, no ID obtained.");
+	            }
+	        }
+		    
+		    //TODO: get event id from last statment inserted here
+		    
+		    stmt.close();
+		} catch( Exception e ) {
+			System.out.println("Error while inserting or updateing event");
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			//System.exit(1);
+		}
+		
+		return eventToAdd;
+	}
+	
+	/* old 
+	public int insertEvent(Event eventToAdd) { // returns eventID
 		Statement stmt = null;
 		boolean rc;
 		
@@ -211,13 +342,16 @@ public class DatabaseMgr {
 		    System.out.println(sql); // for debugging - remove
 		   
 		    stmt.executeUpdate(sql);
+		    
+		    //TODO: get event id from last statment inserted here
+		    
 		    stmt.close();
 		} catch( Exception e ) {
-			System.out.println("Error inserting event");
+			System.out.println("Error while inserting or updateing event");
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			//System.exit(1);
 		}
-	}
+	}*/
 	
 	public List<Event> retrieveEvents(char flag, String desiredData) { // control coupling
 		Statement stmt = null;
@@ -227,18 +361,26 @@ public class DatabaseMgr {
 		data = null;
 		String sqlWhereClause = "";
 		
-		// TODO: This doesn't account for case 'A'.  Add case 'A' for retrieving all events
-		//       then add default case that throws an exception for an unsupported flag
-		switch (Character.toUpperCase(flag)) {
-		case 'D': // date
-			sqlWhereClause = " WHERE Date = '" + desiredData + "';";
-			break;
-		case 'T': // title
-			sqlWhereClause = " WHERE Title = '" + desiredData + "';";
-			break;
-		case 'I': // id
-			sqlWhereClause = " WHERE EventID = " + desiredData  + ";";
-			break;
+		try {
+			switch (Character.toUpperCase(flag)) {
+			case 'A': // all
+				sqlWhereClause = ";"; // no where clause, just end SQL statement
+				break;
+			case 'D': // date
+				sqlWhereClause = " WHERE Date = '" + desiredData + "';";
+				break;
+			case 'T': // title
+				sqlWhereClause = " WHERE Title = '" + desiredData + "';";
+				break;
+			case 'I': // id
+				sqlWhereClause = " WHERE EventID = " + desiredData  + ";";
+				break;
+			default:
+				throw new Exception();
+		}
+		} catch (Exception e) {
+			System.out.println("Invalid flag passed to retrieveEvents");
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		
 		try {
@@ -381,6 +523,13 @@ public class DatabaseMgr {
 	}
 	*/
 	
+	public void updateEvent(Event eventToUpdate) {
+		// TODO: need to get event ID and store it in event before we try to update it
+		System.out.println(eventToUpdate.getEventID());
+		removeEvent(Integer.parseInt(eventToUpdate.getEventID())); // remove old version of event
+		insertEvent(eventToUpdate); // insert updated event. Event will have same id as original (old) event
+	}
+	
 	public void removeEvent(int id) {
 		Statement stmt = null;
 		String sql;
@@ -422,17 +571,6 @@ public class DatabaseMgr {
 		
 		return events;
 	}
-	
-	public void update() {
-		// make sure to call sanitizeStatements(eventToUpdate);
-		
-	}
-	
-	public void delete() {
-		
-	}
-	
-	
 
 	public void close() {
 		try {
