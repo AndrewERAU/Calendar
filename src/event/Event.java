@@ -1,42 +1,36 @@
-package event;
+package reminder;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class Event {
 	private String eventID;
 	private String eventTitle;
 	private String eventDescription;
-	private String eventDate;
-	private String eventStartTime;
-	private String eventEndTime;
+	private Date eventStart;
+	private Date eventEnd;
 	private String eventLocation;
 	private String eventInvitees;
 	private String eventTag;
-	private String eventReminder1;
-	private String eventReminder2;
 	
 	public Event() {
 		this.eventID = null;
 		this.eventTitle = null;
 		this.eventDescription = null;
-		this.eventDate = null;
-		this.eventStartTime = null;
-		this.eventEndTime = null;
+		this.eventStart = null;
+		this.eventEnd = null;
 		this.eventLocation = null;
 		this.eventInvitees = null;
 		this.eventTag = null;
-		this.eventReminder1 = null;
-		this.eventReminder2 = null;
 	}
 	
 	public Event(String eventTitle,
 			  String eventDescription,
-			  String eventDate,
-			  String eventStartTime,
-			  String eventEndTime,
+			  Date eventStart,
+			  Date eventEnd,
 			  String eventLocation,
 			  String eventInvitees,
-			  String eventTag,
-			  String eventReminder1,
-			  String eventReminder2) {
+			  String eventTag) {
 		
 		this.eventID = null;
 		if (!"".equals(eventTitle)) {
@@ -49,21 +43,21 @@ public class Event {
 		} else {
 			this.eventDescription = "NULL";
 		}
-		if (!"".equals(eventDate)) {
-			this.eventDate = eventDate;
-		} else {
-			this.eventDate = "NULL";
-		}
-		if (!"".equals(eventStartTime)) {
-			this.eventStartTime = eventStartTime;
-		} else {
+		if (!this.eventStart.equals(null)) {
+			this.eventStart = eventStart;
+		} /*else {
+			this.event = "NULL";
+		}*/
+		if (!this.eventEnd.equals(null)) {
+			this.eventEnd = eventEnd;
+		} /*else {
 			this.eventStartTime = "NULL";
-		}
-		if (!"".equals(eventEndTime)) {
+		}*/
+		/*if (!"".equals(eventEndTime)) {
 			this.eventEndTime = eventEndTime;
 		} else {
 			this.eventEndTime = "NULL";
-		}
+		}*/
 		if (!"".equals(eventLocation)) {
 			this.eventLocation = eventLocation;
 		} else {
@@ -79,7 +73,7 @@ public class Event {
 		} else {
 			this.eventTag = "NULL";
 		}
-		if (!"".equals(eventReminder1)) {
+	/*	if (!"".equals(eventReminder1)) {
 			this.eventReminder1 = eventReminder1;
 		} else {
 			this.eventReminder1 = "NULL";
@@ -88,7 +82,7 @@ public class Event {
 			this.eventReminder2 = eventReminder2;
 		} else {
 			this.eventReminder2 = "NULL";
-		}
+		}*/
 	}
 	
 	public Event addSingleQuotes() {
@@ -100,16 +94,16 @@ public class Event {
 		if (!"NULL".equals(this.eventDescription)) {
 			event.setEventDescription("'" + this.eventDescription + "'");
 		}
-		
-		if (!"NULL".equals(this.eventDate)) {
-			event.setEventDate("'" + this.eventDate + "'");
+//TODO: Verify whether this next two if clauses need to remain in the code
+		/*if (!this.eventStart.equals(null)) {
+			event.setEventStartTime(this.eventStart);
 		}
-		if (!"NULL".equals(this.eventStartTime)) {
-			event.setEventStartTime("'" + this.eventStartTime + "'");
-		}
-		if (!"NULL".equals(this.eventEndTime)) {
+		if (!this.eventEnd.equals(null)) {
+			event.setEventEndTime(this.eventEnd);
+		}*/
+		/*if (!"NULL".equals(this.eventEndTime)) {
 			event.setEventEndTime("'" + this.eventEndTime + "'");
-		}
+		}*/
 		if (!"NULL".equals(this.eventLocation)) {
 			event.setEventLocation("'" + this.eventLocation + "'");
 		}
@@ -119,13 +113,6 @@ public class Event {
 		if (!"NULL".equals(this.eventTag)) {
 			event.setEventTag("'" + this.eventTag + "'");
 		}
-		if (!"NULL".equals(this.eventReminder1)) {
-			event.setEventReminder1("'" + this.eventReminder1 + "'");
-		}
-		if (!"NULL".equals(this.eventReminder2)) {
-			event.setEventReminder1("'" + this.eventReminder2 + "'");
-		}
-
 		return event;
 	}
 	
@@ -140,15 +127,15 @@ public class Event {
 	public String getEventDescription() {
 		return eventDescription;
 	}
-	public String getEventDate() {
-		return eventDate;
+	public Date getEventStartTime() {
+		return eventStart;
 	}
-	public String getEventStartTime() {
-		return eventStartTime;
+	public Date getEventEndTime() {
+		return eventEnd;
 	}
-	public String getEventEndTime() {
+	/*public String getEventEndTime() {
 		return eventEndTime;
-	}
+	}*/
 	public String getEventLocation() {
 		return eventLocation;
 	}
@@ -157,12 +144,6 @@ public class Event {
 	}
 	public String getEventTag() {
 		return eventTag;
-	}
-	public String getEventReminder1() {
-		return eventReminder1;
-	}
-	public String getEventReminder2() {
-		return eventReminder2;
 	}
 	
 	// Setters
@@ -175,14 +156,30 @@ public class Event {
 	public void setEventDescription(String description) {
 		eventDescription = description;
 	}
-	public void setEventDate(String date) {
+	/*public void setEventDate(String date) {
 		eventDate = date;
+	}*/
+	public void setEventStartTime(Integer month, Integer date, 
+								  Integer year, Integer hour,
+								  Integer minute) {
+		Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DATE, date);
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.HOUR, hour);
+        cal.set(Calendar.MINUTE, minute);
+		this.eventStart = cal.getTime();
 	}
-	public void setEventStartTime(String sTime) {
-		eventStartTime = sTime;
-	}
-	public void setEventEndTime(String eTime) {
-		eventEndTime = eTime;
+	public void setEventEndTime(Integer month, Integer date, 
+								Integer year, Integer hour, 
+								Integer minute) {
+		Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DATE, date);
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.HOUR, hour);
+        cal.set(Calendar.MINUTE, minute);
+		this.eventEnd = cal.getTime();
 	}
 	public void setEventLocation(String location) {
 		eventLocation =  location;
@@ -192,11 +189,5 @@ public class Event {
 	}
 	public void setEventTag(String tag) {
 		eventTag =  tag;
-	}
-	public void setEventReminder1(String reminder) {
-		eventReminder1 = reminder;
-	}
-	public void setEventReminder2(String reminder) {
-		eventReminder2 = reminder;
 	}
 }
