@@ -1,9 +1,9 @@
-package Text_File_IO;
+package file_io;
 
 import java.io.*;
 import java.util.Scanner;
 
-public class Text_File_IO
+public class File_IO
 {
     private Scanner scanner;
     
@@ -30,6 +30,12 @@ public class Text_File_IO
                 {
                     String [] strArray = line.split(":");
                     eventTag = strArray[0];
+                    // TODO: Java does not support strings in switch statements.  Use if statements to compare instead.
+                    // EX) if ("Title".equals(eventTag)) then {
+                    //        //newEvent.setTitle(strArray[1]);
+                    //     } else if ("Event Information".equals(eventTag)) {
+                    //         //newEvent.setEventInfo(strArray[1]);
+                    //     }
                     switch (eventTag)
                     {
                         case "Title":

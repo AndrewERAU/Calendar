@@ -1,4 +1,4 @@
-package reminder;
+package event;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

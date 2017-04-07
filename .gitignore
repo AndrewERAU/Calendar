@@ -81,3 +81,6 @@ $RECYCLE.BIN/
 
 # Added by Maven
 /target/
+
+# Added by Me
+db/
