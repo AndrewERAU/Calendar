@@ -1,0 +1,7 @@
+1489109922600	Convert local variable 'scanner' to field
+1489116997590	Extract local variable 'scanner'
+1489117004997	Convert local variable 'scanner' to field
+1489117010772	Extract local variable 'scanner2'
+1489117015352	Convert local variable 'scanner2' to field
+1489117432217	Convert local variable 'textFileScanner' to field
+1489117443054	Convert local variable 'icsScanner' to field

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.jdt.debug.ui.MAIN_METHOD_SELECTION_DIALOG">
+		<item value="true" key="ShowStatusLine"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History&gt;&#x0A;&lt;historyRootNode&gt;&#x0A;&lt;infoNode&gt;=Planner_Project/\/Library\/Java\/JavaVirtualMachines\/jdk1.8.0_102.jdk\/Contents\/Home\/jre\/lib\/rt.jar&amp;lt;com.sun.org.apache.xalan.internal.xsltc.cmdline(Compile.class[Compile&lt;/infoNode&gt;&#x0A;&lt;infoNode&gt;=Planner_Project/src&amp;lt;{Reminder_Test1.java[Reminder_Test1&lt;/infoNode&gt;&#x0A;&lt;infoNode&gt;=Planner_Project/src&amp;lt;{Text_File_IO_Test.java[Text_File_IO_Test&lt;/infoNode&gt;&#x0A;&lt;/historyRootNode&gt;&#x0A;&lt;/History&gt;" key="History"/>
+		<section name="DialogBoundsSettings">
+			<item value="600" key="DIALOG_WIDTH"/>
+			<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText" key="DIALOG_FONT_NAME"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
+			<item value="150" key="DIALOG_X_ORIGIN"/>
+			<item value="58" key="DIALOG_Y_ORIGIN"/>
+		</section>
+	</section>
+</section>

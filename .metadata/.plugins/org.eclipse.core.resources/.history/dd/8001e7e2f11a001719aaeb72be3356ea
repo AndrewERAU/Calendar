@@ -1,0 +1,25 @@
+import java.io.*;
+public class System_Call 
+{
+	public static void main(String args[])
+	{
+		//build .txt file containing reminder message
+		//create .txt file containing cronjob using mail command
+		//insert cronjob into crontab using system service calls
+		String s = null;
+		try {
+			//Process p = Runtime.getRuntime().exec("mail -s \"Event Reminder\" pinto18.nd@gmail.com < reminder_message.txt| at now");
+			Process p = Runtime.getRuntime().exec("cat /Users/nicholasdipinto1/Desktop/reminder_message.txt | at 1053");
+
+			BufferedReader stdInput = new BufferedReader(new 
+	                InputStreamReader(p.getInputStream()));
+            System.out.println("Here is the standard output of the command:\n");
+           while ((s = stdInput.readLine()) != null) {
+               System.out.println(s);
+            }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+}

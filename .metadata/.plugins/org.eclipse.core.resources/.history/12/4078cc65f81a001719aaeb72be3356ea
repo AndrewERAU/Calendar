@@ -1,0 +1,26 @@
+import java.io.*;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class System_Call 
+{
+	public static void main(String args[]) throws IOException
+	{
+		String event_content = null;  //write out event info
+		String Filename = "reminder_message.txt";
+		PrintWriter pw = new PrintWriter(Filename);
+		Date reminderDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+		pw.print("");
+		pw.print(event_content);
+		try {
+			
+		  //Process p = Runtime.getRuntime().exec("mail -s \"Event Reminder\" pinto18.nd@gmail.com < reminder_message.txt| at now");
+			Process p = Runtime.getRuntime().exec("cat " + Filename + "| at " + dateFormat.format(reminderDate));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+}

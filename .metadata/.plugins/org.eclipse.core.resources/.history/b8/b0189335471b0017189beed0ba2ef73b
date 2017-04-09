@@ -1,0 +1,73 @@
+package reminder;
+
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Reminder
+{
+	// This class will handle sending events to server
+	private String eventTitle = null;
+	private String eventInfo = null;
+	private Integer alertTime = null;
+	
+	public Reminder()
+    {
+		eventTitle = "";
+		eventInfo = "";
+		alertTime = -1;
+        System.out.println("Reminder object was created.");
+	}
+	
+	
+	public String getTitle()
+    {
+        return this.eventTitle;
+	}
+    
+    public String getInfo()
+    {
+        return this.eventInfo;
+    }
+    
+    public Integer getAlert()
+    {
+        return this.alertTime;
+    }
+	
+	public void setTitle(String title)
+    {
+        this.eventTitle = title;
+	}
+    
+    public void setEventInfo(String info)
+    {
+        this.eventInfo = info;
+    }
+    
+    public void setAlert(Event event, Integer numDays, Integer numHours, Integer numMinutes) throws FileNotFoundException
+    {
+		final long MINUTE = 60000; // in milli-seconds.
+		final long HOUR = 60 * MINUTE; // in milli-seconds.
+		final long DAY = 24 * HOUR; // in milli-seconds
+		String event_content = null;  //write out event info
+		String Filename = "reminder_message.txt";
+		PrintWriter pw = new PrintWriter(Filename);
+		Date reminderDate = new Date(event.getEventStartTime().getTime() - (numDays * DAY + numHours * HOUR + numMinutes * MINUTE));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+		pw.print("");
+		pw.print(event_content);
+		try {
+          String command = "mail -s \"Event Reminder\" pinto18.nd@gmail.com < " + Filename + "| at " + dateFormat.format(reminderDate);
+		  //Process p = Runtime.getRuntime().exec(command);
+			Process p = Runtime.getRuntime().exec("cat " + Filename + "| at " + dateFormat.format(reminderDate));
+            System.out.println(command);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		pw.close();
+    }
+ 
+}
+
