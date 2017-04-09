@@ -75,26 +75,19 @@ public class Home_View {
     	
     	frame = new JFrame();
         frame.setTitle("Planner");
-        frame.setSize(1000, 590); // width, height    
+        frame.setSize(1000, 640); // width, height    
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // Show in middle of screen
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exits app instead of just closing window
         frame.getContentPane().setLayout(null);
         
-        
-        //panel = new JPanel();
-        //panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        //panel.setLayout(null);
-        
         calPanel = new JPanel();
-        calPanel.setLayout(new GridLayout(6,7,2,2)); // 6 rows, 7 cols, hgap = ?, vgap = ?
+        calPanel.setLayout(new GridLayout(7,7,2,2)); // 7 rows, 7 cols, hgap = 2, vgap = 2
         calPanel.setLocation(10, 55);
-        calPanel.setSize(700, 500);
+        calPanel.setSize(700, 550);
         
         topPanel = new JPanel();
         //topPanel.setLayout(new FlowLayout());
-        //topPanel.setLocation(10,10);
-        //topPanel.setSize(700, 120);
         //topPanel.setBackground(Color.RED);
         topPanel.setBounds(85,10, calPanel.getWidth() - 85 - 85, 35); // location(x,y) size(width,height)
         topPanel.setLayout( new BorderLayout() );
@@ -183,7 +176,7 @@ public class Home_View {
     private void addWhiteBoxesUnderWeekLabels() {
     	// INFO: The "white boxes" are buttons that represent days of the month
     	
-    	for (int i = 0; i < 35; i++) {
+    	for (int i = 0; i < 42; i++) {
         	JButton button = new JButton(Integer.toString(i));
         	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
             button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
@@ -363,9 +356,7 @@ JEditorPane label = new JEditorPane("text/html", "");
     	JLabel EventsBoxLabel = new JLabel("Today's Events:");
     	EventsBoxLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     	EventsBoxLabel.setFont(new Font("", Font.PLAIN, 16)); 
-    	rightPanel.add(EventsBoxLabel); // TODO: When I add this, the settings button above it gets shifted left
-    	
-    	
+    	rightPanel.add(EventsBoxLabel); // TODO: When I add this, the settings button above it gets shifted left 	
     	
     	rightPanel.add(scrollPane);
     }
