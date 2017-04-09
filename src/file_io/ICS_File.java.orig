@@ -63,6 +63,8 @@ public class ICS_File {
 //END:VCALENDAR
 		
 	}
+<<<<<<< HEAD
+=======
     */
    /*public void IcsImportTextFile(File importFile)  //pass a text file in as an argument to be converted into an ics file
     {
@@ -74,9 +76,13 @@ public class ICS_File {
         //if the program contains any invalid input or missing event fields, then raise exception which prompts user to enter the missing information
     }*/
 <<<<<<< HEAD
-=======
 // >>>>>>> 0d0c47e4956fb6d14947bb4532d110d2f2d8a58e - what is this, i think it should be deleted. TODO: delete it
->>>>>>> a5d9def6c5e657b9c7361809c4f469180a1de38f
+=======
+//<<<<<<< HEAD
+//=======
+// >>>>>>> 0d0c47e4956fb6d14947bb4532d110d2f2d8a58e - what is this, i think it should be deleted. TODO: delete it
+//>>>>>>> a5d9def6c5e657b9c7361809c4f469180a1de38f
+>>>>>>> e99c98f19716f903b0221ff60623c0926752701e
 	
 	private String eventTimeToIcsTime(String inTime) {
 		// expects a time in hh:mm:ss format. 24-hour time

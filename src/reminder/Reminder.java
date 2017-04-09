@@ -1,8 +1,10 @@
-package event;
+package reminder;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import event.Event;
 
 public class Reminder
 {
