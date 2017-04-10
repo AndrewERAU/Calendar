@@ -50,7 +50,7 @@ public class Time {
 	
 	public static String getCurrentDay(){
 		int day;
-		String dayString;
+		String dayString = "";
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		day = localDate.getDayOfMonth();
@@ -70,7 +70,7 @@ public class Time {
 			dayString = "Friday";
 		case 7:
 			dayString = "Saturday";
-			
+		}
 		return dayString;
 	}
 	
