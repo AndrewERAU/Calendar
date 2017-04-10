@@ -2,7 +2,9 @@ package time;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Time {
 
@@ -60,37 +62,41 @@ public class Time {
 		return output;
 	}
 	
-	public static String getCurrentDay(){
-		int day;
-		String dayString = "";
+	public static int getCurrentDay(){
+		//GET CURRENT DAY NUMBER
+		Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+		
+        int currentDay = localCalendar.get(Calendar.DATE);
+
+		return currentDay;
+	}
+	
+	public static int numberOfDaysInMonth (){
+		
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		day = localDate.getDayOfMonth();
+		int month =localDate.getMonthValue();
+		int numberOfDays = 0;
+		int year = localDate.getYear();
 		
-		switch (day){
-		case 1:
-			dayString = "Sunday";
-			break;
-		case 2:
-			dayString = "Monday";
-			break;
-		case 3:
-			dayString = "Tuesday";
-			break;
-		case 4:
-			dayString = "Wednesday";
-			break;
-		case 5:
-			dayString = "Thursday";
-			break;
-		case 6:
-			dayString = "Friday";
-			break;
-		case 7:
-			dayString = "Saturday";
-			break;
+		if((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)){
+			numberOfDays = 31;
+		} else if((month == 4) || (month == 6) || (month == 9) || (month == 11)){
+			numberOfDays = 30;
+		} else {
+			numberOfDays = 28;
+			if(year % 4 == 0){
+				numberOfDays = 29;
+			}
+			if(year % 100 == 0){
+				numberOfDays = 28;
+			}
+			if(year % 400 == 0){
+				numberOfDays = 29;
+			}
 		}
-		return dayString;
+		
+		return numberOfDays;
 	}
 	
 	
