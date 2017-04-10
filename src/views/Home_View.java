@@ -38,15 +38,17 @@ import java.awt.GridLayout;
 public class Home_View {
 
 	private JFrame frame;
-	//private JPanel panel;
 	private JPanel topPanel;
 	private JPanel rightPanel;
 	private JPanel calPanel;
 	private JButton addEventButton;
 	//private Display_Add_Event_Screen addEventWindow;
 	
-    final int LABEL_WIDTH = 25;
-    final int LABEL_HEIGHT = 10;
+    private final int LABEL_WIDTH = 25;
+    private final int LABEL_HEIGHT = 10;
+    
+    private final String THEME_BLUE = "#167ac6";
+    //private final String JFRAME_BACKGROUND = ;
 	
 	
 	public Home_View() {
@@ -85,6 +87,7 @@ public class Home_View {
         calPanel.setLayout(new GridLayout(7,7,2,2)); // 7 rows, 7 cols, hgap = 2, vgap = 2
         calPanel.setLocation(10, 55);
         calPanel.setSize(700, 550);
+        calPanel.setBackground(Color.decode(THEME_BLUE));
         
         topPanel = new JPanel();
         //topPanel.setLayout(new FlowLayout());
@@ -94,22 +97,13 @@ public class Home_View {
         
         rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel,BoxLayout.PAGE_AXIS)); //BoxLayout.PAGE_AXIS == top to bottom layout
-        //rightPanel.setLayout(new GridBagLayout());
         rightPanel.setLocation(calPanel.getX() + calPanel.getWidth() + 15, 10);
         rightPanel.setSize(frame.getWidth() - rightPanel.getX() - 10, frame.getHeight() - rightPanel.getY() - 30);
-        //rightPanel.setBackground(Color.RED);
-        
-        
-        calPanel.setBackground(Color.decode("#167ac6"));
+        //rightPanel.setBackground(Color.RED);              
         
         frame.add(calPanel);
         frame.add(topPanel);
-        frame.add(rightPanel);
-        
-        //panel.add(optionsPanel);
-        //panel.add(calPanel);
-      
-        //frame.add(panel);
+        frame.add(rightPanel);      
         
         //frame.getContentPane ().add (panel, BorderLayout.WEST);
         
@@ -134,13 +128,13 @@ public class Home_View {
         createNextPrvMonthButton(">",BorderLayout.EAST);
         
         // Adding elemennts to main calendar panel
-        createDayOfWeekLabel("Sunday",Color.decode("#167ac6"));
-        createDayOfWeekLabel("Monday",Color.decode("#167ac6"));
-        createDayOfWeekLabel("Tuesday",Color.decode("#167ac6"));
-        createDayOfWeekLabel("Wednesday",Color.decode("#167ac6"));
-        createDayOfWeekLabel("Thursday",Color.decode("#167ac6"));
-        createDayOfWeekLabel("Friday",Color.decode("#167ac6"));
-        createDayOfWeekLabel("Saturday",Color.decode("#167ac6"));
+        createDayOfWeekLabel("Sunday",Color.decode(THEME_BLUE));
+        createDayOfWeekLabel("Monday",Color.decode(THEME_BLUE));
+        createDayOfWeekLabel("Tuesday",Color.decode(THEME_BLUE));
+        createDayOfWeekLabel("Wednesday",Color.decode(THEME_BLUE));
+        createDayOfWeekLabel("Thursday",Color.decode(THEME_BLUE));
+        createDayOfWeekLabel("Friday",Color.decode(THEME_BLUE));
+        createDayOfWeekLabel("Saturday",Color.decode(THEME_BLUE));
               
         addWhiteBoxesUnderWeekLabels();
         
@@ -276,9 +270,9 @@ public class Home_View {
         button.setPreferredSize(new Dimension(width, height));
         button.setMaximumSize(new Dimension(width, height));
         button.setForeground(Color.WHITE); // text color
-        button.setBackground(Color.decode("#167ac6")); // TODO: replace this hex number everywhere with a const str called blueColor
+        button.setBackground(Color.decode(THEME_BLUE));
         button.setOpaque(true); // without this the background color is not shown
-        button.setBorder( new LineBorder(Color.decode("#167ac6"),2,false)); // color, thickness, rounded corners
+        button.setBorder( new LineBorder(Color.decode(THEME_BLUE),2,false)); // color, thickness, rounded corners
         
         // Got this from SO, but it looks like there is a better way (see comments on accepted answer)
         // http://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton
