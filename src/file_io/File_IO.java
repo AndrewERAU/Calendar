@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class File_IO
 {
+	//TODO: Delete this file.  See issue 
+	/*
     private Scanner scanner;
     
     public void IcsImportTextFile(String importFileName) throws IOException //pass a text file in as an argument to be converted into an ics file
@@ -114,5 +116,5 @@ public class File_IO
             }
         }
     }
-    
+    */
 }
