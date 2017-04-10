@@ -17,9 +17,9 @@ public class Reminder_Test1
         System.out.println("Setting reminder info");
         test_reminder.setTitle("Reminder Test Case #1");
         startTime1 = System.currentTimeMillis() / 1000;
-        test_reminder.setFirstAlert(60);
+        test_reminder.setAlert(60);
         startTime2 = System.currentTimeMillis() / 1000;
-        test_reminder.setSecondAlert(65);
+        test_reminder.setAlert(65);
         expectedEndTime1 = startTime1 + 60;
         expectedEndTime2 = startTime2 + 65;
         System.out.print("Reminder 1 is set to alert at: ");
