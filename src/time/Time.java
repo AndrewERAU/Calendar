@@ -5,11 +5,12 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class Time {
-	int year; 
-	int month; 
+
 	
 	
-	public String getMonthYear(){
+	public static String getMonthYear(){
+		int year; 
+		int month; 
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		year = localDate.getYear();
