@@ -145,8 +145,6 @@ public class Home_View {
         rightPanel.add(Box.createRigidArea(new Dimension(0,10))); // add space
         addEventsTodayScrollBox();
         
-        
-        
         frame.setVisible(true);
     }
     
@@ -156,7 +154,6 @@ public class Home_View {
         
         inLabel.setFont(new Font("", Font.PLAIN, 16));
         
-      //sundayLabel.setSize(new Dimension(50,50));
         inLabel.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         inLabel.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         inLabel.setMaximumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
@@ -170,7 +167,7 @@ public class Home_View {
     private void addWhiteBoxesUnderWeekLabels() {
     	// INFO: The "white boxes" are buttons that represent days of the month
     	
-    	for (int i = 0; i < 42; i++) {
+    	for (int i = 1; i < 43; i++) {
         	JButton button = new JButton(Integer.toString(i));
         	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
             button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
@@ -204,7 +201,6 @@ public class Home_View {
         	
         	calPanel.add(button);
     	}
-
     }
     
     private void createNextPrvMonthButton(String buttonText, String position) {
@@ -215,7 +211,6 @@ public class Home_View {
         
         button.setFont(new Font("", Font.PLAIN, 16));
         
-        //button.setSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setMinimumSize(new Dimension(width, height));
         button.setPreferredSize(new Dimension(width, height));
         button.setMaximumSize(new Dimension(width, height));
@@ -230,10 +225,6 @@ public class Home_View {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
             	button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-/*
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-            	button.setBorder( new LineBorder(Color.BLACK,2,false)); // color, thickness, rounded corners
-            }*/
         });
         
         topPanel.add(button, position);
@@ -246,14 +237,10 @@ public class Home_View {
     	
     	label.setFont(new Font("", Font.PLAIN, 24));
          
-        //sundayLabel.setSize(new Dimension(50,50));
         label.setMinimumSize(new Dimension(width, height));
         label.setPreferredSize(new Dimension(width, height));
         label.setMaximumSize(new Dimension(width, height));
-	    //label.setForeground(Color.white); // text color
-	    //label.setBackground(bg);
-	    // label.setOpaque(true); // without this the background color is not shown
-        
+	    label.setForeground(Color.BLACK); // text color
 		
     	topPanel.add(label,BorderLayout.CENTER);
     }
@@ -265,7 +252,6 @@ public class Home_View {
     	
         button.setFont(new Font("", Font.PLAIN, 16));
         
-        //button.setSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setMinimumSize(new Dimension(width, height));
         button.setPreferredSize(new Dimension(width, height));
         button.setMaximumSize(new Dimension(width, height));
@@ -280,12 +266,7 @@ public class Home_View {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
             	button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
-/*
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-            	button.setBorder( new LineBorder(Color.BLACK,2,false)); // color, thickness, rounded corners
-            }*/
-        });
-        
+        });      
         
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         rightPanel.add(button);  	
@@ -294,7 +275,7 @@ public class Home_View {
     private void addUpcommingRemindersScrollBox() {
     	// Thanks for help with JTextArea SO (switched to JEditorPane tho)
     	// http://stackoverflow.com/questions/10213100/jscrollpane-words-wrap
-JEditorPane label = new JEditorPane("text/html", "");
+    	JEditorPane label = new JEditorPane("text/html", "");
     	
     	label.setText("<b>Monday, April 6 - 5:30pm:<br></b>Time to workout!<br>"
     			+ "<br><b>Thursday, April 25 - 10:00am<br></b>Get some homework done.<br>");
@@ -322,9 +303,9 @@ JEditorPane label = new JEditorPane("text/html", "");
 	    //label.setBackground(bg);
 	    //label.setOpaque(true); // without this the background color is not shown
     	
-    	ReminderBoxLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	ReminderBoxLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Everything in BoxLayout must be aligned in the same position.
     	ReminderBoxLabel.setFont(new Font("", Font.PLAIN, 16));   
-    	rightPanel.add(ReminderBoxLabel); // TODO: When I add this, the settings button above it gets shifted left
+    	rightPanel.add(ReminderBoxLabel);
     	
     	rightPanel.add(scrollPane);
     }
