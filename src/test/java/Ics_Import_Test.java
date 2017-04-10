@@ -2,31 +2,36 @@
 //Import ICS File Test
 //Test driver to test import ics files from text files
 
-package file_io;
+package test.java;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.junit.Test;
+
 import event.Event;
 
-public class ICS_File_Tester
+public class Ics_Import_Test
 {
-    System.out.println("Starting ics file import test");
-    System.out.println("Creating text file with event content");
-    //create a new text file containing the following information:
-    //Event Title: My Event
-    //Event Information: I have a new event
-    //Start Date: 2017-03-08
-    //End Date: 2017-03-08
-    //Start Time: 03:00:00
-    //End Time: 04:00:00
-    //close the file
-    System.out.println("Closing file");
+	private void createFile() {
+	    System.out.println("Starting ics file import test");
+	    System.out.println("Creating text file with event content");
+	    //create a new text file containing the following information:
+	    //Event Title: My Event
+	    //Event Information: I have a new event
+	    //Start Date: 2017-03-08
+	    //End Date: 2017-03-08
+	    //Start Time: 03:00:00
+	    //End Time: 04:00:00
+	    //close the file
+	    System.out.println("Closing file");
+	}
     
     @Test
     public void test()
     {
+    	createFile();
         System.out.println("Begin reading file");
         //call assert to validate that ics file does not exist yet
         //start timer to measure time to read file

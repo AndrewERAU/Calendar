@@ -1,4 +1,4 @@
-package reminder;
+package test.java;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
