@@ -1,4 +1,4 @@
-package test.java;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -24,18 +24,16 @@ public class Ics_Export_Test {
 			"");
 
 	@Test
-	public void test() {/*
+	public void test() {
 		// TODO: This will fail if ./tmp does not exist
 		ICS_File icsFile = new ICS_File(filePath,event);
 		File file = new File(filePath);
 		file.delete();
 		assertTrue(!file.isFile()); // should be no file to begin with
-		// TODO: update. uncomment following line (all lines) when export method fixed
-		//icsFile.IcsExport(); // creates the ics file
+		icsFile.IcsExport(); // creates the ics file
 		assertTrue(file.isFile()); // file should exist now
 		// TODO: Should validate that file is in correct .ics format
-		file.delete();*/
-		assertEquals(1,1); // remove this when the rest is working
+		file.delete();
 	}
 
 }
