@@ -48,5 +48,31 @@ public class Time {
 		return output;
 	}
 	
+	public static String getCurrentDay(){
+		int day;
+		String dayString;
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		day = localDate.getDayOfMonth();
+		
+		switch (day){
+		case 1:
+			dayString = "Sunday";
+		case 2:
+			dayString = "Monday";
+		case 3:
+			dayString = "Tuesday";
+		case 4:
+			dayString = "Wednesday";
+		case 5:
+			dayString = "Thursday";
+		case 6:
+			dayString = "Friday";
+		case 7:
+			dayString = "Saturday";
+			
+		return dayString;
+	}
+	
 	
 }
