@@ -62,6 +62,7 @@ public class Time {
 		return output;
 	}
 	
+	
 	public static int getCurrentDay(){
 		//GET CURRENT DAY NUMBER
 		Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
@@ -69,6 +70,41 @@ public class Time {
         int currentDay = localCalendar.get(Calendar.DATE);
 
 		return currentDay;
+	}
+	
+	
+	public static String getFirstDay(){
+		
+		int day;
+		String dayString = "";
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		day = localDate.getDayOfMonth();
+		
+		switch (day){
+		case 1:
+			dayString = "Sunday";
+			break;
+		case 2:
+			dayString = "Monday";
+			break;
+		case 3:
+			dayString = "Tuesday";
+			break;
+		case 4:
+			dayString = "Wednesday";
+			break;
+		case 5:
+			dayString = "Thursday";
+			break;
+		case 6:
+			dayString = "Friday";
+			break;
+		case 7:
+			dayString = "Saturday";
+			break;
+		}
+		return dayString;
 	}
 	
 	public static int numberOfDaysInMonth (){
