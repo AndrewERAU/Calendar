@@ -34,6 +34,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
+import time.*;
+
 
 public class Home_View {
 
@@ -74,6 +76,7 @@ public class Home_View {
     	//Calendar_View cal = new Calendar_View();
     	// TODO: Remove calendar code in other file
     	
+    	displayRemindersForNext7Days();
     	
     	frame = new JFrame();
         frame.setTitle("Planner");
@@ -166,41 +169,85 @@ public class Home_View {
     
     private void addWhiteBoxesUnderWeekLabels() {
     	// INFO: The "white boxes" are buttons that represent days of the month
+    	String firstDay = "Sunday";
+    	int numberOfDaysInMonth = 30; //
+    	int initialDrawingPosition = 1;
+    	// firstDay = getFirstDayOfMonth(); // Kolten
+    	if (firstDay == "Sunday") {
+    		initialDrawingPosition = 1;
+    	} else if (firstDay == "Monday") {
+    		initialDrawingPosition = 1;
+    	} else if (firstDay == "Tuesday") {
+    		initialDrawingPosition = 2;
+    	} else if (firstDay == "Wednesday") {
+    		initialDrawingPosition = 3;
+    	} else if (firstDay == "Thursday") {
+    		initialDrawingPosition = 4;
+    	} else if (firstDay == "Friday") {
+    		initialDrawingPosition = 5;
+    	} else if (firstDay == "Saturday") {
+    		initialDrawingPosition = 6;
+    	} else { // error
+    		// This should never happen.  TODO: remove when working
+    	}
     	
     	for (int i = 1; i < 43; i++) {
-        	JButton button = new JButton(Integer.toString(i));
-        	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
-            button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
-            button.setMaximumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
-            button.setBorder( new LineBorder(Color.white) );
-            button.setBackground(Color.WHITE);
-            button.setOpaque(true); // without this the background color is not shown
             
-            // Perform action when button is pressed
-            button.addActionListener(new ActionListener()
-            {
-              public void actionPerformed(ActionEvent e)
-              {
-                // display new add event window
-            	  new Add_Event_View();
-              }
-            });
-            
-            // Got this from SO, but it looks like there is a better way (see comments on accepted answer)
-            // http://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton
-            button.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    button.setBorder( new LineBorder(Color.BLUE,2,false)); // color, thickness, rounded corners
-                	button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                }
-
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                	button.setBorder( new LineBorder(Color.white));
-                }
-            });
-        	
-        	calPanel.add(button);
+            if (i >= initialDrawingPosition && i <= initialDrawingPosition + numberOfDaysInMonth) {
+            	drawBox(i);
+            } else {
+            	drawBlankBox();
+            }
     	}
+    }
+    
+    private void drawBox(int i) {
+    	JButton button = new JButton(Integer.toString(i));
+    	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        button.setMaximumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        button.setBorder( new LineBorder(Color.white) );
+        button.setBackground(Color.WHITE);
+        button.setOpaque(true); // without this the background color is not shown
+        
+    	// Perform action when button is pressed
+        button.addActionListener(new ActionListener()
+        {
+          public void actionPerformed(ActionEvent e)
+          {
+            // display new add event window
+        	  new Add_Event_View();
+          }
+        });
+        
+        // Got this from SO, but it looks like there is a better way (see comments on accepted answer)
+        // http://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBorder( new LineBorder(Color.BLUE,2,false)); // color, thickness, rounded corners
+            	button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+            	button.setBorder( new LineBorder(Color.white));
+            }
+        });
+    	
+    	calPanel.add(button);
+    }
+    
+    private void drawBlankBox() {
+    	JButton button = new JButton();
+    	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        button.setMaximumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        button.setBorder( new LineBorder(Color.decode(THEME_BLUE)) );
+        button.setBackground(Color.decode(THEME_BLUE));
+        //button.setBorder( new LineBorder(Color.GRAY) );
+        //button.setBackground(Color.GRAY);
+        button.setOpaque(true); // without this the background color is not shown
+        
+    	calPanel.add(button);
     }
     
     private void createNextPrvMonthButton(String buttonText, String position) {
@@ -233,7 +280,9 @@ public class Home_View {
     private void addMonthYearLabel() {
     	final int width = 30;
     	final int height = 50;
-    	JLabel label = new JLabel("April, 2017",SwingConstants.CENTER);
+    	
+    	//getMonthYear() returns the current month and year as a string like "April, 2017"
+    	JLabel label = new JLabel(Time.getMonthYear(),SwingConstants.CENTER);
     	
     	label.setFont(new Font("", Font.PLAIN, 24));
          
@@ -336,6 +385,10 @@ public class Home_View {
     	rightPanel.add(scrollPane);
     }
 
-    
+    public void displayRemindersForNext7Days() {
+    	String reminders = "";
+    	
+    	
+    }
 
 }
