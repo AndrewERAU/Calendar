@@ -126,8 +126,8 @@ public class Time {
 	public static String incrementDate(String currentDate_Str){
 		
 		int year = Integer.parseInt(currentDate_Str.substring(0, 4));
-		int month = Integer.parseInt(currentDate_Str.substring(5, 2));
-		int day = Integer.parseInt(currentDate_Str.substring(8, 2));
+		int month = Integer.parseInt(currentDate_Str.substring(5, 7));
+		int day = Integer.parseInt(currentDate_Str.substring(8, 10));
 		int numberOfDaysInMonth = numberOfDaysInMonth();
 		int adjustedYear = year;
 		int adjustedMonth = month;
@@ -144,7 +144,15 @@ public class Time {
 			}
 		}
 		
-		output = Integer.toString(adjustedYear) + "-" + Integer.toString(adjustedMonth) + "-" + Integer.toString(adjustedDay);
+		if((adjustedMonth < 10) && (adjustedDay < 10)){
+			output = Integer.toString(adjustedYear) + "-0" + Integer.toString(adjustedMonth) + "-0" + Integer.toString(adjustedDay);
+		} else if(adjustedMonth < 10){
+			output = Integer.toString(adjustedYear) + "-0" + Integer.toString(adjustedMonth) + "-" + Integer.toString(adjustedDay);
+		} else if(adjustedDay < 10){
+			output = Integer.toString(adjustedYear) + "-" + Integer.toString(adjustedMonth) + "-0" + Integer.toString(adjustedDay);
+		} else {
+			output = Integer.toString(adjustedYear) + "-" + Integer.toString(adjustedMonth) + "-" + Integer.toString(adjustedDay);
+		}
 		
 		return output;
 	}
