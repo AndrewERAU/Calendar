@@ -170,8 +170,7 @@ public class Home_View {
     private void addWhiteBoxesUnderWeekLabels() {
     	// INFO: The "white boxes" are buttons that represent days of the month
     	int initialDrawingPosition =  Time.getFirstDay();
-    	System.out.println(initialDrawingPosition);
-    	int numberOfDaysInMonth = 30;
+    	int numberOfDaysInMonth = Time.numberOfDaysInMonth();
     	int currentDay = 1;
 /*
     	if (firstDay == "Sunday") {

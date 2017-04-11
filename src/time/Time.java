@@ -84,13 +84,16 @@ public class Time {
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		
-		
-		day = ((localDate.getDayOfWeek().getValue() - dayDifference) % 7) + 1;
+		day = localDate.getDayOfWeek().getValue() - dayDifference;
+		while(day < 0){
+			day = day + 7;
+		}
+		day = day + 1;
 		
 		return day;
 	}
 	
-	public static int numberOfDaysInMonth (){
+	public static int numberOfDaysInMonth(){
 		
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
