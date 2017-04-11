@@ -8,6 +8,7 @@ import event.Event;
 
 public class Reminder
 {
+	// TODO: rename this to SendReminderToServer
 	// This class will handle sending events to server
 	private Date alertTime = null;
 	
@@ -27,15 +28,18 @@ public class Reminder
 		final long MINUTE = 60000; // in milli-seconds.
 		final long HOUR = 60 * MINUTE; // in milli-seconds.
 		final long DAY = 24 * HOUR; // in milli-seconds
-		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm yyyy-M-d");
 		String event_content = "Event: " + event.getEventTitle() +
 							 "\nInfo: " + event.getEventDescription() +
 							 "\nLocation: " + event.getEventLocation() +
-							 "\nStart Time: " + dateFormat.format(event.getEventStartTime()) +
-							 "\nEnd Time: " + dateFormat.format(event.getEventEndTime());  //write out event info
+							 "\nStart Time: " + dateFormat.format(event.getEventStartDateTime()) +
+							 "\nEnd Time: " + dateFormat.format(event.getEventEndDateTime());  //write out event info
 		String Filename = "reminder_message.txt";
 		PrintWriter pw = new PrintWriter(Filename);
-		this.alertTime = new Date(event.getEventStartTime().getTime() - (numDays * DAY) - (numHours * HOUR) - (numMinutes * MINUTE));
+		// TODO: Add method to Event class to return date as Date type instead of String
+		// Then uncomment the next line
+		this.alertTime = new Date(event.getEventStartDateTime().getTime() - (numDays * DAY) - (numHours * HOUR) - (numMinutes * MINUTE));
 		pw.print("");
 		pw.print(event_content);
 		try {
