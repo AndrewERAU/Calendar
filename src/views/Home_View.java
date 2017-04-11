@@ -169,32 +169,35 @@ public class Home_View {
     
     private void addWhiteBoxesUnderWeekLabels() {
     	// INFO: The "white boxes" are buttons that represent days of the month
-    	String firstDay = "Sunday";
-    	int numberOfDaysInMonth = 30; //
-    	int initialDrawingPosition = 1;
-    	// firstDay = getFirstDayOfMonth(); // Kolten
+    	int initialDrawingPosition =  Time.getFirstDay();
+    	System.out.println(initialDrawingPosition);
+    	int numberOfDaysInMonth = 30;
+    	int currentDay = 1;
+/*
     	if (firstDay == "Sunday") {
     		initialDrawingPosition = 1;
     	} else if (firstDay == "Monday") {
-    		initialDrawingPosition = 1;
-    	} else if (firstDay == "Tuesday") {
     		initialDrawingPosition = 2;
-    	} else if (firstDay == "Wednesday") {
+    	} else if (firstDay == "Tuesday") {
     		initialDrawingPosition = 3;
-    	} else if (firstDay == "Thursday") {
+    	} else if (firstDay == "Wednesday") {
     		initialDrawingPosition = 4;
-    	} else if (firstDay == "Friday") {
+    	} else if (firstDay == "Thursday") {
     		initialDrawingPosition = 5;
-    	} else if (firstDay == "Saturday") {
+    	} else if (firstDay == "Friday") {
     		initialDrawingPosition = 6;
+    	} else if (firstDay == "Saturday") {
+    		initialDrawingPosition = 7;
     	} else { // error
     		// This should never happen.  TODO: remove when working
-    	}
+    	}*/
     	
     	for (int i = 1; i < 43; i++) {
             
-            if (i >= initialDrawingPosition && i <= initialDrawingPosition + numberOfDaysInMonth) {
-            	drawBox(i);
+            if (i >= initialDrawingPosition && i < initialDrawingPosition + numberOfDaysInMonth) {
+            	
+            	drawBox(currentDay);
+            	currentDay++;
             } else {
             	drawBlankBox();
             }
@@ -206,8 +209,17 @@ public class Home_View {
     	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setMaximumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
-        button.setBorder( new LineBorder(Color.white) );
-        button.setBackground(Color.WHITE);
+       
+        int today = Time.getCurrentDay();
+        if (i == today) {
+        	String bluecolor = "#a1c4fc";
+            button.setBackground(Color.decode(bluecolor));
+            button.setBorder( new LineBorder(Color.decode(bluecolor)) );
+        } else {
+            button.setBackground(Color.WHITE);
+            button.setBorder( new LineBorder(Color.white) );
+        }
+
         button.setOpaque(true); // without this the background color is not shown
         
     	// Perform action when button is pressed
