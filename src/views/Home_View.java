@@ -172,25 +172,8 @@ public class Home_View {
     	int initialDrawingPosition =  Time.getFirstDay();
     	int numberOfDaysInMonth = Time.numberOfDaysInMonth();
     	int currentDay = 1;
-/*
-    	if (firstDay == "Sunday") {
-    		initialDrawingPosition = 1;
-    	} else if (firstDay == "Monday") {
-    		initialDrawingPosition = 2;
-    	} else if (firstDay == "Tuesday") {
-    		initialDrawingPosition = 3;
-    	} else if (firstDay == "Wednesday") {
-    		initialDrawingPosition = 4;
-    	} else if (firstDay == "Thursday") {
-    		initialDrawingPosition = 5;
-    	} else if (firstDay == "Friday") {
-    		initialDrawingPosition = 6;
-    	} else if (firstDay == "Saturday") {
-    		initialDrawingPosition = 7;
-    	} else { // error
-    		// This should never happen.  TODO: remove when working
-    	}*/
     	
+    	//Make 43 a constant. We draw 42 boxes because we need up to six rows for the calendar, and 6*7=42
     	for (int i = 1; i < 43; i++) {
             
             if (i >= initialDrawingPosition && i < initialDrawingPosition + numberOfDaysInMonth) {
