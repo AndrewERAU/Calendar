@@ -1,5 +1,6 @@
 package time;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -65,11 +66,12 @@ public class Time {
 	
 	public static int getCurrentDay(){
 		//GET CURRENT DAY NUMBER
-		Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+		int day;
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		day = localDate.getDayOfMonth();
 		
-        int currentDay = localCalendar.get(Calendar.DATE);
-
-		return currentDay;
+		return day;
 	}
 	
 	
@@ -78,7 +80,7 @@ public class Time {
 		int day;
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		day = localDate.getDayOfMonth();
+		day = ((localDate.getDayOfWeek().getValue()) % 7) + 1;
 		
 		return day;
 	}
