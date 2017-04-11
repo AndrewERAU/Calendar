@@ -98,8 +98,9 @@ public class Time {
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		int month =localDate.getMonthValue();
-		int numberOfDays = 0;
 		int year = localDate.getYear();
+		
+		int numberOfDays = 0;
 		
 		if((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)){
 			numberOfDays = 31;
@@ -121,5 +122,31 @@ public class Time {
 		return numberOfDays;
 	}
 	
+	
+	public static String incrementDate(String currentDate_Str){
+		
+		int year = Integer.parseInt(currentDate_Str.substring(0, 4));
+		int month = Integer.parseInt(currentDate_Str.substring(5, 2));
+		int day = Integer.parseInt(currentDate_Str.substring(8, 2));
+		int numberOfDaysInMonth = numberOfDaysInMonth();
+		int adjustedYear = year;
+		int adjustedMonth = month;
+		int adjustedDay = day;
+		String output = "";
+		
+		adjustedDay = adjustedDay + 7;
+		if(adjustedDay > numberOfDaysInMonth){
+			adjustedDay = adjustedDay - numberOfDaysInMonth;
+			adjustedMonth = adjustedMonth + 1;
+			if(adjustedMonth > 12){
+				adjustedMonth = 1;
+				adjustedYear = adjustedYear + 1;
+			}
+		}
+		
+		output = Integer.toString(adjustedYear) + "-" + Integer.toString(adjustedMonth) + "-" + Integer.toString(adjustedDay);
+		
+		return output;
+	}
 	
 }
