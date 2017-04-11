@@ -78,9 +78,14 @@ public class Time {
 	public static int getFirstDay(){
 		
 		int day;
+		int dayNumber = getCurrentDay();
+		int dayDifference = dayNumber - 1;
+		
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		day = ((localDate.getDayOfWeek().getValue()) % 7) + 1;
+		
+		
+		day = ((localDate.getDayOfWeek().getValue() - dayDifference) % 7) + 1;
 		
 		return day;
 	}
