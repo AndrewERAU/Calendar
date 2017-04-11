@@ -21,6 +21,8 @@ public class Sql_Injection_Test {
 			"", // eventInvitees
 			"Work", // eventTag
 			"",
+			"",
+			"",
 			"");
 
 	@Test
@@ -31,7 +33,7 @@ public class Sql_Injection_Test {
 		assertEquals(db.retrieveEvents('A',"").size(),0);
 		db.insertEvent(event);
 		assertEquals(db.retrieveEvents('A',"").size(),1);
-		event.setEventReminder2("2017-02-28 11:30:00');" + sqlInjection + "--");
+		event.setEventReminder2Time("'11:30:00');" + sqlInjection + "--");
 		db.insertEvent(event); // insertion should fail
 		assertEquals(db.retrieveEvents('A',"").size(),1); 
 	}

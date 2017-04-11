@@ -19,6 +19,8 @@ public class Update_Event_Test {
 			"", // eventInvitees
 			"Work", // eventTag
 			"",
+			"",
+			"",
 			"");
 	
 	@Test

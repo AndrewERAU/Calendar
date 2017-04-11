@@ -10,7 +10,7 @@ import database.DatabaseMgr;
 import event.Event;
 
 public class Remove_Event_Test {
-	Event testEvent = new Event("Meeting","NULL","2017-02-28","NULL","NULL","NULL","NULL","NULL","NULL","NULL");
+	Event testEvent = new Event("Meeting","NULL","2017-02-28","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL");
 	
 	@Test
 	public void test() {

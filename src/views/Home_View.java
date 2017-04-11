@@ -9,6 +9,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager; // to set look and feel
 import javax.swing.border.LineBorder;
 
+import database.DatabaseMgr;
+import reminder.ReminderObj;
 import views.Add_Event_View;
 import views.Event_View;
 
@@ -22,6 +24,7 @@ import javax.swing.JEditorPane;
 //import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -75,8 +78,6 @@ public class Home_View {
     	
     	//Calendar_View cal = new Calendar_View();
     	// TODO: Remove calendar code in other file
-    	
-    	displayRemindersForNext7Days();
     	
     	frame = new JFrame();
         frame.setTitle("Planner");
@@ -144,7 +145,7 @@ public class Home_View {
         // Adding elements to right panel
         addSettingsButton();
         rightPanel.add(Box.createRigidArea(new Dimension(0,10))); // add space
-        addUpcommingRemindersScrollBox();
+       	displayRemindersForNext7Days(); // displays this addUpcommingRemindersScrollBox();
         rightPanel.add(Box.createRigidArea(new Dimension(0,10))); // add space
         addEventsTodayScrollBox();
         
@@ -315,13 +316,14 @@ public class Home_View {
         rightPanel.add(button);  	
     }
     
-    private void addUpcommingRemindersScrollBox() {
+    private void addUpcommingRemindersScrollBox(String reminderText) {
     	// Thanks for help with JTextArea SO (switched to JEditorPane tho)
     	// http://stackoverflow.com/questions/10213100/jscrollpane-words-wrap
     	JEditorPane label = new JEditorPane("text/html", "");
     	
-    	label.setText("<b>Monday, April 6 - 5:30pm:<br></b>Time to workout!<br>"
-    			+ "<br><b>Thursday, April 25 - 10:00am<br></b>Get some homework done.<br>");
+    	//label.setText("<b>Monday, April 6 - 5:30pm:<br></b>Time to workout!<br>"
+    		//	+ "<br><b>Thursday, April 25 - 10:00am<br></b>Get some homework done.<br>");
+    	label.setText(reminderText);
         // make it look & act like a label
     	//label.setWrapStyleWord(true);
     	//label.setLineWrap(true);
@@ -333,6 +335,7 @@ public class Home_View {
     	JScrollPane scrollPane = new JScrollPane(label,
     			JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    	
     	
     	// Label
     	JLabel ReminderBoxLabel = new JLabel("Upcomming Reminders:",SwingConstants.CENTER);
@@ -349,6 +352,11 @@ public class Home_View {
     	ReminderBoxLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Everything in BoxLayout must be aligned in the same position.
     	ReminderBoxLabel.setFont(new Font("", Font.PLAIN, 16));   
     	rightPanel.add(ReminderBoxLabel);
+    	
+    	// Prevent scrollbox from changing size - see issue 34 - https://github.com/AndrewERAU/Calendar/issues/34
+    	scrollPane.setMinimumSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()/3 + 45));
+    	scrollPane.setMaximumSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()/3 + 45));
+    	scrollPane.setPreferredSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()/3 + 45));
     	
     	rightPanel.add(scrollPane);
     }
@@ -376,13 +384,48 @@ public class Home_View {
     	EventsBoxLabel.setFont(new Font("", Font.PLAIN, 16)); 
     	rightPanel.add(EventsBoxLabel); // TODO: When I add this, the settings button above it gets shifted left 	
     	
+    	// Prevent scrollbox from changing size - see issue 34 - https://github.com/AndrewERAU/Calendar/issues/34
+    	scrollPane.setMinimumSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()/3 + 45));
+    	scrollPane.setMaximumSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()/3 + 45));
+    	scrollPane.setPreferredSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()/3 + 45));
+    	
     	rightPanel.add(scrollPane);
     }
 
     public void displayRemindersForNext7Days() {
     	String reminders = "";
     	
+    	DatabaseMgr db = new DatabaseMgr();
+    	List<ReminderObj> reminderList = db.retrieveReminders(Time.getCurrentDayInSqlFormat());
     	
+    	// These are for debugging.  Remove
+    	
+    	reminderList.add(new ReminderObj("2017-4-11","3:30","my Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
+    	
+    	for (ReminderObj reminder : reminderList) {
+    		reminders+= formatReminder(reminder);
+    	}
+    	
+    	addUpcommingRemindersScrollBox(reminders);
+    }
+    
+    private String formatReminder(ReminderObj r) {
+    	//String outStr = null;
+    	
+    	return ("<b>"+r.getReminderDayOfWeek()+", "+r.getReminderMonth()+" "+r.getReminderDay()+" - "+r.getReminderTime()+":<br></b>"+r.getReminderEventTitle()+"<br><br>");
+    	//<b>Monday, April 6 - 5:30pm:<br></b>Time to workout!<br>"
+    			//+ "<br><b>Thursday, April 25 - 10:00am<br></b>Get some homework done.<br>");
+    	
+    	//return outStr;
     }
 
 }
