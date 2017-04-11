@@ -73,38 +73,14 @@ public class Time {
 	}
 	
 	
-	public static String getFirstDay(){
+	public static int getFirstDay(){
 		
 		int day;
-		String dayString = "";
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		day = localDate.getDayOfMonth();
 		
-		switch (day){
-		case 1:
-			dayString = "Sunday";
-			break;
-		case 2:
-			dayString = "Monday";
-			break;
-		case 3:
-			dayString = "Tuesday";
-			break;
-		case 4:
-			dayString = "Wednesday";
-			break;
-		case 5:
-			dayString = "Thursday";
-			break;
-		case 6:
-			dayString = "Friday";
-			break;
-		case 7:
-			dayString = "Saturday";
-			break;
-		}
-		return dayString;
+		return day;
 	}
 	
 	public static int numberOfDaysInMonth (){
