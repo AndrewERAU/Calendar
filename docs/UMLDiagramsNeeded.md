@@ -1,7 +1,7 @@
 #### Single Page Block Diagram - needs to be refined based on feedback from design walkthrough
 ## Structural (3)
 * Class diagram - needs to be refined based on feedback from design walkthrough
-* Use case diagram - - needs to be refined based on feedback from design walkthrough
+* Nick: Use case diagram - - needs to be refined based on feedback from design walkthrough
 
 ## Behavorial (3)
 * `Add Event` Interaction sequence diagram - needs to be refined based on feedback from design walkthrough
@@ -16,14 +16,15 @@
 # New Diagrams
 
 ## New Behavorial
-* `Add Event` Activity diagram
-* `Delete Event` Activity diagram
-* `Modify Event` Interaction sequence diagram
-* `Delete Event` Interaction sequence diagram
+* Andrew: `Add Event` Activity diagram
+* Robert: `Delete Event` Activity diagram
+* Kolten: `Modify Event` Interaction sequence diagram
+* Robert: `Delete Event` Interaction sequence diagram
+* Kolten: State machine diagram
 
 ## New Structural
-* Package Diagram
-* Deployment Diagram
+* Andrew: Package Diagram
+* Andrew: Deployment Diagram
 * ? Object diagram
 * ? Component diagram
 * ? Profile diagram
