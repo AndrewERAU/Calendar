@@ -239,14 +239,17 @@ public class DatabaseMgr {
 	        if (affectedRows == 0) {
 	            throw new SQLException("Inserting Event failed.");
 	        }
-
-	        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+	        
+	        try {
+	        	ResultSet generatedKeys = stmt.getGeneratedKeys();
 	            if (generatedKeys.next()) {
 	                eventToAdd.setEventID(Long.toString(generatedKeys.getLong(1)));
 	            }
 	            else {
 	                throw new SQLException("Creating user failed, no ID obtained.");
 	            }
+	        } catch (Exception e) {
+	        	System.err.println(e);
 	        }
 		    
 		    stmt.close();
