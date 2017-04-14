@@ -180,13 +180,9 @@ public class DatabaseMgr {
 		    
 			stmt = c.prepareStatement(sql,
 	                Statement.RETURN_GENERATED_KEYS);
-			//System.out.println(sql); // debug remove
 
 		    try {
 		    	 if (  !"".equals(eventToAdd.getEventTitle()) && !"NULL".equals(eventToAdd.getEventTitle()) ) {
-				    	//sql += eventToAdd.getEventTitle(); 
-		    		 //System.out.print("Event title: ");
-		    		 //System.out.println(eventToAdd.getEventTitle());
 		    		 stmt.setString(1, eventToAdd.getEventTitle());
 				    } else { // title cannot be null
 				    	throw new Exception(); // TODO: throw different exception type?
@@ -197,12 +193,10 @@ public class DatabaseMgr {
 		    }
 		    
 		    if ( !"".equals(eventToAdd.getEventDescription()) && !"NULL".equals(eventToAdd.getEventDescription()) ) {
-		    	//sql += "," + eventToAdd.getEventDescription();
 		    	stmt.setString(2, eventToAdd.getEventDescription());
 		    }
 		    try {
 		    	 if ( !"".equals(eventToAdd.getEventDate()) && !"NULL".equals(eventToAdd.getEventDate())) {
-				    	//sql += "," + eventToAdd.getEventDate(); 
 		    		 stmt.setString(3,eventToAdd.getEventDate());
 				    } else { // date cannot be null
 				    	throw new Exception(); // TODO: throw different exception type?
@@ -213,48 +207,33 @@ public class DatabaseMgr {
 		    }
 		   
 		    if ( !"".equals(eventToAdd.getEventStartTime()) ) {
-		    	//sql += "," + eventToAdd.getEventStartTime();
 		    	stmt.setString(4,eventToAdd.getEventStartTime());
 		    }
 		    if ( !"".equals(eventToAdd.getEventEndTime()) ) {
-		    	//sql += "," + eventToAdd.getEventEndTime();
 		    	stmt.setString(5,eventToAdd.getEventEndTime());
 		    }
 		    if ( !"".equals(eventToAdd.getEventLocation()) ) {
-		    	//sql += "," + eventToAdd.getEventLocation();
 		    	stmt.setString(6,eventToAdd.getEventLocation());
 		    }
 		    if ( !"".equals(eventToAdd.getEventInvitees()) ) {
-		    	//sql += "," + eventToAdd.getEventInvitees();
 		    	stmt.setString(7,eventToAdd.getEventInvitees());
 		    }
 		    if ( !"".equals(eventToAdd.getEventTag()) ) {
-		    	//sql += "," + eventToAdd.getEventTag();
 		    	stmt.setString(8,eventToAdd.getEventTag());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder1Date()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder1();
 		    	stmt.setString(9,eventToAdd.getEventReminder1Date());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder1Time()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder2();
 		    	stmt.setString(10,eventToAdd.getEventReminder1Time());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder2Date()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder2();
 		    	stmt.setString(11,eventToAdd.getEventReminder2Date());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder2Time()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder2();
 		    	stmt.setString(12,eventToAdd.getEventReminder2Time());
 		    }
-		   
-		    
-		    //sql += ");";
-		    
-		    //System.out.println(sql); // for debugging - remove
-		   
-		    //stmt.executeUpdate(sql);
+		  
 		    affectedRows = stmt.executeUpdate();
 
 	        if (affectedRows == 0) {
@@ -269,8 +248,6 @@ public class DatabaseMgr {
 	                throw new SQLException("Creating user failed, no ID obtained.");
 	            }
 	        }
-		    
-		    //TODO: get event id from last statment inserted here
 		    
 		    stmt.close();
 		} catch( Exception e ) {
@@ -293,7 +270,7 @@ public class DatabaseMgr {
 		data2 = null;
 		String sqlWhereClause = "";
 
-		sqlWhereClause = " WHERE Reminder1Date >= '" + startDate + "' AND Reminder1DATE <= '" + Time.incrementDate(startDate) + "';";
+		sqlWhereClause = " WHERE Reminder1Date >= '" + startDate + "' AND Reminder1Date <= '" + Time.incrementDate(startDate) + "';";
 
 		try {
 			stmt = c.createStatement();	
@@ -305,8 +282,8 @@ public class DatabaseMgr {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		
-		
-		sqlWhereClause = " WHERE Reminder2Date >= '" + startDate + "' AND Reminder2DATE <= '" + Time.incrementDate(startDate) + "';";
+
+		sqlWhereClause = " WHERE Reminder2Date >= '" + startDate + "' AND Reminder2Date <= '" + Time.incrementDate(startDate) + "';";
 
 		try {
 			stmt = c.createStatement();
@@ -364,6 +341,7 @@ public class DatabaseMgr {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		
+		
 		return events;
 	}
 	
@@ -399,8 +377,8 @@ public class DatabaseMgr {
 		try {
 			while (data.next())
 			{		
-				events.add(new Event(data.getString(1),
-						data.getString(2),
+				
+				events.add(new Event(data.getString(2),
 						data.getString(3),
 						data.getString(4),
 						data.getString(5),
@@ -410,7 +388,8 @@ public class DatabaseMgr {
 						data.getString(9),
 						data.getString(10),
 						data.getString(11),
-						data.getString(12)));			
+						data.getString(12),
+						data.getString(13)));			
 			}
 			return events;
 		} catch (Exception e) {

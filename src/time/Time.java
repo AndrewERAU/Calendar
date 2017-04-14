@@ -221,6 +221,15 @@ public class Time {
 		return date.substring(index);
 	}
 	
+	public static String getYearFromString(String date) {
+		/*
+		 * Date is of format 2017-12-31, or 2017-4-2
+		 * This function gets all the text before the first dash, which is the year
+		 */
+	
+		return date.substring(0,date.indexOf('-'));
+	}
+	
 	public static String getWeekdayFromString(String date, boolean convertToWord) {
 		/*
 		 * Date is of format 2017-12-31, or 2017-4-2
@@ -351,8 +360,24 @@ public class Time {
 		int year = localDate.getYear();
 		int month =localDate.getMonthValue();
 		int day = localDate.getDayOfMonth();
+		String yearStr = Integer.toString(year);
+		String monthStr = null;
+		String dayStr = null;
 		
-		todayString = Integer.toString(year) + '-' + Integer.toString(month) + '-' + Integer.toString(day);
+		// Keep 2 digits in date format.  ex) 2017-04-09. NOT 2017-4-9
+		if (month < 10) {
+			monthStr = "0" + Integer.toString(month);
+		} else {
+			monthStr = Integer.toString(month);
+		}
+		
+		if (day < 10) {
+			dayStr = "0" + Integer.toString(day);
+		} else {
+			dayStr = Integer.toString(day);
+		}
+		
+		todayString = yearStr + '-' + monthStr + '-' + dayStr; // ex) 2017-11-24
 		
 		return todayString;
 	}

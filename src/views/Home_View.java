@@ -10,6 +10,7 @@ import javax.swing.UIManager; // to set look and feel
 import javax.swing.border.LineBorder;
 
 import database.DatabaseMgr;
+import event.Event;
 import reminder.ReminderObj;
 import views.Add_Event_View;
 import views.Event_View;
@@ -147,7 +148,7 @@ public class Home_View {
         rightPanel.add(Box.createRigidArea(new Dimension(0,10))); // add space
        	displayRemindersForNext7Days(); // displays this addUpcommingRemindersScrollBox();
         rightPanel.add(Box.createRigidArea(new Dimension(0,10))); // add space
-        addEventsTodayScrollBox();
+        displayEventsForToday();  //displays this addEventsTodayScrollBox();
         
         frame.setVisible(true);
     }
@@ -361,13 +362,14 @@ public class Home_View {
     	rightPanel.add(scrollPane);
     }
     
-    private void addEventsTodayScrollBox() {
+    private void addEventsTodayScrollBox(String events) {
     	// Thanks for help with JTextArea SO (switched to JEditorPane tho)
     	// http://stackoverflow.com/questions/10213100/jscrollpane-words-wrap
     	JEditorPane label = new JEditorPane("text/html", "");
     	
-    	label.setText("<b>Monday, April 6. 9:00am - 12:30pm:<br></b>Biology class<br>"
-    			+ "<br><b>Thursday, April 25. 5:00am - 7:00am:<br></b>Morning workout.<br>");        // make it look & act like a label
+    	//label.setText("<b>Monday, April 6. 9:00am - 12:30pm:<br></b>Biology class<br>"
+    	//		+ "<br><b>Thursday, April 25. 5:00am - 7:00am:<br></b>Morning workout.<br>");        // make it look & act like a label
+    	label.setText(events);
     	//label.setWrapStyleWord(true);
     	//label.setLineWrap(true);
     	label.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
@@ -399,7 +401,7 @@ public class Home_View {
     	List<ReminderObj> reminderList = db.retrieveReminders(Time.getCurrentDayInSqlFormat());
     	
     	// These are for debugging.  Remove
-    	
+    	/*
     	reminderList.add(new ReminderObj("2017-4-11","3:30","my Event title!"));
     	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
     	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
@@ -410,7 +412,8 @@ public class Home_View {
     	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
     	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
     	reminderList.add(new ReminderObj("2017-4-22","13:30","my second Event title!"));
-    	
+    	*/
+
     	for (ReminderObj reminder : reminderList) {
     		reminders+= formatReminder(reminder);
     	}
@@ -426,6 +429,35 @@ public class Home_View {
     			//+ "<br><b>Thursday, April 25 - 10:00am<br></b>Get some homework done.<br>");
     	
     	//return outStr;
+    }
+    
+    public void displayEventsForToday() {
+    	String events = "";
+    	
+    	DatabaseMgr db = new DatabaseMgr();
+    	List<Event> eventList = db.retrieveEvents('D',Time.getCurrentDayInSqlFormat());
+    	
+    	// These are for debugging.  Remove.
+    	
+//    	eventList.add(new Event("myTitle", // eventTitle
+//    			"Meeting to go over plan details.", // eventDescription
+//    			"2017-04-12", // eventDate
+//    			"12:30:00", // eventStartTime
+//    			"13:30:00", // eventEndTime
+//    			"3500 Deer Creek Rd, Palo Alto, CA 94304", // eventLocation
+//    			"", // eventInvitees
+//    			"Work", // eventTag
+//    			"",
+//    			"",
+//    			"",
+//    			""));
+  
+
+    	for (Event event : eventList) {
+    		events+= event.formatEventSummary();
+    	}
+    	
+    	addEventsTodayScrollBox(events);
     }
 
 }
