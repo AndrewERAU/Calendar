@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import time.Time;
+
 public class Event {
 	private String eventID;
 	private String eventTitle;
@@ -111,6 +113,22 @@ public class Event {
 			this.eventReminder2Time = "NULL";
 		}
 	}
+	
+	// TODO: This code was copied from reminderObj constructor
+	// Maybe put it in a seaparte file and import it so there is only one copy?
+	// call it formatSummary() ???
+	public String formatEventSummary() {
+		
+		String dayOfWeek = Time.getWeekdayFromString(getEventDate(),true); // true means convert weekday to word.  ex) "Sunday", not "0"
+		String month = Time.getMonthFromString(getEventDate(),true); // true means convert month to word.  ex) "January", not "1"
+		String day = Time.getDayFromString(getEventDate());
+		String time = Time.getCivilianTimeFromString(getEventStartTime());
+		String eventTitle = getEventTitle();	
+		
+		return ("<b>"+dayOfWeek+", "+month+" "+day+" - "+time+":<br></b>"+eventTitle+"<br><br>");
+	}
+	
+	
 	/* TODO: remove this
 	public Event addSingleQuotes() {
 		Event event = new Event();
