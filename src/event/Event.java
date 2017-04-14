@@ -2,7 +2,9 @@ package event;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import time.Time;
@@ -63,7 +65,7 @@ public class Event {
 			this.eventDescription = "NULL";
 		}
 		if (!"".equals(eventDate)) {
-			this.eventDate = eventDate;
+			this.setEventDate(eventDate);
 		} else {
 			this.eventDate = "NULL";
 		}
@@ -93,7 +95,7 @@ public class Event {
 			this.eventTag = "NULL";
 		}	
 		if (!"".equals(eventReminder1Date)) {
-			this.eventReminder1Date = eventReminder1Date;
+			this.setEventReminder1Date(eventReminder1Date);
 		} else {
 			this.eventReminder1Date = "NULL";
 		}
@@ -103,7 +105,7 @@ public class Event {
 			this.eventReminder1Time = "NULL";
 		}
 		if (!"".equals(eventReminder2Date)) {
-			this.eventReminder2Date = eventReminder2Date;
+			this.setEventReminder2Date(eventReminder2Date);
 		} else {
 			this.eventReminder2Date = "NULL";
 		}
@@ -112,6 +114,7 @@ public class Event {
 		} else {
 			this.eventReminder2Time = "NULL";
 		}
+
 	}
 	
 	// TODO: This code was copied from reminderObj constructor
@@ -128,6 +131,25 @@ public class Event {
 		return ("<b>"+dayOfWeek+", "+month+" "+day+" - "+time+":<br></b>"+eventTitle+"<br><br>");
 	}
 	
+	private String putDateInProperFormat(String inDate) {
+		// converts all dates to this format 'yyyy-MM-dd'
+		String outDate = Time.getYearFromString(inDate) + "-"; // ex) '2017-' at this point		
+		String eventMonth = Time.getMonthFromString(inDate,false);
+		String eventDay = Time.getDayFromString(inDate);
+		
+		if (Integer.parseInt(eventMonth) < 10) {
+			outDate += "0" + eventMonth;
+		}
+		
+		outDate += "-"; // ex) '2017-07-' at this point
+
+		if (Integer.parseInt(eventDay) <  10) {
+			outDate += "0" + eventDay;
+		}
+
+		
+		return outDate; // ex) '2017-07-03' at this point
+	}
 	
 	/* TODO: remove this
 	public Event addSingleQuotes() {
@@ -241,7 +263,7 @@ public class Event {
 		eventDescription = description;
 	}
 	public void setEventDate(String date) {
-		eventDate = date;
+		eventDate = putDateInProperFormat(date);
 	}
 	public void setEventStartTime(String sTime) {
 		eventStartTime = sTime;
@@ -259,13 +281,13 @@ public class Event {
 		eventTag =  tag;
 	}
 	public void setEventReminder1Date(String reminder) {
-		eventReminder1Date = reminder;
+		eventReminder1Date = putDateInProperFormat(reminder);
 	}
 	public void setEventReminder1Time(String reminder) {
 		eventReminder1Time = reminder;
 	}
 	public void setEventReminder2Date(String reminder) {
-		eventReminder2Date = reminder;
+		eventReminder2Date = putDateInProperFormat(reminder);
 	}
 	public void setEventReminder2Time(String reminder) {
 		eventReminder2Time = reminder;
