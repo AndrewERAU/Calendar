@@ -1,7 +1,7 @@
 //Author: Nicholas DiPinto
 //Import ICS File Test
 //Test driver to test import ics files from text files
-
+/* TODO: this may be able to be removed, b/c the code for the test may need to be implemented differently
 package test.java;
 
 import java.io.BufferedWriter;
@@ -44,3 +44,4 @@ public class Ics_Import_Test
         //print size of text file
     }
 }
+*/
