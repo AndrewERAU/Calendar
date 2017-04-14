@@ -221,7 +221,7 @@ public class Time {
 		return date.substring(index);
 	}
 	
-	public static String getWeekdayFromString(String date) {
+	public static String getWeekdayFromString(String date, boolean convertToWord) {
 		/*
 		 * Date is of format 2017-12-31, or 2017-4-2
 		 * This function gets:
@@ -232,16 +232,22 @@ public class Time {
 		 * "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 		 */
 		
+		
 		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(new SimpleDateFormat("yyyy-M-d").parse(date));
+			c.setTime(new SimpleDateFormat(getDateFormat(date)).parse(date));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 		
-		return dayOfWeekNumberToString(dayOfWeek);
+		if (convertToWord) {
+			return dayOfWeekNumberToString(dayOfWeek);
+		}
+		
+		return Integer.toString(dayOfWeek - 1); // -1 b/c crontab uses 0-6 for sun-sat, as is it is 1-6 = sun-sat
+		
 	}
 	
 	private static String dayOfWeekNumberToString(int inDay) {
@@ -273,19 +279,23 @@ public class Time {
 		return dayString;
 	}
 	
-	public static String getMonthFromString(String date) {
+	public static String getMonthFromString(String date,boolean convertToMonthName) {
 		int monthInt = -1;
 		
 		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(new SimpleDateFormat("yyyy-M-d").parse(date));
+			c.setTime(new SimpleDateFormat(getDateFormat(date)).parse(date));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		monthInt = c.get(Calendar.MONTH);
 		
-		return monthIntToString(monthInt);
+		if (convertToMonthName) {
+			return monthIntToString(monthInt);		
+		}
+		
+		return Integer.toString(monthInt);
 	}
 	
 	private static String monthIntToString(int monthInt) {
@@ -345,5 +355,43 @@ public class Time {
 		todayString = Integer.toString(year) + '-' + Integer.toString(month) + '-' + Integer.toString(day);
 		
 		return todayString;
+	}
+	
+	public static String getMinuteFromString(String inTime) {
+		return inTime.substring(inTime.indexOf(':') + 1); // ex) "5:30" returns "30"
+	}
+	
+	public static String getHourFromString(String inTime) {
+		return inTime.substring(0,inTime.indexOf(':')); // ex) "5:30" returns "5"
+	}
+	
+	public static String getDateFormat(String inDate) {
+		String yearFormat = ""; // assumed the year is 4 digits
+		String monthFormat = "";
+		String dayFormat = "";
+		
+		int index = 0;
+		char currentChar;
+		
+		currentChar = inDate.charAt(index);
+		while (currentChar != '-') {
+			yearFormat += "y";
+			currentChar = inDate.charAt(++index);
+		}
+		
+		currentChar = inDate.charAt(++index);
+		while (currentChar != '-') {
+			monthFormat += "M";
+			currentChar = inDate.charAt(++index);
+		}
+
+
+		currentChar = inDate.charAt(index);
+		while (index+1 < inDate.length()) {
+			dayFormat += "d";
+			currentChar = inDate.charAt(++index);
+		}
+		
+		return yearFormat + "-" + monthFormat + "-" + dayFormat;//"yyyy-M-d";
 	}
 }
