@@ -189,7 +189,7 @@ public class Home_View {
     }
     
     private void drawBox(int i) {
-    	JButton button = new JButton(Integer.toString(i));
+    	final JButton button = new JButton(Integer.toString(i));
     	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setMaximumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
@@ -250,7 +250,7 @@ public class Home_View {
     	final int width = 70;
     	final int height = 30;
 
-        JButton button = new JButton(buttonText);
+        final JButton button = new JButton(buttonText);
         
         button.setFont(new Font("", Font.PLAIN, 16));
         
@@ -293,7 +293,7 @@ public class Home_View {
     private void addSettingsButton() {
     	final int width = 80;
     	final int height = 40;
-    	JButton button = new JButton("Settings");
+    	final JButton button = new JButton("Settings");
     	
         button.setFont(new Font("", Font.PLAIN, 16));
         
