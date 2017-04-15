@@ -304,7 +304,7 @@ public class Time {
 			return monthIntToString(monthInt);		
 		}
 		
-		return Integer.toString(monthInt);
+		return Integer.toString(monthInt+1); // +1 b/c 0-11 = jan-dec, but I want 1-12
 	}
 	
 	private static String monthIntToString(int monthInt) {

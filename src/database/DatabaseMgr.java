@@ -95,7 +95,8 @@ public class DatabaseMgr {
 	
 	private boolean isValidTime(String s){
 		// military time
-	    String pattern= "((\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '12:30:00' or ''
+	    //String pattern= "((\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '12:30:00' or ''
+		String pattern= "((\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) 12:30:00 or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -104,12 +105,6 @@ public class DatabaseMgr {
 		// Modified slightly from this SO post:
 		// http://stackoverflow.com/questions/11241690/regex-for-checking-if-a-string-is-strictly-alphanumeric
 	    String pattern= "[a-zA-Z0-9\\s\\.,]*"; // ex) '3324 E. park rd, Jackson Missippi 86709' or ''
-	    if (s == null) return true;
-	    return s.matches(pattern);
-	}
-	
-	private boolean isValidDatetime(String s){
-	    String pattern= "((\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '2017-01-01 10:00:00' or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -136,11 +131,11 @@ public class DatabaseMgr {
 				isValidTime(inEvent.getEventEndTime()) &&
 				isValidLocation(inEvent.getEventLocation()) &&
 				isVaildEmailList(inEvent.getEventInvitees()) &&
-				isAlphaNumeric(inEvent.getEventTag()));// &&
+				isAlphaNumeric(inEvent.getEventTag()) &&
 				//isValidDate(inEvent.getEventReminder1Date()) &&
-				//isValidTime(inEvent.getEventReminder1Time()) &&
+				isValidTime(inEvent.getEventReminder1Time()) &&
 				//isValidDate(inEvent.getEventReminder2Date()) &&
-				//isValidTime(inEvent.getEventReminder2Time()));
+				isValidTime(inEvent.getEventReminder2Time()));
 		//TODO: uncomment this to check validity of dates and times
 	}
 	

@@ -11,8 +11,8 @@ public class ReminderObj {
 	private String eventTitle;
 	
 	public ReminderObj (String date, String time, String title) {
-		this.dayOfWeek = Time.getWeekdayFromString(date);
-		this.month = Time.getMonthFromString(date);;
+		this.dayOfWeek = Time.getWeekdayFromString(date,true); // true means convert weekday to word.  ex) "Sunday", not "0"
+		this.month = Time.getMonthFromString(date,true); // true means convert month to word.  ex) "January", not "1"
 		this.day = Time.getDayFromString(date);
 		this.time = Time.getCivilianTimeFromString(time);
 		this.eventTitle = title;	
@@ -34,5 +34,6 @@ public class ReminderObj {
 	public String getReminderEventTitle() {
 		return eventTitle;
 	}
+
 
 }

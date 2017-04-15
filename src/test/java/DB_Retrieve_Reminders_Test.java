@@ -16,15 +16,15 @@ public class DB_Retrieve_Reminders_Test {
 	private Event event = new Event("My Reminder Test Title", // eventTitle
 			"Meeting to go over plan details.", // eventDescription
 			"2017-04-14", // eventDate
-			"12:30:00", // eventStartTime
-			"13:30:00", // eventEndTime
+			"12:30", // eventStartTime
+			"13:30", // eventEndTime
 			"3500 Deer Creek Rd, Palo Alto, CA 94304", // eventLocation
 			"", // eventInvitees
 			"Work", // eventTag
 			"2017-04-14", // Reminder1Date
 			"13:30", // Reminder1Time
 			"2017-04-14", // Reminder2Date
-			"8:00"); // Reminder2Time
+			"08:00"); // Reminder2Time
 
 	@Test
 	public void test() {
@@ -44,8 +44,6 @@ public class DB_Retrieve_Reminders_Test {
 		assertEquals(db.retrieveReminders("2017-04-13").size(),2); // first event had two reminders within 7 days of this date
 		assertEquals(db.retrieveReminders("2017-04-14").size(),2); // first event had two reminders within 7 days of this date
 		assertEquals(db.retrieveReminders("2017-04-15").size(),0); // first event had two reminders within 7 days of this date
-		System.out.println(db.retrieveReminders("2017-04-14").get(1).getReminderTime());
-		
 	}
 
 }

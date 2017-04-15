@@ -13,8 +13,8 @@ public class Add_Event_Test {
 	private Event event = new Event("", // eventTitle
 			"Meeting to go over plan details.", // eventDescription
 			"", // eventDate
-			"12:30:00", // eventStartTime
-			"13:30:00", // eventEndTime
+			"12:30", // eventStartTime
+			"13:30", // eventEndTime
 			"3500 Deer Creek Rd, Palo Alto, CA 94304", // eventLocation
 			"", // eventInvitees
 			"Work", // eventTag
@@ -38,7 +38,7 @@ public class Add_Event_Test {
 		db.insertEvent(event); // should fail *no date*
 		assertEquals(db.retrieveEvents('T',"Meeting").size(),0); // should still be 0
 		
-		event.setEventDate("2017-02-27");
+		event.setEventDate("2017-2-27");
 		db.insertEvent(event); // should succeed
 		assertEquals(db.retrieveEvents('D',"2017-02-27").size(),1); // now 1 element
 		assertEquals(db.retrieveEvents('A',"").size(),1); // should be 1 now

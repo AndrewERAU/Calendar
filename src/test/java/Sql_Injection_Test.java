@@ -15,8 +15,8 @@ public class Sql_Injection_Test {
 	private Event event = new Event("Meeting", // eventTitle
 			"Meeting to go over plan details.", // eventDescription
 			"2017-2-28", // eventDate
-			"12:30:00", // eventStartTime
-			"13:30:00", // eventEndTime
+			"12:30", // eventStartTime
+			"13:30", // eventEndTime
 			"3500 Deer Creek Rd, Palo Alto, CA 94304", // eventLocation
 			"", // eventInvitees
 			"Work", // eventTag

@@ -64,7 +64,7 @@ public class Event {
 		} else {
 			this.eventDescription = "NULL";
 		}
-		if (!"".equals(eventDate)) {
+		if (!"".equals(eventDate) && !"NULL".equals(eventDate)) {
 			this.setEventDate(eventDate);
 		} else {
 			this.eventDate = "NULL";
@@ -94,7 +94,7 @@ public class Event {
 		} else {
 			this.eventTag = "NULL";
 		}	
-		if (!"".equals(eventReminder1Date)) {
+		if (!"".equals(eventReminder1Date) && !"NULL".equals(eventReminder1Date)) {
 			this.setEventReminder1Date(eventReminder1Date);
 		} else {
 			this.eventReminder1Date = "NULL";
@@ -104,7 +104,7 @@ public class Event {
 		} else {
 			this.eventReminder1Time = "NULL";
 		}
-		if (!"".equals(eventReminder2Date)) {
+		if (!"".equals(eventReminder2Date) && !"NULL".equals(eventReminder2Date)) {
 			this.setEventReminder2Date(eventReminder2Date);
 		} else {
 			this.eventReminder2Date = "NULL";
@@ -139,15 +139,18 @@ public class Event {
 		
 		if (Integer.parseInt(eventMonth) < 10) {
 			outDate += "0" + eventMonth;
+		} else {
+			outDate += eventMonth;
 		}
 		
 		outDate += "-"; // ex) '2017-07-' at this point
 
 		if (Integer.parseInt(eventDay) <  10) {
 			outDate += "0" + eventDay;
+		} else {
+			outDate += eventDay;
 		}
 
-		
 		return outDate; // ex) '2017-07-03' at this point
 	}
 	
