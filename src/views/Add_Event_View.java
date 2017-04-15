@@ -114,6 +114,7 @@ public class Add_Event_View extends JFrame {
           {
               // Save event to database
         	  // TODO: Add any reminders if they are listed done?
+        	  /* TODO: updated event format and constructor, fix this
         	  event = new Event(eventTitle.getText(),
         			  eventDescription.getText(),
         			  eventDate.getText(),
@@ -123,7 +124,8 @@ public class Add_Event_View extends JFrame {
         			  eventInvitees.getText(),
         			  eventTag.getText(),
         			  eventReminder1.getText(),
-        			  eventReminder2.getText());
+        			  eventReminder2.getText(),
+        			  eventReminder2.getText());*/
         	  
         	  db = new DatabaseMgr();
         	  db.insertEvent(event);
