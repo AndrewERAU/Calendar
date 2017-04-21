@@ -111,45 +111,6 @@ public class Event {
 			this.eventReminder2Time = "NULL";
 		}
 	}
-	/* TODO: remove this
-	public Event addSingleQuotes() {
-		Event event = new Event();
-		if (!"NULL".equals(this.eventTitle)) {
-			event.setEventTitle("'" + this.eventTitle + "'");
-		}
-		
-		if (!"NULL".equals(this.eventDescription)) {
-			event.setEventDescription("'" + this.eventDescription + "'");
-		}
-		
-		if (!"NULL".equals(this.eventDate)) {
-			event.setEventDate("'" + this.eventDate + "'");
-		}
-		if (!"NULL".equals(this.eventStartTime)) {
-			event.setEventStartTime("'" + this.eventStartTime + "'");
-		}
-		if (!"NULL".equals(this.eventEndTime)) {
-			event.setEventEndTime("'" + this.eventEndTime + "'");
-		}
-		if (!"NULL".equals(this.eventLocation)) {
-			event.setEventLocation("'" + this.eventLocation + "'");
-		}
-		if (!"NULL".equals(this.eventInvitees)) {
-			event.setEventInvitees("'" + this.eventInvitees + "'");
-		}
-		if (!"NULL".equals(this.eventTag)) {
-			event.setEventTag("'" + this.eventTag + "'");
-		}
-		if (!"NULL".equals(this.eventReminder1)) {
-			event.setEventReminder1("'" + this.eventReminder1 + "'");
-		}
-		if (!"NULL".equals(this.eventReminder2)) {
-			event.setEventReminder1("'" + this.eventReminder2 + "'");
-		}
-
-		return event;
-	}
-	*/
 	
 	// Getters
 	public String getEventID() {

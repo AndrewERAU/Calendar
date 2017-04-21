@@ -1,11 +1,15 @@
+package test.java;
+
+import java.io.FileNotFoundException;
+
 //Author: Nicholas DiPinto
 //Reminder Test
 
 import reminder.Reminder;
 
-public class Reminder_Test1
+public class Reminder_Test
 {
-    public static void main(String args[])
+    public static void main(String args[]) throws FileNotFoundException
     {
         Reminder test_reminder = new Reminder();
         long startTime1;
@@ -15,11 +19,11 @@ public class Reminder_Test1
         
         System.out.println("Starting Test Case #1 (Creating a reminder):");
         System.out.println("Setting reminder info");
-        test_reminder.setTitle("Reminder Test Case #1");
+        System.out.println("Reminder Test Case #1");
         startTime1 = System.currentTimeMillis() / 1000;
-        test_reminder.setAlert(60);
+        test_reminder.unitTestSetAlert(0, 1, 0);  //set reminder to one hour before event
         startTime2 = System.currentTimeMillis() / 1000;
-        test_reminder.setAlert(65);
+        test_reminder.unitTestSetAlert(0, 1, 5);  //set reminder to one hour and 5 minutes before event
         expectedEndTime1 = startTime1 + 60;
         expectedEndTime2 = startTime2 + 65;
         System.out.print("Reminder 1 is set to alert at: ");
