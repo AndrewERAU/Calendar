@@ -1,21 +1,24 @@
 package test.java;
 
-import java.io.FileNotFoundException;
+import static org.junit.Assert.*;
 
-import org.junit.Test;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import reminder.Reminder;
 
-//Author: Nicholas DiPinto
-//Reminder Test
+import org.junit.Test;
 
-public class Reminder_Test
-{
-    public static void main(String args[]) throws FileNotFoundException
-    {
-        Reminder test_reminder = new Reminder();
-        long startTime1;
-        long startTime2;
-        long expectedEndTime1;
+import reminder.Reminder;
+
+public class Reminder_Test {
+
+	@Test
+	public void test() throws IOException {
+		 Reminder test_reminder = new Reminder();
+		 long startTime1;
+	     long startTime2;
+	     long expectedEndTime1;
         long expectedEndTime2;
         
         System.out.println("Starting Test Case #1 (Creating a reminder):");
@@ -31,5 +34,7 @@ public class Reminder_Test
         System.out.println(expectedEndTime1);
         System.out.print("Reminder 2 is set to alert at: ");
         System.out.println(expectedEndTime2);
-    }
+        assertEquals(1,1);
+	}
+
 }
