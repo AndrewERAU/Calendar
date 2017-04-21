@@ -221,7 +221,16 @@ public class Time {
 		return date.substring(index);
 	}
 	
-	public static String getWeekdayFromString(String date) {
+	public static String getYearFromString(String date) {
+		/*
+		 * Date is of format 2017-12-31, or 2017-4-2
+		 * This function gets all the text before the first dash, which is the year
+		 */
+	
+		return date.substring(0,date.indexOf('-'));
+	}
+	
+	public static String getWeekdayFromString(String date, boolean convertToWord) {
 		/*
 		 * Date is of format 2017-12-31, or 2017-4-2
 		 * This function gets:
@@ -232,16 +241,22 @@ public class Time {
 		 * "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 		 */
 		
+		
 		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(new SimpleDateFormat("yyyy-M-d").parse(date));
+			c.setTime(new SimpleDateFormat(getDateFormat(date)).parse(date));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 		
-		return dayOfWeekNumberToString(dayOfWeek);
+		if (convertToWord) {
+			return dayOfWeekNumberToString(dayOfWeek);
+		}
+		
+		return Integer.toString(dayOfWeek - 1); // -1 b/c crontab uses 0-6 for sun-sat, as is it is 1-6 = sun-sat
+		
 	}
 	
 	private static String dayOfWeekNumberToString(int inDay) {
@@ -273,19 +288,23 @@ public class Time {
 		return dayString;
 	}
 	
-	public static String getMonthFromString(String date) {
+	public static String getMonthFromString(String date,boolean convertToMonthName) {
 		int monthInt = -1;
 		
 		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(new SimpleDateFormat("yyyy-M-d").parse(date));
+			c.setTime(new SimpleDateFormat(getDateFormat(date)).parse(date));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		monthInt = c.get(Calendar.MONTH);
 		
-		return monthIntToString(monthInt);
+		if (convertToMonthName) {
+			return monthIntToString(monthInt);		
+		}
+		
+		return Integer.toString(monthInt+1); // +1 b/c 0-11 = jan-dec, but I want 1-12
 	}
 	
 	private static String monthIntToString(int monthInt) {
@@ -341,9 +360,63 @@ public class Time {
 		int year = localDate.getYear();
 		int month =localDate.getMonthValue();
 		int day = localDate.getDayOfMonth();
+		String yearStr = Integer.toString(year);
+		String monthStr = null;
+		String dayStr = null;
 		
-		todayString = Integer.toString(year) + '-' + Integer.toString(month) + '-' + Integer.toString(day);
+		// Keep 2 digits in date format.  ex) 2017-04-09. NOT 2017-4-9
+		if (month < 10) {
+			monthStr = "0" + Integer.toString(month);
+		} else {
+			monthStr = Integer.toString(month);
+		}
+		
+		if (day < 10) {
+			dayStr = "0" + Integer.toString(day);
+		} else {
+			dayStr = Integer.toString(day);
+		}
+		
+		todayString = yearStr + '-' + monthStr + '-' + dayStr; // ex) 2017-11-24
 		
 		return todayString;
+	}
+	
+	public static String getMinuteFromString(String inTime) {
+		return inTime.substring(inTime.indexOf(':') + 1); // ex) "5:30" returns "30"
+	}
+	
+	public static String getHourFromString(String inTime) {
+		return inTime.substring(0,inTime.indexOf(':')); // ex) "5:30" returns "5"
+	}
+	
+	public static String getDateFormat(String inDate) {
+		String yearFormat = ""; // assumed the year is 4 digits
+		String monthFormat = "";
+		String dayFormat = "";
+		
+		int index = 0;
+		char currentChar;
+		
+		currentChar = inDate.charAt(index);
+		while (currentChar != '-') {
+			yearFormat += "y";
+			currentChar = inDate.charAt(++index);
+		}
+		
+		currentChar = inDate.charAt(++index);
+		while (currentChar != '-') {
+			monthFormat += "M";
+			currentChar = inDate.charAt(++index);
+		}
+
+
+		currentChar = inDate.charAt(index);
+		while (index+1 < inDate.length()) {
+			dayFormat += "d";
+			currentChar = inDate.charAt(++index);
+		}
+		
+		return yearFormat + "-" + monthFormat + "-" + dayFormat;//"yyyy-M-d";
 	}
 }

@@ -1,3 +1,5 @@
+package test.java;
+/* TODO: we decided not to have this feature.  I believe this file can be deleted 
 import static org.junit.Assert.*;
 import java.io.*;
 import java.util.*;
@@ -5,6 +7,7 @@ import Text_File_IO.Text_File_IO;
 
 public class Text_File_IO_Test
 {
+	
     //create an empty text file for exporting test
     static String fileContent = "Event Title: My Event\n"
     + "Event Information: I have a new event\n"
@@ -87,3 +90,4 @@ public class Text_File_IO_Test
     }
     
 }
+*/

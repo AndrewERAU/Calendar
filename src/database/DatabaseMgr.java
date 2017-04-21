@@ -95,7 +95,8 @@ public class DatabaseMgr {
 	
 	private boolean isValidTime(String s){
 		// military time
-	    String pattern= "((\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '12:30:00' or ''
+	    //String pattern= "((\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '12:30:00' or ''
+		String pattern= "((\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) 12:30:00 or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -104,12 +105,6 @@ public class DatabaseMgr {
 		// Modified slightly from this SO post:
 		// http://stackoverflow.com/questions/11241690/regex-for-checking-if-a-string-is-strictly-alphanumeric
 	    String pattern= "[a-zA-Z0-9\\s\\.,]*"; // ex) '3324 E. park rd, Jackson Missippi 86709' or ''
-	    if (s == null) return true;
-	    return s.matches(pattern);
-	}
-	
-	private boolean isValidDatetime(String s){
-	    String pattern= "((\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '2017-01-01 10:00:00' or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -136,11 +131,11 @@ public class DatabaseMgr {
 				isValidTime(inEvent.getEventEndTime()) &&
 				isValidLocation(inEvent.getEventLocation()) &&
 				isVaildEmailList(inEvent.getEventInvitees()) &&
-				isAlphaNumeric(inEvent.getEventTag()));// &&
+				isAlphaNumeric(inEvent.getEventTag()) &&
 				//isValidDate(inEvent.getEventReminder1Date()) &&
-				//isValidTime(inEvent.getEventReminder1Time()) &&
+				isValidTime(inEvent.getEventReminder1Time()) &&
 				//isValidDate(inEvent.getEventReminder2Date()) &&
-				//isValidTime(inEvent.getEventReminder2Time()));
+				isValidTime(inEvent.getEventReminder2Time()));
 		//TODO: uncomment this to check validity of dates and times
 	}
 	
@@ -180,13 +175,9 @@ public class DatabaseMgr {
 		    
 			stmt = c.prepareStatement(sql,
 	                Statement.RETURN_GENERATED_KEYS);
-			//System.out.println(sql); // debug remove
 
 		    try {
 		    	 if (  !"".equals(eventToAdd.getEventTitle()) && !"NULL".equals(eventToAdd.getEventTitle()) ) {
-				    	//sql += eventToAdd.getEventTitle(); 
-		    		 //System.out.print("Event title: ");
-		    		 //System.out.println(eventToAdd.getEventTitle());
 		    		 stmt.setString(1, eventToAdd.getEventTitle());
 				    } else { // title cannot be null
 				    	throw new Exception(); // TODO: throw different exception type?
@@ -197,12 +188,10 @@ public class DatabaseMgr {
 		    }
 		    
 		    if ( !"".equals(eventToAdd.getEventDescription()) && !"NULL".equals(eventToAdd.getEventDescription()) ) {
-		    	//sql += "," + eventToAdd.getEventDescription();
 		    	stmt.setString(2, eventToAdd.getEventDescription());
 		    }
 		    try {
 		    	 if ( !"".equals(eventToAdd.getEventDate()) && !"NULL".equals(eventToAdd.getEventDate())) {
-				    	//sql += "," + eventToAdd.getEventDate(); 
 		    		 stmt.setString(3,eventToAdd.getEventDate());
 				    } else { // date cannot be null
 				    	throw new Exception(); // TODO: throw different exception type?
@@ -213,64 +202,50 @@ public class DatabaseMgr {
 		    }
 		   
 		    if ( !"".equals(eventToAdd.getEventStartTime()) ) {
-		    	//sql += "," + eventToAdd.getEventStartTime();
 		    	stmt.setString(4,eventToAdd.getEventStartTime());
 		    }
 		    if ( !"".equals(eventToAdd.getEventEndTime()) ) {
-		    	//sql += "," + eventToAdd.getEventEndTime();
 		    	stmt.setString(5,eventToAdd.getEventEndTime());
 		    }
 		    if ( !"".equals(eventToAdd.getEventLocation()) ) {
-		    	//sql += "," + eventToAdd.getEventLocation();
 		    	stmt.setString(6,eventToAdd.getEventLocation());
 		    }
 		    if ( !"".equals(eventToAdd.getEventInvitees()) ) {
-		    	//sql += "," + eventToAdd.getEventInvitees();
 		    	stmt.setString(7,eventToAdd.getEventInvitees());
 		    }
 		    if ( !"".equals(eventToAdd.getEventTag()) ) {
-		    	//sql += "," + eventToAdd.getEventTag();
 		    	stmt.setString(8,eventToAdd.getEventTag());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder1Date()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder1();
 		    	stmt.setString(9,eventToAdd.getEventReminder1Date());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder1Time()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder2();
 		    	stmt.setString(10,eventToAdd.getEventReminder1Time());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder2Date()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder2();
 		    	stmt.setString(11,eventToAdd.getEventReminder2Date());
 		    }
 		    if ( !"".equals(eventToAdd.getEventReminder2Time()) ) {
-		    	//sql += "," + eventToAdd.getEventReminder2();
 		    	stmt.setString(12,eventToAdd.getEventReminder2Time());
 		    }
-		   
-		    
-		    //sql += ");";
-		    
-		    //System.out.println(sql); // for debugging - remove
-		   
-		    //stmt.executeUpdate(sql);
+		  
 		    affectedRows = stmt.executeUpdate();
 
 	        if (affectedRows == 0) {
 	            throw new SQLException("Inserting Event failed.");
 	        }
-
-	        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+	        
+	        try {
+	        	ResultSet generatedKeys = stmt.getGeneratedKeys();
 	            if (generatedKeys.next()) {
 	                eventToAdd.setEventID(Long.toString(generatedKeys.getLong(1)));
 	            }
 	            else {
 	                throw new SQLException("Creating user failed, no ID obtained.");
 	            }
+	        } catch (Exception e) {
+	        	System.err.println(e);
 	        }
-		    
-		    //TODO: get event id from last statment inserted here
 		    
 		    stmt.close();
 		} catch( Exception e ) {
@@ -293,7 +268,7 @@ public class DatabaseMgr {
 		data2 = null;
 		String sqlWhereClause = "";
 
-		sqlWhereClause = " WHERE Reminder1Date >= '" + startDate + "' AND Reminder1DATE <= '" + Time.incrementDate(startDate) + "';";
+		sqlWhereClause = " WHERE Reminder1Date >= '" + startDate + "' AND Reminder1Date <= '" + Time.incrementDate(startDate) + "';";
 
 		try {
 			stmt = c.createStatement();	
@@ -305,8 +280,8 @@ public class DatabaseMgr {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		
-		
-		sqlWhereClause = " WHERE Reminder2Date >= '" + startDate + "' AND Reminder2DATE <= '" + Time.incrementDate(startDate) + "';";
+
+		sqlWhereClause = " WHERE Reminder2Date >= '" + startDate + "' AND Reminder2Date <= '" + Time.incrementDate(startDate) + "';";
 
 		try {
 			stmt = c.createStatement();
@@ -364,6 +339,7 @@ public class DatabaseMgr {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		
+		
 		return events;
 	}
 	
@@ -399,8 +375,8 @@ public class DatabaseMgr {
 		try {
 			while (data.next())
 			{		
-				events.add(new Event(data.getString(1),
-						data.getString(2),
+				
+				events.add(new Event(data.getString(2),
 						data.getString(3),
 						data.getString(4),
 						data.getString(5),
@@ -410,7 +386,8 @@ public class DatabaseMgr {
 						data.getString(9),
 						data.getString(10),
 						data.getString(11),
-						data.getString(12)));			
+						data.getString(12),
+						data.getString(13)));			
 			}
 			return events;
 		} catch (Exception e) {

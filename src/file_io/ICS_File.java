@@ -1,5 +1,7 @@
 package file_io;
 
+/* TODO: This class is being redesigned
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 //import java.io.File;
@@ -46,18 +48,18 @@ public class ICS_File {
 			e.printStackTrace();
 
 		}
-		/*BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-BEGIN:VEVENT
-UID:uid1@example.com
-DTSTAMP:19970714T170000Z
-ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
-DTSTART:19970714T170000Z
-DTEND:19970715T035959Z
-SUMMARY:Bastille Day Party
-END:VEVENT
-END:VCALENDAR*/
+//		BEGIN:VCALENDAR
+//VERSION:2.0
+//PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+//BEGIN:VEVENT
+//UID:uid1@example.com
+//DTSTAMP:19970714T170000Z
+//ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
+//DTSTART:19970714T170000Z
+//DTEND:19970715T035959Z
+//SUMMARY:Bastille Day Party
+//END:VEVENT
+//END:VCALENDAR
 		
 	}
 	
@@ -87,3 +89,4 @@ END:VCALENDAR*/
 		return output;
 	}
 }
+*/
