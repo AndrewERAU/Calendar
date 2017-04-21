@@ -116,8 +116,6 @@ public class Event {
 		}
 
 	}
-<<<<<<< HEAD
-=======
 	
 	// TODO: This code was copied from reminderObj constructor
 	// Maybe put it in a seaparte file and import it so there is only one copy?
@@ -195,7 +193,7 @@ public class Event {
 		return event;
 	}
 	*/
->>>>>>> 95342dce3d6405a57d6fadbad9ac46a84b94c416
+
 	
 	// Getters
 	public String getEventID() {
