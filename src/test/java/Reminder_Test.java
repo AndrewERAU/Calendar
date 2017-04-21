@@ -10,8 +10,7 @@ import reminder.Reminder;
 
 public class Reminder_Test
 {
-	@Test
-    public void test() throws FileNotFoundException
+    public static void main(String args[]) throws FileNotFoundException
     {
         Reminder test_reminder = new Reminder();
         long startTime1;
