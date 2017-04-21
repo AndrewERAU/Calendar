@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.io.BufferedReader;
+import reminder.Reminder;
+import event.Event;
+
 public class Event_Reminder_Integrate_Test 
 {
 	static Event event = new Event();
@@ -21,8 +24,8 @@ public class Event_Reminder_Integrate_Test
 		System.out.println("Set event Location: ");
 		String eLocation = input.readLine();
 		event.setEventLocation(eLocation);
-		event.setEventStartTime(4, 6, 2017, 21, 30);
-		event.setEventEndTime(4, 6, 2017, 22, 00);
+		event.setEventStartTime("20:30 2017-04-06");
+		event.setEventEndTime("21:00 2017-04-06");
 		System.out.println("Event filled");
 		System.out.print("Event: " + event.getEventTitle() +
 				 "\nInfo: " + event.getEventDescription() +
