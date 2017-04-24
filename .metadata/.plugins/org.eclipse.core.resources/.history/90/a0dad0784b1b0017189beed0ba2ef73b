@@ -1,6 +1,0 @@
-package reminder;
-
-public class Event_Reminder_Integrate_Test 
-{
-	Event event = new Event();
-}
