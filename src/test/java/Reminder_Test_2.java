@@ -9,16 +9,14 @@ import reminder.Reminder;
 
 import org.junit.Test;
 
-import reminder.Reminder;
-
 public class Reminder_Test_2 {
 
 	@Test
 	public void test() throws IOException {
-		 Reminder test_reminder = new Reminder();
-		 long startTime1;
-	     long startTime2;
-	     long expectedEndTime1;
+		Reminder test_reminder = new Reminder();
+        long startTime1;
+	    long startTime2;
+	    long expectedEndTime1;
         long expectedEndTime2;
         
         System.out.println("Starting Test Case #1 (Creating a reminder):");
