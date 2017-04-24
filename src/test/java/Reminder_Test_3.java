@@ -32,6 +32,5 @@ public class Reminder_Test_2 {
         System.out.println(expectedEndTime1);
         System.out.print("Reminder 2 is set to alert at: ");
         System.out.println(expectedEndTime2);
-	}
-
+    }
 }
