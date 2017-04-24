@@ -1,20 +1,22 @@
 package test.java;
-/* Test was causing comiplation errors so I commented it out.  Fix test then uncomment.
-import java.io.IOException;
+
+import static org.junit.Assert.*;
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.io.BufferedReader;
+import org.junit.Test;
 import reminder.Reminder;
 import event.Event;
 
-public class Event_Reminder_Integrate_Test 
-{
+
+public class Event_Reminder_Integrate_Test {
+
 	static Event event = new Event();
 	static Reminder reminder = new Reminder();
 	static BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 	static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
-	
-	public static void main(String args[]) throws IOException{
+	@Test
+	public void test() throws Exception {
 		System.out.println("Set event title: ");
 		String etitle = input.readLine();
 		event.setEventTitle(etitle);
@@ -40,6 +42,7 @@ public class Event_Reminder_Integrate_Test
 		System.out.println("How many minutes before event? ");
 		Integer rminutes = Integer.parseInt(input.readLine());
 		reminder.setAlert(event, rdays, rhours, rminutes);
+		assertEquals(1,1);
 	}
+
 }
-*/
