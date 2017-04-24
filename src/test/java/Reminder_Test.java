@@ -26,6 +26,7 @@ public class Reminder_Test {
 	     System.out.println("Reminder 1 is set to alert at: " + sdf.format(test_reminder_1.getAlert()));
 	     System.out.println("Reminder 2 is set to alert at: "+ sdf.format(test_reminder_2.getAlert()));
 	     assertEquals(1,1);
+	     //throw new IOException("My IOException");
 	}
 
 }
