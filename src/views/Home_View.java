@@ -220,9 +220,9 @@ public class Home_View {
         	  String text = "";
         	  for (Component myChild : monthYearPanel) 
         	  {
-                  if (myChild instanceof JTextField) 
+                  if (myChild instanceof JLabel) 
                   {
-                      text = ((JTextField)myChild).getText();
+                      text = ((JLabel)myChild).getText();
                   }
               }
         	  int index = 0;
