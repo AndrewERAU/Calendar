@@ -51,7 +51,7 @@ public class Add_Event_View extends JFrame {
 	private DatabaseMgr db;
 	private Event event;
 	
-	public Add_Event_View() {
+	public Add_Event_View(String sql_date_selected) {
 		initUI();
 	}
 	

@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager; // to set look and feel
 import javax.swing.border.LineBorder;
@@ -111,7 +112,7 @@ public class Home_View {
         frame.add(rightPanel);      
         
         //frame.getContentPane ().add (panel, BorderLayout.WEST);
-        
+        /*
         addEventButton = new JButton("Add Event");
         addEventButton.addActionListener(new ActionListener()
         {
@@ -120,7 +121,7 @@ public class Home_View {
             // display new add event window
         	  new Add_Event_View();
           }
-        });
+        });*/
         
         //frame.getContentPane().setLayout(new FlowLayout());
         //panel.add(addEventButton); // TODO: uncomment this once calendar is done
@@ -132,7 +133,7 @@ public class Home_View {
         addMonthYearLabel();
         createNextPrvMonthButton(">",BorderLayout.EAST);
         
-        // Adding elemennts to main calendar panel
+        // Adding elements to main calendar panel
         createDayOfWeekLabel("Sunday",Color.decode(THEME_BLUE));
         createDayOfWeekLabel("Monday",Color.decode(THEME_BLUE));
         createDayOfWeekLabel("Tuesday",Color.decode(THEME_BLUE));
@@ -211,8 +212,40 @@ public class Home_View {
         {
           public void actionPerformed(ActionEvent e)
           {
+        	  String daySelected = button.getText();
+        	  if(Integer.parseInt(daySelected) < 10)
+        		  daySelected = "0" + daySelected;
+        	  
+        	  Component[] monthYearPanel = topPanel.getComponents();
+        	  String text = "";
+        	  for (Component myChild : monthYearPanel) 
+        	  {
+                  if (myChild instanceof JTextField) 
+                  {
+                      text = ((JTextField)myChild).getText();
+                  }
+              }
+        	  int index = 0;
+        	  String month = "";
+        	  String year = "";
+        	  
+        	  while(text.charAt(index) != ',')
+        	  {
+        		  month = month + text.charAt(index);
+        		  index++;
+        	  }
+        	  index = index + 2;
+        	  int count4 = 0;
+        	  for(count4 = 0; count4 < 4; count4++)
+        	  {
+        		  year = year + text.charAt(index);
+        		  index++;
+        	  }
+        	  String month_ready = Time.getMonthToNum(month);
+        	  String year_ready = year.toString();
+        	  String sql_ready = year_ready + "-" +  month_ready + "-" + daySelected;
             // display new add event window
-        	  new Add_Event_View();
+        	  new Add_Event_View(sql_ready);
           }
         });
         
@@ -339,7 +372,7 @@ public class Home_View {
     	
     	
     	// Label
-    	JLabel ReminderBoxLabel = new JLabel("Upcomming Reminders:",SwingConstants.CENTER);
+    	JLabel ReminderBoxLabel = new JLabel("Upcoming Reminders:",SwingConstants.CENTER);
     	//ReminderBoxLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
     	//label.setFont(new Font("", Font.PLAIN, 24));     
         //sundayLabel.setSize(new Dimension(50,50));
