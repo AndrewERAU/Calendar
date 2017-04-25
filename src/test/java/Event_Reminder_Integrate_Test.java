@@ -9,7 +9,7 @@ import reminder.Reminder;
 import event.Event;
 
 
-public class Event_Reminder_Integrate_Test {
+/*public class Event_Reminder_Integrate_Test {
 
 	static Event event = new Event();
 	static Reminder reminder = new Reminder();
@@ -45,4 +45,4 @@ public class Event_Reminder_Integrate_Test {
 		assertEquals(1,1);
 	}
 
-}
+}*/
