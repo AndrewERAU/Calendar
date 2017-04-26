@@ -19,7 +19,7 @@ import database.DatabaseMgr;
 import event.Event;
 
 
-public class Add_Event_View extends JFrame {
+public class Day_Manage_Event_View extends JFrame {
 	
 	private JTextField eventTag;
 	private JTextField eventDate; // TODO, make dates use a date picker. Same for times.
@@ -51,7 +51,7 @@ public class Add_Event_View extends JFrame {
 	private DatabaseMgr db;
 	private Event event;
 	
-	public Add_Event_View() {
+	public Day_Manage_Event_View() {
 		initUI();
 	}
 	
