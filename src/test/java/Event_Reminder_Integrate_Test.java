@@ -26,7 +26,12 @@ public class Event_Reminder_Integrate_Test {
 		event2.setEventDescription("Some Event");
 		event2.setEventLocation("King 117");
 		event2.setEventTag("School");
+		event2.setEventInvitees("None");
+		event2.setEventStartTime("08/31/2017");
+		event2.setEventEndTime("08/31/2017");
 		System.out.println(event2.formatEventSummary());
+		System.out.println(event2.getEventStartDateTime());
+		System.out.println(event2.getEventEndDateTime());
 		assertEquals(1,1);
 	}
 
