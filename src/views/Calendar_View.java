@@ -69,9 +69,10 @@ public class Calendar_View {
         initUI();
     }
 	   
-	public static void main (String[] args) {
+	public static int main (String[] args) {
 		Calendar_View hs = new Calendar_View();
 		//hs.setVisible(true);
+		return 0;
 	}
 	
 

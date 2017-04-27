@@ -10,7 +10,7 @@ import event.Event;
 public class Event_Reminder_Integrate_Test {
 
 	static Event event1 = new Event("", "", "", "", "", "", "", "", "", "", "", "");  //creating an event where each field will be defaulted to "NULL"
-	static Event event2 = new Event("0001", "Test Event", "2017-11-9", "8:00", "9:00", "", "", "None", "", "", "", "");
+	static Event event2 = new Event("0001", "Test Event", "2017-11-09", "8:00", "9:00", "", "", "None", "", "", "", "");
 	static Reminder reminder = new Reminder();
 	static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
 	
@@ -26,7 +26,12 @@ public class Event_Reminder_Integrate_Test {
 		event2.setEventDescription("Some Event");
 		event2.setEventLocation("King 117");
 		event2.setEventTag("School");
+		event2.setEventInvitees("None");
+		event2.setEventStartTime("08/31/2017");
+		event2.setEventEndTime("08/31/2017");
 		System.out.println(event2.formatEventSummary());
+		System.out.println(event2.getEventStartDateTime());
+		System.out.println(event2.getEventEndDateTime());
 		assertEquals(1,1);
 	}
 

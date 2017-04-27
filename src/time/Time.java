@@ -244,6 +244,7 @@ public class Time {
 		
 		Calendar c = Calendar.getInstance();
 		try {
+		    System.out.println("The date: " + date); // debug
 			c.setTime(new SimpleDateFormat(getDateFormat(date)).parse(date));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
