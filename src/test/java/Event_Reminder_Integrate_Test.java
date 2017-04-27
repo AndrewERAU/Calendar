@@ -1,48 +1,33 @@
 package test.java;
 
 import static org.junit.Assert.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import org.junit.Test;
 import reminder.Reminder;
 import event.Event;
 
 
-/*public class Event_Reminder_Integrate_Test {
+public class Event_Reminder_Integrate_Test {
 
-	static Event event = new Event();
+	static Event event1 = new Event("", "", "", "", "", "", "", "", "", "", "", "");  //creating an event where each field will be defaulted to "NULL"
+	static Event event2 = new Event("0001", "Test Event", "", "2017-11-9", "8:00", "9:00", "", "None", "", "", "", "");
 	static Reminder reminder = new Reminder();
-	static BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 	static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+	
 	@Test
 	public void test() throws Exception {
-		System.out.println("Set event title: ");
-		String etitle = input.readLine();
-		event.setEventTitle(etitle);
-		System.out.println("Set event description: ");
-		String edescription = input.readLine();
-		event.setEventDescription(edescription);
-		System.out.println("Set event Location: ");
-		String eLocation = input.readLine();
-		event.setEventLocation(eLocation);
-		event.setEventStartTime("20:30 2017-04-06");
-		event.setEventEndTime("21:00 2017-04-06");
-		System.out.println("Event filled");
-		System.out.print("Event: " + event.getEventTitle() +
-				 "\nInfo: " + event.getEventDescription() +
-				 "\nLocation: " + event.getEventLocation() +
-				 "\nStart Time: " + dateFormat.format(event.getEventStartTime()) +
-				 "\nEnd Time: " + dateFormat.format(event.getEventEndTime()) + "\n");
-		System.out.println("Set time to receive reminder:");
-		System.out.println("How many days before event? ");
-		Integer rdays = Integer.parseInt(input.readLine());
-		System.out.println("How many hours before event? ");
-		Integer rhours = Integer.parseInt(input.readLine());
-		System.out.println("How many minutes before event? ");
-		Integer rminutes = Integer.parseInt(input.readLine());
-		reminder.setAlert(event, rdays, rhours, rminutes);
+		System.out.println("Test 1: Creating a Null Event");
+		System.out.print("Event: " + event1.getEventTitle() +
+				 "\nInfo: " + event1.getEventDescription() +
+				 "\nLocation: " + event1.getEventLocation() +
+				 "\nStart Time: " + dateFormat.format(event1.getEventStartTime()) +
+				 "\nEnd Time: " + dateFormat.format(event1.getEventEndTime()) + "\n");
+		System.out.println("Test 2: Running all Event Methods");
+		event2.setEventDescription("Some Event");
+		event2.setEventLocation("King 117");
+		event2.setEventTag("School");
+		System.out.println(event2.formatEventSummary());
 		assertEquals(1,1);
 	}
 
-}*/
+}

@@ -22,7 +22,9 @@ public class Reminder_Test {
 	     event.setEventStartTime("12:00");
 	     event.setEventEndTime("13:00");
 	     test_reminder.setAlert(event, 0, 1, 0);  //set reminder to one hour before event
-	     negative_reminder.setAlert(event, -1, -1, -5);  //set reminder to invalid time to test exception handling
+	     negative_reminder.setAlert(event, -1, 1, 5);  //set reminder to invalid time to test exception handling
+	     negative_reminder.setAlert(event, 1, -1, 5);
+	     negative_reminder.setAlert(event, 1, 1, -5);
 	     System.out.println("Reminder 1 is set to alert at: " + sdf.format(test_reminder.getAlert()));
 	     //System.out.println("Reminder 2 is set to alert at: "+ sdf.format(negative_reminder.getAlert()));
 	     assertEquals(1,1);
