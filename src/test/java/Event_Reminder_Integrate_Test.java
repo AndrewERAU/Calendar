@@ -20,8 +20,8 @@ public class Event_Reminder_Integrate_Test {
 		System.out.print("Event: " + event1.getEventTitle() +
 				 "\nInfo: " + event1.getEventDescription() +
 				 "\nLocation: " + event1.getEventLocation() +
-				 "\nStart Time: " + dateFormat.format(event1.getEventStartTime()) +
-				 "\nEnd Time: " + dateFormat.format(event1.getEventEndTime()) + "\n");
+				 "\nStart Time: " + event1.getEventStartTime() +
+				 "\nEnd Time: " + event1.getEventEndTime() + "\n");
 		System.out.println("Test 2: Running all Event Methods");
 		event2.setEventDescription("Some Event");
 		event2.setEventLocation("King 117");
