@@ -10,7 +10,7 @@ import event.Event;
 public class Event_Reminder_Integrate_Test {
 
 	static Event event1 = new Event("", "", "", "", "", "", "", "", "", "", "", "");  //creating an event where each field will be defaulted to "NULL"
-	static Event event2 = new Event("0001", "Test Event", "", "2017-11-9", "8:00", "9:00", "", "None", "", "", "", "");
+	static Event event2 = new Event("0001", "Test Event", "2017-11-9", "8:00", "9:00", "", "", "None", "", "", "", "");
 	static Reminder reminder = new Reminder();
 	static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy");
 	
