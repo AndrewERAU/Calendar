@@ -422,50 +422,38 @@ public class Time {
 	}
 
 	public static String getMonthToNum(String month_str){
-		String month_num = "00";
+		String month_num = null;
 		
 		
-		switch (month_str){
-		case "January":
+		if ("January".equals(month_str)) {
 			month_num = "01";
-			break;
-		case "February":
+		} else if ("February".equals(month_str)) {
 			month_num = "02";
-			break;
-		case "March":
+		} else if ("March".equals(month_str)) {
 			month_num = "03";
-			break;
-		case "April":
+		} else if ("April".equals(month_str)) {
 			month_num = "04";
-			break;
-		case "May":
+		} else if ("May".equals(month_str)) {
 			month_num = "05";
-			break;
-		case "June":
+		} else if ("June".equals(month_str)) {
 			month_num = "06";
-			break;
-		case "July":
+		} else if ("July".equals(month_str)) {
 			month_num = "07";
-			break;
-		case "August":
+		} else if ("August".equals(month_str)) {
 			month_num = "08";
-			break;
-		case "September":
+		} else if ("September".equals(month_str)) {
 			month_num = "09";
-			break;
-		case "October":
+		} else if ("October".equals(month_str)) {
 			month_num = "10";
-			break;
-		case "November":
+		} else if ("November".equals(month_str)) {
 			month_num = "11";
-			break;
-		case "December":
+		} else if ("December".equals(month_str)) {
 			month_num = "12";
-			break;
 		}
 		
 		return month_num;
 	}
+	
 
 }
 
