@@ -27,12 +27,14 @@ import event.Event;
 import time.Time;
 
 
-public class Day_Manage_Event_View {
-	
+
+public class Day_Manage_Event_View  {
+		
 	private JFrame frame;
 	
 	private JPanel leftPanel;
 	private JPanel rightPanel;
+
 	
 	private JTextField eventTag;
 	private JTextField eventDate; // TODO, make dates use a date picker. Same for times.
@@ -64,6 +66,7 @@ public class Day_Manage_Event_View {
 	private DatabaseMgr db;
 	private Event event;
 	
+
 	public Day_Manage_Event_View(String sql_date_selected) {
 		initUI();
 	}
