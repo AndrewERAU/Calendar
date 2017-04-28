@@ -17,7 +17,7 @@ public class Reminder
 	public Reminder()
     {
 		alertTime = null;
-        System.out.println("Reminder object was created.");
+        //System.out.println("Reminder object was created.");
 	}
     
     public Date getAlert()
