@@ -66,8 +66,11 @@ public class Day_Manage_Event_View  {
 	private DatabaseMgr db;
 	private Event event;
 	
+	private String SELECTED_DATE;
+	
 
 	public Day_Manage_Event_View(String sql_date_selected) {
+		SELECTED_DATE = sql_date_selected;
 		initUI();
 	}
 	
@@ -276,7 +279,7 @@ public class Day_Manage_Event_View  {
 	    	String events = "";
 	    	
 	    	DatabaseMgr db = new DatabaseMgr();
-	    	List<Event> eventList = db.retrieveEvents('D',Time.getCurrentDayInSqlFormat());
+	    	List<Event> eventList = db.retrieveEvents('D',SELECTED_DATE);
 	    	
 	    	// These are for debugging.  Remove.
 	    	
