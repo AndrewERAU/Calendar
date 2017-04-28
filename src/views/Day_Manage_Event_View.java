@@ -3,23 +3,36 @@ package views;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 
 import database.DatabaseMgr;
 import event.Event;
+import time.Time;
 
 
-public class Day_Manage_Event_View extends JFrame {
+public class Day_Manage_Event_View {
+	
+	private JFrame frame;
+	
+	private JPanel leftPanel;
+	private JPanel rightPanel;
 	
 	private JTextField eventTag;
 	private JTextField eventDate; // TODO, make dates use a date picker. Same for times.
@@ -46,26 +59,47 @@ public class Day_Manage_Event_View extends JFrame {
 	
 	private JButton saveEventButton;
 	
-	private JPanel panel;
+	//private JPanel panel;
 	
 	private DatabaseMgr db;
 	private Event event;
 	
-	public Day_Manage_Event_View() {
+	public Day_Manage_Event_View(String sql_date_selected) {
 		initUI();
 	}
 	
 	private void initUI() {
-        setTitle("Add Event");
-        setSize(400, 500);     
-        setResizable(false);
-        setLocationRelativeTo(null); // Show in middle of screen
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // closes window w/o exiting app
+    	frame = new JFrame();
+        frame.setTitle("Add Event");
+        frame.setSize(900, 540);     
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null); // Show in middle of screen
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // closes window w/o exiting app
         
-        panel = new JPanel();
+        //panel = new JPanel();
         //panel.setLayout(new FlowLayout()); // TODO: Update Add Event Screen - USE GridBagLayout
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        //panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         
+        
+        rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel,BoxLayout.PAGE_AXIS)); //BoxLayout.PAGE_AXIS == top to bottom layout
+        //rightPanel.setLocation(450, 10);
+        //rightPanel.setSize(frame.getWidth()/2 - 10,frame.getHeight()  - 30);
+        //rightPanel.setBackground(Color.RED);    
+        
+        leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.PAGE_AXIS)); //BoxLayout.PAGE_AXIS == top to bottom layout
+        //leftPanel.setLocation(450, 100);
+        //leftPanel.setSize(this.getWidth()/2 - 10,this.getHeight()  - 30);
+        //leftPanel.setSize(10,10);
+        //leftPanel.setPreferredSize(new Dimension(10, 100));
+        //leftPanel.setBackground(Color.BLUE);
+        //rightPanel.setBackground(Color.RED);              
+        
+        frame.setLayout(new GridLayout(1,2));
+        frame.add(leftPanel);
+        frame.add(rightPanel);
+       
         
         titleLabel = new JLabel("Event Title");
         eventTitle = new JTextField();
@@ -114,7 +148,7 @@ public class Day_Manage_Event_View extends JFrame {
           {
               // Save event to database
         	  // TODO: Add any reminders if they are listed done?
-        	  /* TODO: updated event format and constructor, fix this
+        	  // TODO: updated event format and constructor, fix this
         	  event = new Event(eventTitle.getText(),
         			  eventDescription.getText(),
         			  eventDate.getText(),
@@ -123,9 +157,15 @@ public class Day_Manage_Event_View extends JFrame {
         			  eventLocation.getText(),
         			  eventInvitees.getText(),
         			  eventTag.getText(),
-        			  eventReminder1.getText(),
-        			  eventReminder2.getText(),
-        			  eventReminder2.getText());*/
+        			  "",
+        			  "",
+        			  "",
+        			  ""
+//        			  eventReminder1Date.getText(),
+//        			  eventReminder1Time.getText(),
+//        			  eventReminder1Date.getText(),
+//        			  eventReminder1Time.getText()
+        			  );
         	  
         	  db = new DatabaseMgr();
         	  db.insertEvent(event);
@@ -135,46 +175,128 @@ public class Day_Manage_Event_View extends JFrame {
         });
         
         
-        panel.add(titleLabel);
-        panel.add(eventTitle);
-        
-        panel.add(descriptionLabel);
-        panel.add(eventDescription);
-        
-        panel.add(dateLabel);
-        panel.add(eventDate);
-        
-        panel.add(startTimeLabel);
-        panel.add(eventStartTime);
-        
-        panel.add(endTimeLabel);
-        panel.add(eventEndTime);
-        
-        panel.add(locationLabel);
-        panel.add(eventLocation);
-        
-        panel.add(inviteesLabel);
-        panel.add(eventInvitees);
-        
-        panel.add(tagLabel);
-        panel.add(eventTag);
-        
-        panel.add(reminder1Label);
-        panel.add(eventReminder1);
-        
-        panel.add(reminder2Label);
-        panel.add(eventReminder2);
-        
-        panel.add(saveEventButton);
+     
         
         
         
-        add(panel);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        rightPanel.add(titleLabel);
+        rightPanel.add(eventTitle);
+        
+        rightPanel.add(descriptionLabel);
+        rightPanel.add(eventDescription);
+        
+        rightPanel.add(dateLabel);
+        rightPanel.add(eventDate);
+        
+        rightPanel.add(startTimeLabel);
+        rightPanel.add(eventStartTime);
+        
+        rightPanel.add(endTimeLabel);
+        rightPanel.add(eventEndTime);
+        
+        rightPanel.add(locationLabel);
+        rightPanel.add(eventLocation);
+        
+        rightPanel.add(inviteesLabel);
+        rightPanel.add(eventInvitees);
+        
+        rightPanel.add(tagLabel);
+        rightPanel.add(eventTag);
+        
+        rightPanel.add(reminder1Label);
+        rightPanel.add(eventReminder1);
+        
+        rightPanel.add(reminder2Label);
+        rightPanel.add(eventReminder2);
+        
+        rightPanel.add(saveEventButton);
+        
+        
+        displayEventsForToday();
+        
+
         //getContentPane ().add (panel, BorderLayout.LINE_START); // must come after add(panel);
-	    setVisible(true);
+	    frame.setVisible(true);
 	}
 	
-	
+	   private void addEventsTodayScrollBox(String events) {
+       	// Thanks for help with JTextArea SO (switched to JEditorPane tho)
+       	// http://stackoverflow.com/questions/10213100/jscrollpane-words-wrap
+       	JEditorPane label = new JEditorPane("text/html", "");
+       	
+       	//label.setText("<b>Monday, April 6. 9:00am - 12:30pm:<br></b>Biology class<br>"
+       	//		+ "<br><b>Thursday, April 25. 5:00am - 7:00am:<br></b>Morning workout.<br>");        // make it look & act like a label
+       	label.setText(events);
+       	//label.setWrapStyleWord(true);
+       	//label.setLineWrap(true);
+       	label.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+       	label.setFont((new JLabel()).getFont());
+       	label.setEditable(false);
+       	label.setFocusable(false);
+       	label.setOpaque(false);
+
+       	JScrollPane scrollPane = new JScrollPane(label,
+       			JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                   JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+       	
+       	JLabel EventsBoxLabel = new JLabel("Today's Events:");
+       	EventsBoxLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+       	EventsBoxLabel.setFont(new Font("", Font.PLAIN, 16)); 
+       	leftPanel.add(EventsBoxLabel); // TODO: When I add this, the settings button above it gets shifted left 	
+       	
+       	// Prevent scrollbox from changing size - see issue 34 - https://github.com/AndrewERAU/Calendar/issues/34
+//       	scrollPane.setMinimumSize(new Dimension(leftPanel.getWidth(),leftPanel.getHeight()));
+//       	scrollPane.setMaximumSize(new Dimension(leftPanel.getWidth(),leftPanel.getHeight()));
+//       	scrollPane.setPreferredSize(new Dimension(leftPanel.getWidth(),leftPanel.getHeight()));
+       	//scrollPane.setMinimumSize(new Dimension(10,10));
+       	//scrollPane.setMaximumSize(new Dimension(10,10));
+       	//scrollPane.setPreferredSize(new Dimension(10,10));
+       	//scrollPane.setLocation(10,10);
+       	
+       	leftPanel.add(scrollPane);
+       }
+	   
+	   public void displayEventsForToday() {
+	    	String events = "";
+	    	
+	    	DatabaseMgr db = new DatabaseMgr();
+	    	List<Event> eventList = db.retrieveEvents('D',Time.getCurrentDayInSqlFormat());
+	    	
+	    	// These are for debugging.  Remove.
+	    	
+//	    	eventList.add(new Event("myTitle", // eventTitle
+//	    			"Meeting to go over plan details.", // eventDescription
+//	    			"2017-04-12", // eventDate
+//	    			"12:30:00", // eventStartTime
+//	    			"13:30:00", // eventEndTime
+//	    			"3500 Deer Creek Rd, Palo Alto, CA 94304", // eventLocation
+//	    			"", // eventInvitees
+//	    			"Work", // eventTag
+//	    			"",
+//	    			"",
+//	    			"",
+//	    			""));
+	  
+
+	    	for (Event event : eventList) {
+	    		events+= event.formatEvent();
+	    	}
+	    	
+	    	addEventsTodayScrollBox(events);
+	    }
 	
 	
 }

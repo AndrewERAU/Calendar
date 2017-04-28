@@ -420,4 +420,51 @@ public class Time {
 		
 		return yearFormat + "-" + monthFormat + "-" + dayFormat;//"yyyy-M-d";
 	}
+	
+	public static String getMonthToNum(String month_str){
+		 	String month_num = "00";
+		 	
+		 	
+		 	switch (month_str){
+		 	case "January":
+		 		month_num = "01";
+		 		break;
+		 	case "February":
+		 		month_num = "02";
+		 		break;
+		 	case "March":
+		 		month_num = "03";
+		 		break;
+		 	case "April":
+		 		month_num = "04";
+		 		break;
+		 	case "May":
+		 		month_num = "05";
+		 		break;
+		 	case "June":
+		 		month_num = "06";
+		 		break;
+		 	case "July":
+		 		month_num = "07";
+		 		break;
+		 	case "August":
+		 		month_num = "08";
+		 		break;
+		 	case "September":
+		 		month_num = "09";
+		 		break;
+		 	case "October":
+		 		month_num = "10";
+		 		break;
+		 	case "November":
+		 		month_num = "11";
+		 		break;
+		 	case "December":
+		 		month_num = "12";
+		 		break;
+		 	}
+		 	
+		 	return month_num;
+		 }
+	
 }

@@ -131,6 +131,17 @@ public class Event {
 		return ("<b>"+dayOfWeek+", "+month+" "+day+" - "+time+":<br></b>"+eventTitle+"<br><br>");
 	}
 	
+	public String formatEvent() {
+		
+		String dayOfWeek = Time.getWeekdayFromString(getEventDate(),true); // true means convert weekday to word.  ex) "Sunday", not "0"
+		String month = Time.getMonthFromString(getEventDate(),true); // true means convert month to word.  ex) "January", not "1"
+		String day = Time.getDayFromString(getEventDate());
+		String time = Time.getCivilianTimeFromString(getEventStartTime());
+		String eventTitle = getEventTitle();	
+		
+		return ("<b>"+dayOfWeek+", "+month+" "+day+" - "+time+":<br></b>"+eventTitle+"<br>"+getEventDescription()+"<br>");
+	}
+	
 	private String putDateInProperFormat(String inDate) {
 		// converts all dates to this format 'yyyy-MM-dd'
 		String outDate = Time.getYearFromString(inDate) + "-"; // ex) '2017-' at this point		

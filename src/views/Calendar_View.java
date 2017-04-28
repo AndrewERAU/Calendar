@@ -69,10 +69,10 @@ public class Calendar_View {
         initUI();
     }
 	   
-	public static int main (String[] args) {
+	public static void main (String[] args) {
 		Calendar_View hs = new Calendar_View();
 		//hs.setVisible(true);
-		return 0;
+		//return 0;
 	}
 	
 
@@ -113,15 +113,15 @@ public class Calendar_View {
         
         //frame.getContentPane ().add (panel, BorderLayout.WEST);
         
-        addEventButton = new JButton("Add Event");
-        addEventButton.addActionListener(new ActionListener()
-        {
-          public void actionPerformed(ActionEvent e)
-          {
-            // display new add event window
-        	  new Day_Manage_Event_View();
-          }
-        });
+//        addEventButton = new JButton("Add Event");
+//        addEventButton.addActionListener(new ActionListener()
+//        {
+//          public void actionPerformed(ActionEvent e)
+//          {
+//            // display new add event window
+//        	  new Day_Manage_Event_View();
+//          }
+//        });
         
         //frame.getContentPane().setLayout(new FlowLayout());
         //panel.add(addEventButton); // TODO: uncomment this once calendar is done
@@ -133,7 +133,7 @@ public class Calendar_View {
         addMonthYearLabel();
         createNextPrvMonthButton(">",BorderLayout.EAST);
         
-        // Adding elemennts to main calendar panel
+        // Adding elements to main calendar panel
         createDayOfWeekLabel("Sunday",Color.decode(THEME_BLUE));
         createDayOfWeekLabel("Monday",Color.decode(THEME_BLUE));
         createDayOfWeekLabel("Tuesday",Color.decode(THEME_BLUE));
@@ -212,10 +212,43 @@ public class Calendar_View {
         {
           public void actionPerformed(ActionEvent e)
           {
-            // display new add event window
-        	  new Day_Manage_Event_View();
-          }
-        });
+        	  String daySelected = button.getText();
+        	          	  if(Integer.parseInt(daySelected) < 10)
+        	          		  daySelected = "0" + daySelected;
+        	          	  
+        	          	  Component[] monthYearPanel = topPanel.getComponents();
+        	          	  String text = "";
+        	          	  for (Component myChild : monthYearPanel) 
+        	          	  {
+        	                    if (myChild instanceof JLabel) 
+        	                    {
+        	                        text = ((JLabel)myChild).getText();
+        	                    }
+        	                }
+        	          	  int index = 0;
+        	          	  String month = "";
+        	          	  String year = "";
+        	          	  
+        	          	  while(text.charAt(index) != ',')
+        	          	  {
+        	          		  month = month + text.charAt(index);
+        	          		  index++;
+        	          	  }
+        	          	  index = index + 2;
+        	          	  int count4 = 0;
+        	          	  for(count4 = 0; count4 < 4; count4++)
+        	          	  {
+        	          		  year = year + text.charAt(index);
+        	          		  index++;
+        	          	  }
+        	          	  String month_ready = Time.getMonthToNum(month);
+        	          	  String year_ready = year.toString();
+        	          	  String sql_ready = year_ready + "-" +  month_ready + "-" + daySelected;
+        	               // display new add event window
+        	          	  new Day_Manage_Event_View(sql_ready);
+       
+        	             }
+        	           });
         
         // Got this from SO, but it looks like there is a better way (see comments on accepted answer)
         // http://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton

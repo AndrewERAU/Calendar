@@ -9,7 +9,7 @@ public class View_Day_Manage_Event_View_Test {
 
 	@Test
 	public void test() {
-		Day_Manage_Event_View v = new Day_Manage_Event_View();
+		Day_Manage_Event_View v = new Day_Manage_Event_View("2017-12-31");
 	}
 
 }
