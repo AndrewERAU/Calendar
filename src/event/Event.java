@@ -139,6 +139,8 @@ public class Event {
 		String time = Time.getCivilianTimeFromString(getEventStartTime());
 		String eventTitle = getEventTitle();	
 		String endTime = Time.getCivilianTimeFromString(getEventEndTime());
+	    String reminder1Time =Time.getCivilianTimeFromString(getEventReminder1Time());
+	    String reminder2Time =Time.getCivilianTimeFromString(getEventReminder2Time());
 		// tag, location,invitees
 		return ("<b>"+dayOfWeek+", "+month+" "+day+" - "+time+"-"+endTime+":<br></b>"+ 
 				"<b><u>Title:</u></b> "+eventTitle+"<br>"+
@@ -146,8 +148,8 @@ public class Event {
 				"<b><u>Tag:</u></b> " + getEventTag() +"<br>"+
 				"<b><u>Location:</u></b> " + getEventLocation() +"<br>"+
 				"<b><u>Invitees:</u></b> " + getEventInvitees() +"<br>"+
-				"<b><u>Reminder 1:</u></b> " + getEventReminder1Date() + " " + getEventReminder1Time() + "<br>"+
-				"<b><u>Reminder 2:</u></b> " + getEventReminder2Date() + " " + getEventReminder2Time() +"<br>"+
+				"<b><u>Reminder 1:</u></b> " + getEventReminder1Date() + " " + reminder1Time + "<br>"+
+				"<b><u>Reminder 2:</u></b> " + getEventReminder2Date() + " " + reminder2Time +"<br>"+
 				"------------------------------------------<br>"
 				);
 	}

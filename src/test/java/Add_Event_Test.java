@@ -42,6 +42,12 @@ public class Add_Event_Test {
 		db.insertEvent(event); // should succeed
 		assertEquals(db.retrieveEvents('D',"2017-02-27").size(),1); // now 1 element
 		assertEquals(db.retrieveEvents('A',"").size(),1); // should be 1 now
+		
+		event.setEventReminder1Date("2017-2-27");
+		event.setEventReminder1Time("9:00");
+		db.insertEvent(event); // should succeed
+		assertEquals(db.retrieveEvents('D',"2017-02-27").size(),2); // now 1 element
+		assertEquals(db.retrieveEvents('A',"").size(),2); // should be 1 now
 	}
 
 }
