@@ -50,8 +50,6 @@ public class DatabaseMgr {
 		                   " Location        TEXT, " +
 		                   " Invitees        TEXT, " + // string of email addresses?
 		                   " Tag             TEXT, " +
-		                   //" Reminder1       DATETIME, " +
-		                   //" Reminder2       DATETIME " +
 		                   " Reminder1Date       DATE, " +
 		                   " Reminder1Time       TIME, " + // HH:MM
 		                   " Reminder2Date       DATE, " +
@@ -82,7 +80,7 @@ public class DatabaseMgr {
 	private boolean isAlphaNumeric(String s){
 		// Modified slightly from this SO post:
 		// http://stackoverflow.com/questions/11241690/regex-for-checking-if-a-string-is-strictly-alphanumeric
-	    String pattern= "[a-zA-Z0-9\\s\\.]*"; // ex) 'title' or ''  // also allows periods
+	    String pattern= "[a-zA-Z0-9\\s\\.,]*"; // ex) 'title' or ''  // also allows periods
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -96,7 +94,7 @@ public class DatabaseMgr {
 	private boolean isValidTime(String s){
 		// military time
 	    //String pattern= "((\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '12:30:00' or ''
-		String pattern= "((\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) 12:30:00 or ''
+		String pattern= "((\\d{1,2}:\\d{2}){0,1})|(NULL)"; // ex) 12:30 or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -111,7 +109,7 @@ public class DatabaseMgr {
 	
 	private boolean isVaildEmailList(String s){
 		// TODO: currently emails can only have letters and numbers, no underscores, dashes, etc.
-	    String pattern= "(([a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(,\\s*[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*)|(\\s*)|(NULL))"; //ex) 'cool@star.com, beast99@rock.io' or 'cool@star.com' or ''
+	    String pattern= "(([a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(,\\s*[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*)|(\\s*)|(NULL))*"; //ex) 'cool@star.com, beast99@rock.io' or 'cool@star.com' or ''
 	    if (s == null) return true;
 	    return s.matches(pattern);
 	}
@@ -132,11 +130,10 @@ public class DatabaseMgr {
 				isValidLocation(inEvent.getEventLocation()) &&
 				isVaildEmailList(inEvent.getEventInvitees()) &&
 				isAlphaNumeric(inEvent.getEventTag()) &&
-				//isValidDate(inEvent.getEventReminder1Date()) &&
+				isValidDate(inEvent.getEventReminder1Date()) &&
 				isValidTime(inEvent.getEventReminder1Time()) &&
-				//isValidDate(inEvent.getEventReminder2Date()) &&
+				isValidDate(inEvent.getEventReminder2Date()) &&
 				isValidTime(inEvent.getEventReminder2Time()));
-		//TODO: uncomment this to check validity of dates and times
 	}
 	
 	public Event insertEvent(Event eventToAdd) { // returns eventID
@@ -251,6 +248,7 @@ public class DatabaseMgr {
 		} catch( Exception e ) {
 			System.out.println("Error while inserting or updateing event");
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			e.printStackTrace();
 			//System.exit(1);
 		}
 		
