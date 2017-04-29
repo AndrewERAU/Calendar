@@ -44,8 +44,11 @@ public class Day_Manage_Event_View  {
 	private JTextField eventDescription;
 	private JTextField eventLocation;
 	private JTextField eventInvitees;
-	private JTextField eventReminder1;
-	private JTextField eventReminder2;
+	private JTextField eventReminder1Date;
+	private JTextField eventReminder1Time;
+	private JTextField eventReminder2Date;
+	private JTextField eventReminder2Time;
+
 	
 	
 	private JLabel titleLabel;
@@ -56,8 +59,10 @@ public class Day_Manage_Event_View  {
 	private JLabel locationLabel;
 	private JLabel inviteesLabel;
 	private JLabel tagLabel;
-	private JLabel reminder1Label;
-	private JLabel reminder2Label;
+	private JLabel reminder1DateLabel;
+	private JLabel reminder1TimeLabel;
+	private JLabel reminder2DateLabel;
+	private JLabel reminder2TimeLabel;
 	
 	private JButton saveEventButton;
 	
@@ -144,20 +149,20 @@ public class Day_Manage_Event_View  {
         eventTag = new JTextField();
         eventTag.setPreferredSize(new Dimension(200,20));
         
-        JLabel reminder1DateLabel = new JLabel("Reminder 1 Date");
-        JTextField eventReminder1Date = new JTextField();
+        reminder1DateLabel = new JLabel("Reminder 1 Date");
+        eventReminder1Date = new JTextField();
         eventReminder1Date.setPreferredSize(new Dimension(200,20));
         
-        JLabel reminder1TimeLabel = new JLabel("Reminder 1 Time");
-        JTextField eventReminder1Time = new JTextField();
+        reminder1TimeLabel = new JLabel("Reminder 1 Time");
+        eventReminder1Time = new JTextField();
         eventReminder1Time.setPreferredSize(new Dimension(200,20));
         
-        JLabel reminder2DateLabel = new JLabel("Reminder 2 Date");
-        JTextField eventReminder2Date = new JTextField();
+        reminder2DateLabel = new JLabel("Reminder 2 Date");
+        eventReminder2Date = new JTextField();
         eventReminder2Date.setPreferredSize(new Dimension(200,20));
         
-        JLabel reminder2TimeLabel = new JLabel("Reminder 2 Time");
-        JTextField eventReminder2Time = new JTextField();
+        reminder2TimeLabel = new JLabel("Reminder 2 Time");
+        eventReminder2Time = new JTextField();
         eventReminder2Time.setPreferredSize(new Dimension(200,20));
         
         saveEventButton = new JButton("Save Event");
