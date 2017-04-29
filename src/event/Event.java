@@ -138,8 +138,18 @@ public class Event {
 		String day = Time.getDayFromString(getEventDate());
 		String time = Time.getCivilianTimeFromString(getEventStartTime());
 		String eventTitle = getEventTitle();	
-		
-		return ("<b>"+dayOfWeek+", "+month+" "+day+" - "+time+":<br></b>"+eventTitle+"<br>"+getEventDescription()+"<br>");
+		String endTime = Time.getCivilianTimeFromString(getEventEndTime());
+		// tag, location,invitees
+		return ("<b>"+dayOfWeek+", "+month+" "+day+" - "+time+"-"+endTime+":<br></b>"+ 
+				"<b><u>Title:</u></b> "+eventTitle+"<br>"+
+				"<b><u>Description:</u></b> "+getEventDescription()+"<br>"+
+				"<b><u>Tag:</u></b> " + getEventTag() +"<br>"+
+				"<b><u>Location:</u></b> " + getEventLocation() +"<br>"+
+				"<b><u>Invitees:</u></b> " + getEventInvitees() +"<br>"+
+				"<b><u>Reminder 1:</u></b> " + getEventReminder1Date() + " " + getEventReminder1Time() + "<br>"+
+				"<b><u>Reminder 2:</u></b> " + getEventReminder2Date() + " " + getEventReminder2Time() +"<br>"+
+				"------------------------------------------<br>"
+				);
 	}
 	
 	private String putDateInProperFormat(String inDate) {
@@ -148,7 +158,7 @@ public class Event {
 		String eventMonth = Time.getMonthFromString(inDate,false);
 		String eventDay = Time.getDayFromString(inDate);
 		
-		if (Integer.parseInt(eventMonth) < 10) {
+		if (Integer.parseInt(eventMonth) < 10 && eventMonth.length()==1) { // ex) if month = 3, insert as 03. if month = 03, still add as 03
 			outDate += "0" + eventMonth;
 		} else {
 			outDate += eventMonth;
@@ -156,54 +166,17 @@ public class Event {
 		
 		outDate += "-"; // ex) '2017-07-' at this point
 
-		if (Integer.parseInt(eventDay) <  10) {
+		if (Integer.parseInt(eventDay) <  10 && eventDay.length()==1) { // ex) if day = 3, insert as 03. if day = 03, still add as 03
 			outDate += "0" + eventDay;
 		} else {
 			outDate += eventDay;
 		}
 
+		System.out.println(outDate);
+		
 		return outDate; // ex) '2017-07-03' at this point
 	}
 	
-	/* TODO: remove this
-	public Event addSingleQuotes() {
-		Event event = new Event();
-		if (!"NULL".equals(this.eventTitle)) {
-			event.setEventTitle("'" + this.eventTitle + "'");
-		}
-		
-		if (!"NULL".equals(this.eventDescription)) {
-			event.setEventDescription("'" + this.eventDescription + "'");
-		}
-		
-		if (!"NULL".equals(this.eventDate)) {
-			event.setEventDate("'" + this.eventDate + "'");
-		}
-		if (!"NULL".equals(this.eventStartTime)) {
-			event.setEventStartTime("'" + this.eventStartTime + "'");
-		}
-		if (!"NULL".equals(this.eventEndTime)) {
-			event.setEventEndTime("'" + this.eventEndTime + "'");
-		}
-		if (!"NULL".equals(this.eventLocation)) {
-			event.setEventLocation("'" + this.eventLocation + "'");
-		}
-		if (!"NULL".equals(this.eventInvitees)) {
-			event.setEventInvitees("'" + this.eventInvitees + "'");
-		}
-		if (!"NULL".equals(this.eventTag)) {
-			event.setEventTag("'" + this.eventTag + "'");
-		}
-		if (!"NULL".equals(this.eventReminder1)) {
-			event.setEventReminder1("'" + this.eventReminder1 + "'");
-		}
-		if (!"NULL".equals(this.eventReminder2)) {
-			event.setEventReminder1("'" + this.eventReminder2 + "'");
-		}
-
-		return event;
-	}
-	*/
 
 	
 	// Getters
