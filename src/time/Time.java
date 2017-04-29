@@ -174,6 +174,8 @@ public class Time {
 	}
 	
 	public static String getCivilianTimeFromString(String militaryTime) {
+		if ("NULL".equals(militaryTime)) return militaryTime;
+		
 		String civilianTime = null;
 		String ampm = null;
 		int militaryHour = 0;
