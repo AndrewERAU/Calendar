@@ -19,7 +19,7 @@ bin/
 #*.jar # I commented this for JUnit for Travis-CI builds
 *.war
 *.ear
-*.zip
+#*.zip
 *.tar.gz
 *.rar
 
