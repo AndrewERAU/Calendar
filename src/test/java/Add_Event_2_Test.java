@@ -30,7 +30,7 @@ public class Add_Event_2_Test {
 		
 		
 		
-		File dbFile = new File(DatabaseMgr.TEST_DB_PATH);
+		File dbFile = new File(DatabaseMgr.DB_PATH);
 		dbFile.delete();
 		DatabaseMgr db = new DatabaseMgr();
 		

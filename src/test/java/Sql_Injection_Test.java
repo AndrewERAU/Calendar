@@ -27,7 +27,7 @@ public class Sql_Injection_Test {
 
 	@Test
 	public void test() {
-		File dbFile = new File(DatabaseMgr.TEST_DB_PATH);
+		File dbFile = new File(DatabaseMgr.DB_PATH);
 		dbFile.delete();
 		DatabaseMgr db = new DatabaseMgr();
 		assertEquals(db.retrieveEvents('A',"").size(),0);

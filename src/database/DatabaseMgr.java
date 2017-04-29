@@ -12,7 +12,9 @@ import reminder.ReminderObj;
 
 import time.Time;
 
+
 public class DatabaseMgr {
+	public static Integer eventsStartingInDB = 3;
 	private Connection c = null;
 	public final static String DB_DIR = "./db";
 	public final static String TEST_DB_PATH = DB_DIR + "/test.db";
