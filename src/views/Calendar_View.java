@@ -192,13 +192,13 @@ public class Calendar_View {
     	}
     }
     
-    private void drawBox(final int i) {
+    private void drawBox(int i) {
     	final JButton button = new JButton(Integer.toString(i));
     	button.setMinimumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         button.setMaximumSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
        
-        int today = Time.getCurrentDay();
+        final int today = Time.getCurrentDay();
         if (i == today) {
         	String bluecolor = "#a1c4fc";
             button.setBackground(Color.decode(bluecolor));
