@@ -91,6 +91,12 @@ public class DatabaseMgr {
 	    return s.matches(pattern);
 	}
 	
+	private boolean isValidReminderDate(String s){
+	    String pattern= "(\\d{4}-\\d{1,2}-\\d{1,2})|(NULL)"; // ex) '2016-12-30'
+	    if (s == null) return true;
+	    return s.matches(pattern);
+	}
+	
 	private boolean isValidTime(String s){
 		// military time
 	    //String pattern= "((\\d{2}:\\d{2}:\\d{2}){0,1})|(NULL)"; // ex) '12:30:00' or ''
@@ -130,9 +136,9 @@ public class DatabaseMgr {
 				isValidLocation(inEvent.getEventLocation()) &&
 				isVaildEmailList(inEvent.getEventInvitees()) &&
 				isAlphaNumeric(inEvent.getEventTag()) &&
-				isValidDate(inEvent.getEventReminder1Date()) &&
+				isValidReminderDate(inEvent.getEventReminder1Date()) &&
 				isValidTime(inEvent.getEventReminder1Time()) &&
-				isValidDate(inEvent.getEventReminder2Date()) &&
+				isValidReminderDate(inEvent.getEventReminder2Date()) &&
 				isValidTime(inEvent.getEventReminder2Time()));
 	}
 	
