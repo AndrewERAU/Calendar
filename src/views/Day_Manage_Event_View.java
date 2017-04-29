@@ -24,6 +24,7 @@ import javax.swing.JEditorPane;
 
 import database.DatabaseMgr;
 import event.Event;
+import reminder.ReminderObj;
 import time.Time;
 
 
@@ -199,6 +200,7 @@ public class Day_Manage_Event_View  {
         	  db.insertEvent(event);
         	  db.close();
         	  HOME_SCREEN.refreshTodaysEventsView();
+        	  refreshRemindersOnDayView();
         	  refreshEventsOnDayView(); // refreshes events list in left pane on Day_Manage_Event_View
           }
         });
@@ -221,8 +223,8 @@ public class Day_Manage_Event_View  {
         			  eventTag.getText(),
         			  eventReminder1Date.getText(),
         			  eventReminder1Time.getText(),
-        			  eventReminder1Date.getText(),
-        			  eventReminder1Time.getText()
+        			  eventReminder2Date.getText(),
+        			  eventReminder2Time.getText()
 //        			  eventReminder1Date.getText(),
 //        			  eventReminder1Time.getText(),
 //        			  eventReminder1Date.getText(),
@@ -233,6 +235,7 @@ public class Day_Manage_Event_View  {
         	  db.updateEvent(event);
         	  db.close();   	  
         	  HOME_SCREEN.refreshTodaysEventsView();
+        	  refreshRemindersOnDayView();
         	  refreshEventsOnDayView(); // refreshes events list in left pane on Day_Manage_Event_View
           }
         });
@@ -267,6 +270,7 @@ public class Day_Manage_Event_View  {
         	  //db.removeEvent(event);
         	  db.close();
         	  HOME_SCREEN.refreshTodaysEventsView();
+        	  refreshRemindersOnDayView();
         	  refreshEventsOnDayView(); // refreshes events list in left pane on Day_Manage_Event_View
         	  
           }
@@ -419,6 +423,21 @@ public class Day_Manage_Event_View  {
 	    		events+= event.formatEvent();
 	    	}
 	    	label.setText(events);
+	    }
+
+	    private void refreshRemindersOnDayView() {
+	    	String reminders = "";
+	    	DatabaseMgr db = new DatabaseMgr();
+	    	List<ReminderObj> reminderList = db.retrieveReminders(Time.getCurrentDayInSqlFormat());
+	    	for (ReminderObj reminder : reminderList) {
+	    		reminders+= formatReminder(reminder);
+	    	}
+	    	HOME_SCREEN.labelR.setText(reminders);
+	    }
+
+	    
+	    private String formatReminder(ReminderObj r) {
+	    	return ("<b>"+r.getReminderDayOfWeek()+", "+r.getReminderMonth()+" "+r.getReminderDay()+" - "+r.getReminderTime()+":<br></b>"+r.getReminderEventTitle()+"<br><br>");
 	    }
 	        	
 

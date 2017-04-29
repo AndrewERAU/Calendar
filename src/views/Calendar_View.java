@@ -50,6 +50,7 @@ public class Calendar_View {
 	private JButton addEventButton;
 	//private Display_Add_Event_Screen addEventWindow;
 	JEditorPane label;
+	JEditorPane labelR;
 	static Calendar_View hs;
 	  
 	
@@ -366,20 +367,20 @@ public class Calendar_View {
     private void addUpcommingRemindersScrollBox(String reminderText) {
     	// Thanks for help with JTextArea SO (switched to JEditorPane tho)
     	// http://stackoverflow.com/questions/10213100/jscrollpane-words-wrap
-    	JEditorPane label = new JEditorPane("text/html", "");
+    	labelR = new JEditorPane("text/html", "");
     	
     	//label.setText("<b>Monday, April 6 - 5:30pm:<br></b>Time to workout!<br>"
     		//	+ "<br><b>Thursday, April 25 - 10:00am<br></b>Get some homework done.<br>");
-    	label.setText(reminderText);
+    	labelR.setText(reminderText);
         // make it look & act like a label
     	//label.setWrapStyleWord(true);
     	//label.setLineWrap(true);
-    	label.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
-    	label.setFont((new JLabel()).getFont());
-    	label.setEditable(false);
-    	label.setFocusable(false);
-    	label.setOpaque(false);
-    	JScrollPane scrollPane = new JScrollPane(label,
+    	labelR.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+    	labelR.setFont((new JLabel()).getFont());
+    	labelR.setEditable(false);
+    	labelR.setFocusable(false);
+    	labelR.setOpaque(false);
+    	JScrollPane scrollPane = new JScrollPane(labelR,
     			JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     	

@@ -16,9 +16,11 @@ public class DatabaseMgr {
 	private Connection c = null;
 	public final static String DB_DIR = "./db";
 	public final static String TEST_DB_PATH = DB_DIR + "/test.db";
+	public final static String SAMPLE_DB_PATH = DB_DIR + "/sample.db";
+	public final static String DB_PATH = SAMPLE_DB_PATH; // set db path to the sample db.  should change this in production
 	
 	public DatabaseMgr() {
-		File databaseFile = new File(TEST_DB_PATH);
+		File databaseFile = new File(DB_PATH);
 		if ( !databaseFile.isFile() ) { // check if database file exists
 			try {
 				new File(DB_DIR).mkdirs(); // create the db directory if it doesn't exist
@@ -67,7 +69,7 @@ public class DatabaseMgr {
 	private void openDBConnection() {
 	    try {
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:"+TEST_DB_PATH);
+	      c = DriverManager.getConnection("jdbc:sqlite:"+DB_PATH);
 	    } catch ( Exception e ) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(1);
