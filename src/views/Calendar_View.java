@@ -49,6 +49,9 @@ public class Calendar_View {
 	private JPanel calPanel;
 	private JButton addEventButton;
 	//private Display_Add_Event_Screen addEventWindow;
+	JEditorPane label;
+	static Calendar_View hs;
+	  
 	
     private final int LABEL_WIDTH = 25;
     private final int LABEL_HEIGHT = 10;
@@ -70,7 +73,7 @@ public class Calendar_View {
     }
 	   
 	public static void main (String[] args) {
-		Calendar_View hs = new Calendar_View();
+		hs = new Calendar_View();
 		//hs.setVisible(true);
 		//return 0;
 	}
@@ -245,8 +248,7 @@ public class Calendar_View {
         	          	  String year_ready = year.toString();
         	          	  String sql_ready = year_ready + "-" +  month_ready + "-" + daySelected;
         	               // display new add event window
-        	          	  new Day_Manage_Event_View(sql_ready);
-       
+        	          	  new Day_Manage_Event_View(hs,sql_ready);
         	             }
         	           });
         
@@ -254,12 +256,22 @@ public class Calendar_View {
         // http://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBorder( new LineBorder(Color.BLUE,2,false)); // color, thickness, rounded corners
+                //button.setBorder( new LineBorder(Color.BLUE,2,false)); // color, thickness, rounded corners
             	button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            	String bluecolor = "#a7d2f9";
+                button.setBackground(Color.decode(bluecolor));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-            	button.setBorder( new LineBorder(Color.white));
+            	  if (i == today) {
+                  	String bluecolor = "#a1c4fc";
+                      button.setBackground(Color.decode(bluecolor));
+                      button.setBorder( new LineBorder(Color.decode(bluecolor)) );
+                  } else {
+                      button.setBackground(Color.WHITE);
+                      button.setBorder( new LineBorder(Color.white) );
+                  }
+            	//button.setBorder( new LineBorder(Color.white));
             }
         });
     	
@@ -399,7 +411,7 @@ public class Calendar_View {
     private void addEventsTodayScrollBox(String events) {
     	// Thanks for help with JTextArea SO (switched to JEditorPane tho)
     	// http://stackoverflow.com/questions/10213100/jscrollpane-words-wrap
-    	JEditorPane label = new JEditorPane("text/html", "");
+    	label = new JEditorPane("text/html", "");
     	
     	//label.setText("<b>Monday, April 6. 9:00am - 12:30pm:<br></b>Biology class<br>"
     	//		+ "<br><b>Thursday, April 25. 5:00am - 7:00am:<br></b>Morning workout.<br>");        // make it look & act like a label
@@ -493,5 +505,18 @@ public class Calendar_View {
     	
     	addEventsTodayScrollBox(events);
     }
+    
+    public void refreshTodaysEventsView() {
+    	String events="";
+    	DatabaseMgr db = new DatabaseMgr();
+    	List<Event> eventList = db.retrieveEvents('D',Time.getCurrentDayInSqlFormat());
+    	for (Event event : eventList) {
+    		events+= event.formatEventSummary();
+    	}
+    	label.setText(events);
+    }
+    
+
+    
 
 }

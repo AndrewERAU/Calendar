@@ -61,6 +61,8 @@ public class Day_Manage_Event_View  {
 	
 	private JButton saveEventButton;
 	
+	JEditorPane label;
+	
 	//private JPanel panel;
 	
 	private DatabaseMgr db;
@@ -68,16 +70,19 @@ public class Day_Manage_Event_View  {
 	
 	private String SELECTED_DATE;
 	
+	private Calendar_View HOME_SCREEN;
+	
 
-	public Day_Manage_Event_View(String sql_date_selected) {
+	public Day_Manage_Event_View(Calendar_View cv, String sql_date_selected) {
 		SELECTED_DATE = sql_date_selected;
+		HOME_SCREEN = cv;
 		initUI();
 	}
 	
 	private void initUI() {
     	frame = new JFrame();
         frame.setTitle("Add Event");
-        frame.setSize(900, 540);     
+        frame.setSize(900, 650);     
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // Show in middle of screen
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // closes window w/o exiting app
@@ -139,15 +144,26 @@ public class Day_Manage_Event_View  {
         eventTag = new JTextField();
         eventTag.setPreferredSize(new Dimension(200,20));
         
-        reminder1Label = new JLabel("Reminder 1");
-        eventReminder1 = new JTextField();
-        eventReminder1.setPreferredSize(new Dimension(200,20));
+        JLabel reminder1DateLabel = new JLabel("Reminder 1 Date");
+        JTextField eventReminder1Date = new JTextField();
+        eventReminder1Date.setPreferredSize(new Dimension(200,20));
         
-        reminder2Label = new JLabel("Reminder 2");
-        eventReminder2 = new JTextField();
-        eventReminder2.setPreferredSize(new Dimension(200,20));
+        JLabel reminder1TimeLabel = new JLabel("Reminder 1 Time");
+        JTextField eventReminder1Time = new JTextField();
+        eventReminder1Time.setPreferredSize(new Dimension(200,20));
+        
+        JLabel reminder2DateLabel = new JLabel("Reminder 2 Date");
+        JTextField eventReminder2Date = new JTextField();
+        eventReminder2Date.setPreferredSize(new Dimension(200,20));
+        
+        JLabel reminder2TimeLabel = new JLabel("Reminder 2 Time");
+        JTextField eventReminder2Time = new JTextField();
+        eventReminder2Time.setPreferredSize(new Dimension(200,20));
         
         saveEventButton = new JButton("Save Event");
+        
+        saveEventButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
         saveEventButton.addActionListener(new ActionListener()
         {
           public void actionPerformed(ActionEvent e)
@@ -163,10 +179,45 @@ public class Day_Manage_Event_View  {
         			  eventLocation.getText(),
         			  eventInvitees.getText(),
         			  eventTag.getText(),
-        			  "",
-        			  "",
-        			  "",
-        			  ""
+        			  eventReminder1Date.getText(),
+        			  eventReminder1Time.getText(),
+        			  eventReminder1Date.getText(),
+        			  eventReminder1Time.getText()
+//        			  eventReminder1Date.getText(),
+//        			  eventReminder1Time.getText(),
+//        			  eventReminder1Date.getText(),
+//        			  eventReminder1Time.getText()
+        			  );
+        	  System.out.print(event.getEventTitle());
+        	  System.out.print(event.getEventDate());
+        	  db = new DatabaseMgr();
+        	  db.insertEvent(event);
+        	  db.close();
+        	  HOME_SCREEN.refreshTodaysEventsView();
+        	  refreshEventsOnDayView(); // refreshes events list in left pane on Day_Manage_Event_View
+          }
+        });
+        
+        JButton modifyEventButton = new JButton("Modify Event");      
+        modifyEventButton.addActionListener(new ActionListener()
+        {
+          public void actionPerformed(ActionEvent e)
+          {
+              // Save event to database
+        	  // TODO: Add any reminders if they are listed done?
+        	  // TODO: updated event format and constructor, fix this
+        	  event = new Event(eventTitle.getText(),
+        			  eventDescription.getText(),
+        			  eventDate.getText(),
+        			  eventStartTime.getText(),
+        			  eventEndTime.getText(),
+        			  eventLocation.getText(),
+        			  eventInvitees.getText(),
+        			  eventTag.getText(),
+        			  eventReminder1Date.getText(),
+        			  eventReminder1Time.getText(),
+        			  eventReminder1Date.getText(),
+        			  eventReminder1Time.getText()
 //        			  eventReminder1Date.getText(),
 //        			  eventReminder1Time.getText(),
 //        			  eventReminder1Date.getText(),
@@ -174,12 +225,47 @@ public class Day_Manage_Event_View  {
         			  );
         	  
         	  db = new DatabaseMgr();
-        	  db.insertEvent(event);
-        	  db.close();
-        	  
+        	  db.updateEvent(event);
+        	  db.close();   	  
+        	  HOME_SCREEN.refreshTodaysEventsView();
+        	  refreshEventsOnDayView(); // refreshes events list in left pane on Day_Manage_Event_View
           }
         });
         
+        JButton deleteEventButton = new JButton("Delete Event");        
+        saveEventButton.addActionListener(new ActionListener()
+        {
+          public void actionPerformed(ActionEvent e)
+          {
+              // Save event to database
+        	  // TODO: Add any reminders if they are listed done?
+        	  // TODO: updated event format and constructor, fix this
+        	  event = new Event(eventTitle.getText(),
+        			  eventDescription.getText(),
+        			  eventDate.getText(),
+        			  eventStartTime.getText(),
+        			  eventEndTime.getText(),
+        			  eventLocation.getText(),
+        			  eventInvitees.getText(),
+        			  eventTag.getText(),
+        			  eventReminder1Date.getText(),
+        			  eventReminder1Time.getText(),
+        			  eventReminder1Date.getText(),
+        			  eventReminder1Time.getText()
+//        			  eventReminder1Date.getText(),
+//        			  eventReminder1Time.getText(),
+//        			  eventReminder1Date.getText(),
+//        			  eventReminder1Time.getText()
+        			  );
+        	  
+        	  db = new DatabaseMgr();
+        	  //db.removeEvent(event);
+        	  db.close();
+        	  HOME_SCREEN.refreshTodaysEventsView();
+        	  refreshEventsOnDayView(); // refreshes events list in left pane on Day_Manage_Event_View
+        	  
+          }
+        });
         
      
         
@@ -222,13 +308,27 @@ public class Day_Manage_Event_View  {
         rightPanel.add(tagLabel);
         rightPanel.add(eventTag);
         
-        rightPanel.add(reminder1Label);
-        rightPanel.add(eventReminder1);
+        //rightPanel.add(reminder1Label);
+        //rightPanel.add(eventReminder1);
         
-        rightPanel.add(reminder2Label);
-        rightPanel.add(eventReminder2);
+        //rightPanel.add(reminder2Label);
+        //rightPanel.add(eventReminder2);
+        
+        rightPanel.add(reminder1DateLabel);
+        rightPanel.add(eventReminder1Date);
+        
+        rightPanel.add(reminder1TimeLabel);
+        rightPanel.add(eventReminder1Time);
+        
+        rightPanel.add(reminder2DateLabel);
+        rightPanel.add(eventReminder2Date);
+        
+        rightPanel.add(reminder2TimeLabel);
+        rightPanel.add(eventReminder2Time);
         
         rightPanel.add(saveEventButton);
+        rightPanel.add(modifyEventButton);
+        rightPanel.add(deleteEventButton);
         
         
         displayEventsForToday();
@@ -241,7 +341,7 @@ public class Day_Manage_Event_View  {
 	   private void addEventsTodayScrollBox(String events) {
        	// Thanks for help with JTextArea SO (switched to JEditorPane tho)
        	// http://stackoverflow.com/questions/10213100/jscrollpane-words-wrap
-       	JEditorPane label = new JEditorPane("text/html", "");
+       	label = new JEditorPane("text/html", "");
        	
        	//label.setText("<b>Monday, April 6. 9:00am - 12:30pm:<br></b>Biology class<br>"
        	//		+ "<br><b>Thursday, April 25. 5:00am - 7:00am:<br></b>Morning workout.<br>");        // make it look & act like a label
@@ -304,5 +404,17 @@ public class Day_Manage_Event_View  {
 	    	addEventsTodayScrollBox(events);
 	    }
 	
-	
+	    
+	    private void refreshEventsOnDayView() {
+
+	    	String events="";
+	    	DatabaseMgr db = new DatabaseMgr();
+	    	List<Event> eventList = db.retrieveEvents('D',SELECTED_DATE);
+	    	for (Event event : eventList) {
+	    		events+= event.formatEvent();
+	    	}
+	    	label.setText(events);
+	    }
+	        	
+
 }
