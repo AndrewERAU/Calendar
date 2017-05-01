@@ -24,6 +24,8 @@ public class Time_GetMonthFromString_Test {
 		assertEquals(Time.getMonthFromString("2017-12-14",true),"December");
 		
 		assertEquals(Time.getMonthFromString("2017-01-14",true),"January");
+		assertEquals(Time.getMonthFromString("1999-01-1",true),"January");
+		assertEquals(Time.getMonthFromString("2129-01-01",true),"January");
 	}
 
 }

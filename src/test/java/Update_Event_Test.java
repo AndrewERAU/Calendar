@@ -38,6 +38,6 @@ public class Update_Event_Test {
 		event = db.updateEvent(event); // should succeed
 		assertEquals(db.retrieveEvents('T',"My favorite event").size(),0); // now 0 element
 		assertEquals(db.retrieveEvents('T',"Meeting").size(),1); // now 1 element
-		assertEquals(db.retrieveEvents('A',"").size(),1); // should be 0 to start
+		assertEquals(db.retrieveEvents('A',"").size(),1); // should be 1 event in db now
 	}
 }

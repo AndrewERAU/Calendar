@@ -19,6 +19,7 @@ public class Remove_Event_Test {
 		DatabaseMgr db = new DatabaseMgr();
 		assertEquals(db.retrieveEvents('A',"").size(),0); // Make sure there are no events in db
 		assertEquals(db.retrieveEvents('I',"1").size(),0); // Make sure there are no events in db
+		
 		testEvent = db.insertEvent(testEvent); //  Insert event
 		assertEquals(db.retrieveEvents('I',testEvent.getEventID()).size(),1); // Make sure the event with the id we just inserted is in db
 		db.removeEvent(Integer.parseInt(testEvent.getEventID())); // remove the event by id
@@ -26,3 +27,6 @@ public class Remove_Event_Test {
 		dbFile.delete();
 	}
 }
+
+
+
