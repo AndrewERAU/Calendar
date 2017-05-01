@@ -258,12 +258,8 @@ public class Day_Manage_Event_View  {
         			  eventTag.getText(),
         			  eventReminder1Date.getText(),
         			  eventReminder1Time.getText(),
-        			  eventReminder1Date.getText(),
-        			  eventReminder1Time.getText()
-//        			  eventReminder1Date.getText(),
-//        			  eventReminder1Time.getText(),
-//        			  eventReminder1Date.getText(),
-//        			  eventReminder1Time.getText()
+        			  eventReminder2Date.getText(),
+        			  eventReminder2Time.getText()
         			  );
         	  
         	  db = new DatabaseMgr();
