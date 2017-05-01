@@ -120,7 +120,7 @@ public class Time {
 				numberOfDays = 29;
 			}
 		}
-		
+		System.out.println(numberOfDays); // debug
 		return numberOfDays;
 	}
 	
