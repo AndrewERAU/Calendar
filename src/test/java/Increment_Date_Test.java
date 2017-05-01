@@ -10,12 +10,8 @@ public class Increment_Date_Test {
 
 	@Test
 	public void test() {
-		String testDate_Str = "2017-04-28";
-		String testString = Time.incrementDate(testDate_Str);
-		String answerString = "2017-05-05";
-		System.out.println(testString);
-		System.out.println(answerString);
-		assertEquals(testString.equals(answerString), true);//should be true
+		String testString = Time.incrementDate("2017-04-28");
+		assertEquals(testString.equals("2017-05-05"), true);//should be true
 	}
 
 }
