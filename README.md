@@ -3,6 +3,13 @@
 
 # Calendar
 
+### Presentations:
+Follow the link, then click the 'Download' button (next to the History button)
+
+SE420 Powerpoint - https://github.com/AndrewERAU/Calendar/blob/master/docs/SE420_Sverdrup_Leffler_DiPinto_Velarde.pptx
+
+SE310 Powerpoint - https://github.com/AndrewERAU/Calendar/blob/master/docs/SE310_Sverdrup_Leffler_DiPinto_Velarde.pptx
+
 ### The 'demos' folder:
 Contains videos demonstrating the main functionality that the calendar app has.
 
