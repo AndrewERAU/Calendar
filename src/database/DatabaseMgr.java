@@ -275,12 +275,13 @@ public class DatabaseMgr {
 		data = null;
 		data2 = null;
 		String sqlWhereClause = "";
+		String sqlOrderBy = " ORDER BY Reminder1Date ASC, Reminder1Time ASC; ";
 
-		sqlWhereClause = " WHERE Reminder1Date >= '" + startDate + "' AND Reminder1Date <= '" + Time.incrementDate(startDate) + "';";
+		sqlWhereClause = " WHERE Reminder1Date >= '" + startDate + "' AND Reminder1Date <= '" + Time.incrementDate(startDate) + "' ";
 
 		try {
 			stmt = c.createStatement();	
-			sql = "SELECT Reminder1Date, Reminder1Time, Title FROM Event " + sqlWhereClause;
+			sql = "SELECT Reminder1Date, Reminder1Time, Title FROM Event " + sqlWhereClause + sqlOrderBy;
 			data = stmt.executeQuery(sql); // must use data before closing stmt
 			reminders = createListOfReminders(data,reminders); // put data returned from SQL statement into a vector
 			stmt.close();
@@ -290,10 +291,10 @@ public class DatabaseMgr {
 		
 
 		sqlWhereClause = " WHERE Reminder2Date >= '" + startDate + "' AND Reminder2Date <= '" + Time.incrementDate(startDate) + "';";
-
+		sqlOrderBy = " ORDER BY Reminder2Date ASC, Reminder2Time ASC; ";
 		try {
 			stmt = c.createStatement();
-			sql = "SELECT Reminder2Date, Reminder2Time, Title FROM Event " + sqlWhereClause;
+			sql = "SELECT Reminder2Date, Reminder2Time, Title FROM Event " + sqlWhereClause + sqlOrderBy;
 			data2 = stmt.executeQuery(sql);		
 			reminders = createListOfReminders(data2,reminders); // put data returned from SQL statement into a vector
 	        // so we can work with it easier
@@ -312,20 +313,21 @@ public class DatabaseMgr {
 		List<Event> events = new ArrayList<Event>();
 		data = null;
 		String sqlWhereClause = "";
+		String sqlOrderBy = " ORDER BY Date, StartTime; ";
 		
 		try {
 			switch (Character.toUpperCase(flag)) {
 			case 'A': // all
-				sqlWhereClause = ";"; // no where clause, just end SQL statement
+				sqlWhereClause = " "; // no where clause
 				break;
 			case 'D': // date
-				sqlWhereClause = " WHERE Date = '" + desiredData + "';";
+				sqlWhereClause = " WHERE Date = '" + desiredData + "' ";
 				break;
 			case 'T': // title
-				sqlWhereClause = " WHERE Title = '" + desiredData + "';";
+				sqlWhereClause = " WHERE Title = '" + desiredData + "' ";
 				break;
 			case 'I': // id
-				sqlWhereClause = " WHERE EventID = " + desiredData  + ";";
+				sqlWhereClause = " WHERE EventID = " + desiredData  + " ";
 				break;
 			default:
 				throw new Exception();
@@ -335,9 +337,10 @@ public class DatabaseMgr {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		
+		
 		try {
 			stmt = c.createStatement();
-			sql = "SELECT * FROM Event " + sqlWhereClause;
+			sql = "SELECT * FROM Event " + sqlWhereClause + sqlOrderBy;
 			data = stmt.executeQuery(sql);
 			
 			events = createListOfEvents(data); // put data returned from SQL statement into a vector

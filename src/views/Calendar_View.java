@@ -47,8 +47,7 @@ public class Calendar_View {
 	private JPanel topPanel;
 	private JPanel rightPanel;
 	private JPanel calPanel;
-	private JButton addEventButton;
-	//private Display_Add_Event_Screen addEventWindow;
+
 	JEditorPane label;
 	JEditorPane labelR;
 	static Calendar_View hs;
