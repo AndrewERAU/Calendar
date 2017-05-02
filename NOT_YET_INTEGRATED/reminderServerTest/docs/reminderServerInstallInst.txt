@@ -1,0 +1,5 @@
+install python 2
+install python 3
+
+install boto3 for python 2 (AWS api)
+`pip install boto3`
