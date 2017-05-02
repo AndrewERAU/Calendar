@@ -3,11 +3,13 @@
 
 # Calendar
 
-The 'demos' folder contains videos demonstrating the main functionality that the calendar app has.
+### The 'demos' folder:
+Contains videos demonstrating the main functionality that the calendar app has.
 
-The 'NOT_YET_INTEGRATED' folder contains Eclipse Maven project(s) that have been created to demonstrate functionality, but have yet to be added to the main calendar application.  See the readme in that folder for specifics on each project
+### The 'NOT_YET_INTEGRATED' folder:
+Contains Eclipse Maven project(s) that have been created to demonstrate functionality, but have yet to be added to the main calendar application.  See the readme in that folder for specifics on each project
 
-Using the calendar:
+### Using the calendar:
 1) Download the calendar jar - https://github.com/AndrewERAU/Calendar/releases/tag/v0.1
 2) Create a new folder and move the .jar file into that folder
 3) Run the .jar file (double click)
