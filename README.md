@@ -19,10 +19,12 @@ Add an event for current day:
  * Date should be in format yyyy-mm-dd
  * Ex) if it is May 2nd, 2017, the date should be entered '2017-5-2'.
 4) All other fields are optional.  Enter any additional details you wish. [optional fields]
+
 NOTE: Times are entered in miliatary time.
  * Time format is hh:mm
  * Ex) '9:45'  is 9:45am
  * Ex) '14:30' is 2:30pm
+ 
 NOTE: Some characters are not allowed in the fields.  Remove special characters if events are not being inserted.
 
 [![Build Status](https://travis-ci.com/AndrewERAU/Calendar.svg?token=vVVKeTu4bc95xsYn1LxZ&branch=master)](https://travis-ci.com/AndrewERAU/Calendar) <- Old build history (private)
